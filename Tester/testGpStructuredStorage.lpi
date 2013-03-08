@@ -36,16 +36,10 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="EvsCommons"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="multiloglaz"/>
-      </Item2>
-      <Item3>
         <PackageName Value="LCL"/>
-      </Item3>
+      </Item1>
     </RequiredPackages>
     <Units Count="6">
       <Unit0>

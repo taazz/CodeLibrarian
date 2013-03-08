@@ -22,14 +22,41 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="testGpStructuredStorage1"/>
         <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
-        <CursorPos X="21" Y="116"/>
-        <FoldState Value=" T3jZ04BC216 pj0pE0z2]97kV0K[946jW0i3]91kA0,1x"/>
+        <CursorPos X="15" Y="114"/>
+        <FoldState Value=" T3jZ04BC216Q"/>
         <UsageCount Value="83"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit1>
       <Unit2>
+        <Filename Value="..\Components\GpStuff.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\Components\GpLists.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\Components\GpStreams.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\Components\GpStructuredStorage.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit5>
+      <Unit6>
         <Filename Value="..\EVSstructuredstorage.pas"/>
         <UnitName Value="EVSstructuredstorage"/>
         <WindowIndex Value="0"/>
@@ -38,16 +65,16 @@
         <FoldState Value=" TKc0)021 T7kaGr251215"/>
         <UsageCount Value="14"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit2>
-      <Unit3>
+      </Unit6>
+      <Unit7>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="850"/>
         <CursorPos X="11" Y="869"/>
         <UsageCount Value="27"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit3>
-      <Unit4>
+      </Unit7>
+      <Unit8>
         <Filename Value="..\GpMemStr.pas"/>
         <UnitName Value="GpMemStr"/>
         <WindowIndex Value="0"/>
@@ -55,8 +82,8 @@
         <CursorPos X="9" Y="35"/>
         <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit4>
-      <Unit5>
+      </Unit8>
+      <Unit9>
         <Filename Value="GpStructuredStorage.pas"/>
         <UnitName Value="GpStructuredStorage"/>
         <WindowIndex Value="0"/>
@@ -68,8 +95,8 @@
           <Item0 X="15" Y="257" ID="1"/>
         </Bookmarks>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit5>
-      <Unit6>
+      </Unit9>
+      <Unit10>
         <Filename Value="GpLists.pas"/>
         <UnitName Value="GpLists"/>
         <WindowIndex Value="0"/>
@@ -81,8 +108,8 @@
           <Item0 X="1" Y="287" ID="0"/>
         </Bookmarks>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit6>
-      <Unit7>
+      </Unit10>
+      <Unit11>
         <Filename Value="GpStreams.pas"/>
         <UnitName Value="GpStreams"/>
         <WindowIndex Value="0"/>
@@ -91,8 +118,8 @@
         <FoldState Value=" TK00X1 T7n6NZ3O"/>
         <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit7>
-      <Unit8>
+      </Unit11>
+      <Unit12>
         <Filename Value="GpMemStr.pas"/>
         <UnitName Value="GpMemStr"/>
         <WindowIndex Value="0"/>
@@ -101,51 +128,51 @@
         <FoldState Value=" T7aPE^"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit8>
-      <Unit9>
+      </Unit12>
+      <Unit13>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\inc\threadh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="130"/>
         <CursorPos X="43" Y="162"/>
         <UsageCount Value="5"/>
-      </Unit9>
-      <Unit10>
+      </Unit13>
+      <Unit14>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\inc\thread.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="291"/>
         <CursorPos X="3" Y="294"/>
         <UsageCount Value="5"/>
-      </Unit10>
-      <Unit11>
+      </Unit14>
+      <Unit15>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\inc\ustringh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="5" Y="84"/>
         <UsageCount Value="5"/>
-      </Unit11>
-      <Unit12>
+      </Unit15>
+      <Unit16>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\sysutils\osutilsh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="10" Y="36"/>
         <UsageCount Value="5"/>
-      </Unit12>
-      <Unit13>
+      </Unit16>
+      <Unit17>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\sysutils\osutil.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="204"/>
         <CursorPos X="17" Y="221"/>
         <UsageCount Value="5"/>
-      </Unit13>
-      <Unit14>
+      </Unit17>
+      <Unit18>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\win32\classes.pp"/>
         <UnitName Value="Classes"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="7"/>
-      </Unit14>
-      <Unit15>
+      </Unit18>
+      <Unit19>
         <Filename Value="classes.pp"/>
         <UnitName Value="Classes"/>
         <WindowIndex Value="0"/>
@@ -153,128 +180,128 @@
         <CursorPos X="3" Y="82"/>
         <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit15>
-      <Unit16>
+      </Unit19>
+      <Unit20>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="782"/>
         <CursorPos X="14" Y="801"/>
         <UsageCount Value="6"/>
-      </Unit16>
-      <Unit17>
+      </Unit20>
+      <Unit21>
         <Filename Value="classes.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1729"/>
         <CursorPos X="2" Y="1757"/>
         <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit17>
-      <Unit18>
+      </Unit21>
+      <Unit22>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\classes\classes.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="5"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\win\tthread.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\sysutils\sysstrh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="72"/>
-        <CursorPos X="10" Y="91"/>
-        <UsageCount Value="5"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\sysutils\sysstr.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="413"/>
-        <CursorPos X="2" Y="436"/>
-        <UsageCount Value="5"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\objpas.pp"/>
-        <UnitName Value="objpas"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="8" Y="26"/>
-        <UsageCount Value="5"/>
       </Unit22>
       <Unit23>
-        <Filename Value="..\..\Components\Common\EvsCommons.pas"/>
-        <UnitName Value="EvsCommons"/>
+        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\win\tthread.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="5"/>
       </Unit23>
       <Unit24>
-        <Filename Value="..\..\Components\Common\uEvsVTEditors.pas"/>
-        <UnitName Value="uEvsVTEditors"/>
+        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\sysutils\sysstrh.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="72"/>
+        <CursorPos X="10" Y="91"/>
         <UsageCount Value="5"/>
       </Unit24>
       <Unit25>
-        <Filename Value="C:\lazarus.1.1\components\Multilog\sharedlogger.pas"/>
-        <UnitName Value="sharedlogger"/>
+        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\sysutils\sysstr.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="413"/>
+        <CursorPos X="2" Y="436"/>
         <UsageCount Value="5"/>
       </Unit25>
       <Unit26>
-        <Filename Value="C:\lazarus.1.1\components\Multilog\ipcchannel.pas"/>
-        <UnitName Value="ipcchannel"/>
+        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\objpas\objpas.pp"/>
+        <UnitName Value="objpas"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="29"/>
-        <CursorPos X="21" Y="43"/>
+        <TopLine Value="7"/>
+        <CursorPos X="8" Y="26"/>
         <UsageCount Value="5"/>
       </Unit26>
       <Unit27>
-        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\packages\fcl-process\src\simpleipc.pp"/>
-        <UnitName Value="simpleipc"/>
+        <Filename Value="..\..\Components\Common\EvsCommons.pas"/>
+        <UnitName Value="EvsCommons"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="5"/>
       </Unit27>
       <Unit28>
+        <Filename Value="..\..\Components\Common\uEvsVTEditors.pas"/>
+        <UnitName Value="uEvsVTEditors"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="5"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="C:\lazarus.1.1\components\Multilog\sharedlogger.pas"/>
+        <UnitName Value="sharedlogger"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="5"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="C:\lazarus.1.1\components\Multilog\ipcchannel.pas"/>
+        <UnitName Value="ipcchannel"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="29"/>
+        <CursorPos X="21" Y="43"/>
+        <UsageCount Value="5"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\packages\fcl-process\src\simpleipc.pp"/>
+        <UnitName Value="simpleipc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="5"/>
+      </Unit31>
+      <Unit32>
         <Filename Value="C:\lazarus.1.1\fpc\2.6.1\source\rtl\inc\objpash.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="173"/>
         <CursorPos X="23" Y="192"/>
         <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit28>
-      <Unit29>
+      </Unit32>
+      <Unit33>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\objpash.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="225"/>
         <CursorPos X="8" Y="244"/>
         <UsageCount Value="10"/>
-      </Unit29>
-      <Unit30>
+      </Unit33>
+      <Unit34>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="920"/>
         <CursorPos X="16" Y="939"/>
         <UsageCount Value="10"/>
-      </Unit30>
-      <Unit31>
+      </Unit34>
+      <Unit35>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\classes\streams.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="559"/>
         <CursorPos X="3" Y="562"/>
         <UsageCount Value="10"/>
-      </Unit31>
-      <Unit32>
+      </Unit35>
+      <Unit36>
         <Filename Value="DSiWin32.pas"/>
         <UnitName Value="DSiWin32"/>
         <WindowIndex Value="0"/>
@@ -282,8 +309,8 @@
         <CursorPos X="20" Y="3623"/>
         <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit32>
-      <Unit33>
+      </Unit36>
+      <Unit37>
         <Filename Value="GpStuff.pas"/>
         <UnitName Value="GpStuff"/>
         <WindowIndex Value="0"/>
@@ -292,8 +319,8 @@
         <FoldState Value=" TK0091 TIqR2;2E p0uH25015("/>
         <UsageCount Value="14"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit33>
-      <Unit34>
+      </Unit37>
+      <Unit38>
         <Filename Value="ToDelete\DSiWin32.pas"/>
         <UnitName Value="DSiWin32"/>
         <WindowIndex Value="0"/>
@@ -302,51 +329,51 @@
         <FoldState Value=" TK00A1o"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit34>
-      <Unit35>
+      </Unit38>
+      <Unit39>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\packages\winunits-base\src\mmsystem.pp"/>
         <UnitName Value="mmsystem"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2515"/>
         <CursorPos X="10" Y="2533"/>
         <UsageCount Value="10"/>
-      </Unit35>
-      <Unit36>
+      </Unit39>
+      <Unit40>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\win\wininc\func.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="239"/>
         <CursorPos X="10" Y="258"/>
         <UsageCount Value="10"/>
-      </Unit36>
-      <Unit37>
+      </Unit40>
+      <Unit41>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\sysutils\syswideh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="10" Y="27"/>
         <UsageCount Value="10"/>
-      </Unit37>
-      <Unit38>
+      </Unit41>
+      <Unit42>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\sysutils\syswide.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="13" Y="74"/>
         <UsageCount Value="10"/>
-      </Unit38>
-      <Unit39>
+      </Unit42>
+      <Unit43>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\ustringh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="78"/>
         <CursorPos X="20" Y="115"/>
         <UsageCount Value="10"/>
-      </Unit39>
-      <Unit40>
+      </Unit43>
+      <Unit44>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\win\wininc\struct.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2161"/>
         <CursorPos X="1" Y="2180"/>
         <UsageCount Value="10"/>
-      </Unit40>
-      <Unit41>
+      </Unit44>
+      <Unit45>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\packages\fcl-base\src\syncobjs.pp"/>
         <UnitName Value="syncobjs"/>
         <WindowIndex Value="0"/>
@@ -354,37 +381,37 @@
         <CursorPos X="3" Y="25"/>
         <FoldState Value=" T7bMB~"/>
         <UsageCount Value="10"/>
-      </Unit41>
-      <Unit42>
+      </Unit45>
+      <Unit46>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\threadh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="130"/>
         <CursorPos X="16" Y="157"/>
         <UsageCount Value="10"/>
-      </Unit42>
-      <Unit43>
+      </Unit46>
+      <Unit47>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\thread.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="252"/>
         <CursorPos X="3" Y="269"/>
         <UsageCount Value="10"/>
-      </Unit43>
-      <Unit44>
+      </Unit47>
+      <Unit48>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\objpas.pp"/>
         <UnitName Value="objpas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="8" Y="28"/>
         <UsageCount Value="10"/>
-      </Unit44>
-      <Unit45>
+      </Unit48>
+      <Unit49>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="934"/>
         <CursorPos X="11" Y="953"/>
         <UsageCount Value="10"/>
-      </Unit45>
-      <Unit46>
+      </Unit49>
+      <Unit50>
         <Filename Value="SpinLock.pas"/>
         <UnitName Value="SpinLock"/>
         <WindowIndex Value="0"/>
@@ -392,32 +419,11 @@
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="..\Components\GpStuff.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="..\Components\GpLists.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="..\Components\GpStreams.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit49>
-      <Unit50>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit50>
     </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
     <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectSession>
 </CONFIG>
