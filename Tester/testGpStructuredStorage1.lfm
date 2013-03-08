@@ -1,0 +1,272 @@
+object Form1: TForm1
+  Left = 320
+  Height = 426
+  Top = 233
+  Width = 683
+  Caption = 'Form1'
+  ClientHeight = 426
+  ClientWidth = 683
+  Color = clBtnFace
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  LCLVersion = '1.0.6.0'
+  object lbLog: TListBox
+    Left = 176
+    Height = 410
+    Top = 8
+    Width = 497
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    ItemHeight = 0
+    TabOrder = 11
+  end
+  object btnFullTest: TButton
+    Left = 8
+    Height = 25
+    Hint = 'Test All Checked'
+    Top = 8
+    Width = 161
+    Caption = 'Full test'
+    OnClick = btnFullTestClick
+    TabOrder = 0
+  end
+  object btnTestStorageCreation: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test File Creation'
+    Top = 40
+    Width = 123
+    Caption = 'Storage creation'
+    OnClick = btnTestStorageCreationClick
+    TabOrder = 1
+  end
+  object btnTestFlatFileSystem: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test Flat File system (No Folders)'
+    Top = 72
+    Width = 123
+    Caption = 'Flat file system'
+    OnClick = btnTestFlatFileSystemClick
+    TabOrder = 2
+  end
+  object btnTestFragmentedFiles: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test Fragmentation'
+    Top = 136
+    Width = 123
+    Caption = 'Fragmented files'
+    OnClick = btnTestFragmentedFilesClick
+    TabOrder = 4
+  end
+  object btnTestFolders: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test Folder Creation'
+    Top = 168
+    Width = 123
+    Caption = 'Folders'
+    OnClick = btnTestFoldersClick
+    TabOrder = 5
+  end
+  object btnTestBigAndSmall: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test File creation'
+    Top = 104
+    Width = 123
+    Caption = 'Big and small'
+    OnClick = btnTestBigAndSmallClick
+    TabOrder = 3
+  end
+  object btnTestTruncation: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test TRuncating of file'
+    Top = 200
+    Width = 123
+    Caption = 'Storage truncation'
+    OnClick = btnTestTruncationClick
+    TabOrder = 6
+  end
+  object btnTestExists: TButton
+    Left = 48
+    Height = 25
+    Top = 232
+    Width = 123
+    Caption = 'Exists'
+    OnClick = btnTestExistsClick
+    TabOrder = 7
+  end
+  object btnTestExceptions: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test that error are generated correctly'
+    Top = 392
+    Width = 123
+    Caption = 'Exceptions'
+    OnClick = btnTestExceptionsClick
+    TabOrder = 10
+  end
+  object btnTestMovingAndDeleting: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test Moving and deleting of files'
+    Top = 296
+    Width = 123
+    Caption = 'Moving && Deleting'
+    OnClick = btnTestMovingAndDeletingClick
+    TabOrder = 9
+  end
+  object btnTestEnumerating: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test Enumration'
+    Top = 264
+    Width = 123
+    Caption = 'Enumerating'
+    OnClick = btnTestEnumeratingClick
+    TabOrder = 8
+  end
+  object btnTestAttributes: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test Attribute creation'
+    Top = 328
+    Width = 123
+    Caption = 'Attributes'
+    OnClick = btnTestAttributesClick
+    TabOrder = 12
+  end
+  object btnTestCompacting: TButton
+    Left = 48
+    Height = 25
+    Hint = 'Test Deleting empty space'
+    Top = 360
+    Width = 123
+    Caption = 'Compacting'
+    OnClick = btnTestCompactingClick
+    TabOrder = 13
+  end
+  object cbCreation: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 44
+    Width = 20
+    Checked = True
+    OnChange = cbCreationChange
+    State = cbChecked
+    TabOrder = 14
+  end
+  object cbFlatFileSystem: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 75
+    Width = 20
+    Checked = True
+    OnChange = cbFlatFileSystemChange
+    State = cbChecked
+    TabOrder = 15
+  end
+  object cbBigAndSmall: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 109
+    Width = 20
+    Checked = True
+    OnChange = cbBigAndSmallChange
+    State = cbChecked
+    TabOrder = 16
+  end
+  object cbFragmentedFiles: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 140
+    Width = 20
+    Checked = True
+    OnChange = cbFragmentedFilesChange
+    State = cbChecked
+    TabOrder = 17
+  end
+  object cbFolders: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 173
+    Width = 20
+    Checked = True
+    OnChange = cbFoldersChange
+    State = cbChecked
+    TabOrder = 18
+  end
+  object cbTruncation: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 204
+    Width = 20
+    Checked = True
+    OnChange = cbTruncationChange
+    State = cbChecked
+    TabOrder = 19
+  end
+  object cbExists: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 235
+    Width = 20
+    Checked = True
+    OnChange = cbExistsChange
+    State = cbChecked
+    TabOrder = 20
+  end
+  object cbEnumerating: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 266
+    Width = 20
+    Checked = True
+    OnChange = cbEnumeratingChange
+    State = cbChecked
+    TabOrder = 21
+  end
+  object cbMoveAndDelete: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 300
+    Width = 20
+    Checked = True
+    OnChange = cbMoveAndDeleteChange
+    State = cbChecked
+    TabOrder = 22
+  end
+  object cbAttributes: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 331
+    Width = 20
+    Checked = True
+    OnChange = cbAttributesChange
+    State = cbChecked
+    TabOrder = 23
+  end
+  object cbCompact: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 364
+    Width = 20
+    Checked = True
+    OnChange = cbCompactChange
+    State = cbChecked
+    TabOrder = 24
+  end
+  object cbExceptions: TCheckBox
+    Left = 27
+    Height = 17
+    Top = 395
+    Width = 20
+    Checked = True
+    OnChange = cbExceptionsChange
+    State = cbChecked
+    TabOrder = 25
+  end
+end
