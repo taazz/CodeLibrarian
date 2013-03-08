@@ -2976,14 +2976,21 @@ end; { TGpStructuredStorage.Initialize }
   @since   2004-12-16
 }        
 function TGpStructuredStorage.IsStructuredStorage(const storageDataFile: string): boolean;
+var
+  vTmpStorage : TStream = nil;
 begin
-  if assigned(gssStorage) then
-    raise EGpStructuredStorage.Create(rsStgAlreadyInitialized);
-  gssFileName := storageDataFile;
-  gssStorage := TFileStream.Create(storageDataFile, fmOpenRead);
-  Result := VerifyHeader;
-  Close;
-  FreeAndNil(gssStorage);
+  //if assigned(gssStorage) then
+  //  raise EGpStructuredStorage.Create(rsStgAlreadyInitialized);
+  vTmpStorage := gssStorage;
+  try
+    gssFileName := storageDataFile;
+    gssStorage := TFileStream.Create(storageDataFile, fmOpenRead);
+    Result := VerifyHeader;
+    Close;
+    FreeAndNil(gssStorage);
+  finally
+    gssStorage := vTmpStorage;
+  end;
 end; { TGpStructuredStorage.IsStructuredStorage }
 
 {:Checks if folder is empty.
@@ -3005,13 +3012,20 @@ end; { TGpStructuredStorage.IsFolderEmpty }
   @since   2004-12-16
 }
 function TGpStructuredStorage.IsStructuredStorage(storageDataStream: TStream): boolean;
+var
+  vTmpStorage : TStream = nil;
 begin
-  if assigned(gssStorage) then
-    raise EGpStructuredStorage.Create(rsStgAlreadyInitialized);
-  gssFileName := '';
-  gssStorage := storageDataStream;
-  Result := VerifyHeader;
-  Close;
+  //if assigned(gssStorage) then
+  //  raise EGpStructuredStorage.Create(rsStgAlreadyInitialized);
+  vTmpStorage := gssStorage;
+  try
+    gssFileName := '';
+    gssStorage := storageDataStream;
+    Result := VerifyHeader;
+    Close;
+  finally
+    gssStorage := vTmpStorage;
+  end;
 end; { TGpStructuredStorage.IsStructuredStorage }
 
 {:Initializes structure storage object.

@@ -21,37 +21,82 @@ type
     actEditUndo : TEditUndo;
     actFileExit : TFileExit;
     actFileOpen : TFileOpen;
+    actFolderRootNew : TAction;
+    actFolderNew : TAction;
+    actDelete : TAction;
+    actExpandAll : TAction;
+    actCollapseAll : TAction;
+    actSnippetNew : TAction;
+    actSnippetSave : TAction;
+    actFileNew : TFileOpen;
     imlMain : TImageList;
-    MainMenu1 : TMainMenu;
-    mnuFileOpen : TMenuItem;
-    mnuExit : TMenuItem;
-    mnuSepItem2 : TMenuItem;
-    mnuCompact : TMenuItem;
-    MnuSepItem1 : TMenuItem;
-    MnuDelete : TMenuItem;
-    mnuSnippetNew : TMenuItem;
-    mnuFolderNew : TMenuItem;
-    mnuRootFolderNew : TMenuItem;
-    mnuNew : TMenuItem;
+    mnuMain : TMainMenu;
+    MenuItem1 : TMenuItem;
+    mniSepItem4 : TMenuItem;
+    mniNewLibrary : TMenuItem;
+    mniSepItem3 : TMenuItem;
+    mniFileOpen : TMenuItem;
+    mniExit : TMenuItem;
+    mniSepItem2 : TMenuItem;
+    miCompact : TMenuItem;
+    mniSepItem1 : TMenuItem;
+    mniDelete : TMenuItem;
+    mniSnippetNew : TMenuItem;
+    mniFolderNew : TMenuItem;
+    mniRootFolderNew : TMenuItem;
+    mniNew : TMenuItem;
     mnuFile : TMenuItem;
     mnuEditUndo : TMenuItem;
     mnuEditPaste : TMenuItem;
     mnuEditCut : TMenuItem;
     mnuEditCopy : TMenuItem;
     mnuEdit : TMenuItem;
-    dlgOpen : TOpenDialog;
     Splitter1 : TSplitter;
     StatusBar1 : TStatusBar;
-    SynEdit1 : TSynEdit;
-    SynPasSyn1 : TSynPasSyn;
+    snEditor : TSynEdit;
+    shlPascal : TSynFreePascalSyn;
     ToolBar1 : TToolBar;
-    TreeView1 : TTreeView;
+    btnFileOpen : TToolButton;
+    btnExpandAll : TToolButton;
+    btnCollapseAll : TToolButton;
+    ToolButton12 : TToolButton;
+    btnSnippetNew : TToolButton;
+    btnFolderRootNew : TToolButton;
+    btnFolderNew : TToolButton;
+    ToolButton4 : TToolButton;
+    btnEditCopy : TToolButton;
+    btnEditCut : TToolButton;
+    btnEditPaste : TToolButton;
+    btnEditUndo : TToolButton;
+    ToolButton9 : TToolButton;
+    tvData : TTreeView;
+    procedure actCollapseAllExecute(Sender : TObject);
+    procedure actDeleteExecute(Sender : TObject);
+    procedure actDeleteUpdate(Sender : TObject);
+    procedure actExpandAllExecute(Sender : TObject);
+    procedure actFileNewAccept(Sender : TObject);
     procedure actFileOpenAccept(Sender : TObject);
-    procedure TreeView1Change(Sender : TObject; Node : TTreeNode);
+    procedure actFolderNewExecute(Sender : TObject);
+    procedure actFolderRootNewExecute(Sender : TObject);
+    procedure actSnippetSaveExecute(Sender : TObject);
+    procedure actSnippetSaveUpdate(Sender : TObject);
+    procedure snEditorExit(Sender : TObject);
+    procedure tvDataChange(Sender : TObject; Node : TTreeNode);
+    procedure tvDataChanging(Sender : TObject; Node : TTreeNode;
+      var AllowChange : Boolean);
+    procedure tvDataEdited(Sender : TObject; Node : TTreeNode; var S : string
+      );
   private
     { private declarations }
     FCodeLib : IGpStructuredStorage;
     function GetNodePath(aNode:TTreeNode):String;
+    function IsFolder(aNode:TTreeNode):Boolean;
+    function IsFile(aNode:TTreeNode):Boolean;
+    function UniqueName(aPath:String;Folder:Boolean):string;
+    function NewNode(const aParent:TTreeNode; aText:String; Folder:Boolean = True):TTreeNode;
+    procedure ValidateName(aName:String);
+    procedure OpenLibrary(aName:String);
+    //procedure MoveToEndOfFolders(aNode:TTreeNode);
   public
     { public declarations }
     procedure Test;
@@ -65,8 +110,15 @@ var
   MainFrm : TMainFrm;
 
 implementation
-
+uses strutils;
 {$R *.lfm}
+
+resourcestring
+  FolderPrefix = 'Folder ';
+  FilePrefix = 'Snippet ';
+  rsclbUniqueNameFailed = 'Unable to find unique Name';
+  rsInvalidName = 'Invalid Object name <%S>';
+
 const
   CodeLibPathSep = '/';
   tpSnippet      = 1;
@@ -99,23 +151,164 @@ var
   vFName : String;
 begin
   vFName := actFileOpen.Dialog.FileName;
-  if FCodeLib.IsStructuredStorage(vFName) then FCodeLib.Initialize(vFName, fmOpenReadWrite or fmShareExclusive);
+  if FCodeLib.IsStructuredStorage(vFName) then OpenLibrary(vFName);
   LoadCodeLib;
 end;
 
-procedure TMainFrm.TreeView1Change(Sender : TObject; Node : TTreeNode);
+procedure TMainFrm.actFolderNewExecute(Sender : TObject);
+var
+  vNode : TTreeNode;
+  vPath : string;
+  vName : string;
+begin
+  vNode := tvData.Selected;
+  while IsFile(vNode) and (vNode<>nil) do
+    vNode := vNode.Parent;
+  vPath := GetNodePath(vNode);
+  vName := UniqueName(GetNodePath(vNode), True);
+  ValidateName(vPath + vName);
+  FCodeLib.CreateFolder(vPath + vName);
+  tvData.Items.BeginUpdate;
+  try
+    tvData.Selected := Nil;
+    vNode := NewNode(vNode, vName);
+    tvData.Selected := vNode;
+  finally
+    tvData.items.EndUpdate;
+  end;
+end;
+
+procedure TMainFrm.actFolderRootNewExecute(Sender : TObject);
+var
+  vNode : TTreeNode;
+  vName : string;
+  vPath : string;
+begin
+  vPath := GetNodePath(nil);
+  vName := UniqueName(vPath, True);
+  ValidateName(vPath + vName);
+  FCodeLib.CreateFolder(vPath+vName);
+  vNode := NewNode(nil, vName);
+  tvData.Selected := vNode;
+end;
+
+procedure TMainFrm.actFileNewAccept(Sender : TObject);
+begin
+  FCodeLib.Initialize(actFileNew.Dialog.FileName, fmCreate);
+  LoadCodeLib;
+end;
+
+procedure TMainFrm.actExpandAllExecute(Sender : TObject);
+var
+  vNode: TTreeNode;
+begin
+  vNode := tvData.Items.GetFirstNode;
+  while vNode <> nil do begin
+    vNode.Expand(True);
+    vNode := vNode.GetNextSibling;
+  end;
+end;
+
+procedure TMainFrm.actCollapseAllExecute(Sender : TObject);
+var
+  vNode: TTreeNode;
+begin
+  vNode := tvData.Items.GetFirstNode;
+  while vNode <> nil do begin
+    vNode.Collapse(True);
+    vNode := vNode.GetNextSibling;
+  end;
+end;
+
+procedure TMainFrm.actDeleteExecute(Sender : TObject);
+var
+  vPath : string;
+  vName : string;
+  vNode : TTreeNode;
+begin
+  if tvData.Selected <> nil then begin
+    vPath := GetNodePath(tvData.Selected);
+    ValidateName(vPath);
+    FCodeLib.Delete(vPath);
+    vNode:=tvData.Selected;
+    tvData.Selected := vNode.GetPrevVisible;
+    tvData.Items.Delete(vNode);
+    tvData.Selected := tvData.;
+  end;
+end;
+
+procedure TMainFrm.actDeleteUpdate(Sender : TObject);
+begin
+  actDelete.Enabled := tvData.Selected <> nil;
+end;
+
+procedure TMainFrm.actSnippetSaveExecute(Sender : TObject);
+var
+  vFname : String  = '';
+  vStrm  : TStream = nil;
+begin
+  vFname := GetNodePath(tvData.Selected);
+  if not FCodeLib.FileExists(vFname) then vStrm := FCodeLib.OpenFile(vFname, fmCreate) else vStrm := FCodeLib.OpenFile(vFname, fmOpenReadWrite);
+  try
+    snEditor.Lines.SaveToStream(vStrm);
+  finally
+    vStrm.Free;
+  end;
+end;
+
+procedure TMainFrm.actSnippetSaveUpdate(Sender : TObject);
+begin
+  actSnippetSave.Enabled := snEditor.Modified;
+end;
+
+procedure TMainFrm.snEditorExit(Sender : TObject);
+begin
+  //if snEditor.Modified then actSnippetSave(Nil);
+end;
+
+procedure TMainFrm.tvDataChange(Sender : TObject; Node : TTreeNode);
 var
   vFile : String;
   vStrm : TStream;
 begin
-  if Integer(Node.Data) = tpSnippet then begin
+  if IsFile(Node) then begin
     vFile := GetNodePath(Node);
     vStrm := FCodeLib.OpenFile(vFile,fmOpenReadWrite);
     try
-      SynEdit1.Lines.LoadFromStream(vStrm)
+      snEditor.Lines.LoadFromStream(vStrm)
     finally
       vStrm.Free;
     end;
+  end;// else snEditor.ClearAll;
+end;
+
+procedure TMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode;
+  var AllowChange : Boolean);
+var
+  vTmp : TStream;
+begin
+  if snEditor.Modified and IsFile(Node) then begin
+    vTmp := FCodeLib.OpenFile(GetNodePath(Node), fmOpenReadWrite);
+    try
+      snEditor.Lines.SaveToStream(vTmp);
+    finally
+      vTmp.Free;
+    end;
+  end;
+end;
+
+procedure TMainFrm.tvDataEdited(Sender : TObject; Node : TTreeNode;
+  var S : string);
+var
+  vTmp : string;
+begin
+  if CompareText(S, Node.Text) = 0 then Exit;
+  vTmp := GetNodePath(Node.Parent);
+  if FCodeLib.FileExists(vTmp+Node.Text) then begin
+    FCodeLib.Move(vTmp+Node.Text, vTmp+S);
+  end;
+  if FCodeLib.FolderExists(vTmp+Node.Text) then begin
+    FCodeLib.Move(vTmp+Node.Text, vTmp+S);
   end;
 end;
 
@@ -133,6 +326,64 @@ begin
   if Integer(aNode.Data) = tpSnippet then SetLength(Result, Length(Result) - 1);
 end;
 
+function TMainFrm.IsFolder(aNode : TTreeNode) : Boolean;
+begin
+  Result := Integer(aNode.Data) = tpFolder;
+end;
+
+function TMainFrm.IsFile(aNode : TTreeNode) : Boolean;
+begin
+  Result := Integer(aNode.Data) = tpSnippet;
+end;
+
+function TMainFrm.UniqueName(aPath : String; Folder : Boolean) : string;
+var
+  vCnt : UInt32 =0;
+  vTmp : string = '';
+begin
+  Result := IfThen(Folder, FolderPrefix, FilePrefix);
+  While True do begin
+    inc(vCnt);
+    vTmp := Result + IntToStr(vCnt);
+    if not (FCodeLib.FolderExists(aPath + vTmp) or FCodeLib.FileExists(aPath + vTmp)) then begin
+      Result := vTmp;
+      Exit;
+    end;
+    if vCnt = 0 then raise Exception.Create(rsclbUniqueNameFailed); //searched all the range of uint32 and hit 0 again.
+  end;
+end;
+function IfThen(aCondition : Boolean; const TrueResult : Pointer; const FalseResult : Pointer = nil) : Pointer; overload;
+begin
+  if aCondition then Result := TrueResult else Result := FalseResult;
+end;
+
+function IfThen(aCondition : Boolean; const TrueResult : Integer; const FalseResult : Integer = 0) : Integer; overload;
+begin
+  if aCondition then Result := TrueResult else Result := FalseResult;
+end;
+
+function TMainFrm.NewNode(const aParent : TTreeNode; aText : String;
+  Folder : Boolean) : TTreeNode;
+begin
+  Result               := tvData.Items.AddChild(aParent, aText);
+  Result.Data          := IfThen(Folder, Pointer(tpFolder), Pointer(tpSnippet));
+  Result.ImageIndex    := IfThen(Folder, 9, 11);
+  Result.SelectedIndex := IfThen(Folder, 9, 11);
+end;
+
+procedure TMainFrm.ValidateName(aName : String);
+begin
+  if (aName ='') or (aName[1] <> CodeLibPathSep) then
+    raise Exception.CreateFmt(rsInvalidName, [aName]);
+end;
+
+procedure TMainFrm.OpenLibrary(aName : String);
+begin
+  FCodeLib := Nil;
+  FCodeLib := CreateStorage;
+  FCodeLib.Initialize(aName, fmOpenReadWrite or fmShareExclusive);
+end;
+
 procedure TMainFrm.Test;
 begin
   canvas.brush.Style := bsSolid;
@@ -148,29 +399,24 @@ procedure TMainFrm.LoadCodeLib;
   procedure LoadNodeFolder(aNode:TTreeNode);
   var
     vNode           : TTreeNode;
-    vFolders,VFiles : TStringList;
+    vFolders,vFiles : TStringList;
     vCnt            : Integer;
     vPath           : string;
+    vSum            : Integer;
   begin
     vFolders := TStringList.Create;
-    VFiles   := TStringList.Create;
+    vFiles   := TStringList.Create;
     try
       vPath := GetNodePath(aNode);
-      vFolders.Clear;
       FCodeLib.FolderNames(vPath,vFolders);
+      vSum := vFolders.Count;
       for vCnt := 0 to vFolders.Count -1 do begin
-        vNode := TreeView1.Items.AddChild(aNode,vFolders[vCnt]);
-        vNode.ImageIndex := 9;
-        vNode.SelectedIndex := 9;
-        vNode.Data := Pointer(tpFolder);
+        vNode := NewNode(aNode, vFolders[vCnt]);
         LoadNodeFolder(vNode);
       end;
       FCodeLib.FileNames(vPath, VFiles);
-      for vCnt := 0 to VFiles.Count -1 do begin
-        vNode := TreeView1.Items.AddChild(aNode, VFiles[vCnt]);
-        vNode.ImageIndex := 11;
-        vNode.SelectedIndex := 11;
-        vNode.Data := Pointer(tpSnippet);
+      for vCnt := 0 to vFiles.Count -1 do begin
+        vNode := NewNode(aNode, vFiles[vCnt], False);
       end;
     finally
       vFolders.Free;
@@ -179,14 +425,15 @@ procedure TMainFrm.LoadCodeLib;
   end;
 
 begin
-  TreeView1.Items.BeginUpdate;
+  tvData.Items.BeginUpdate;
   try
-    TreeView1.SortType := stNone;
+    tvData.Items.Clear;
+    tvData.SortType := stNone;
     LoadNodeFolder(nil);
-    TreeView1.Selected := nil;
+    tvData.Selected := nil;
   finally
-    TreeView1.SortType := stText;
-    TreeView1.Items.EndUpdate;
+    tvData.SortType := stText;
+    tvData.Items.EndUpdate;
   end;
 end;
 
