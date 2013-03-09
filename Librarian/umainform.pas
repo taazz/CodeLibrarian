@@ -33,20 +33,20 @@ type
     actFileImport : TFileOpen;
     imlMain : TImageList;
     MenuItem2 : TMenuItem;
+    mniSepItem6 : TMenuItem;
+    mniFolderNew : TMenuItem;
+    mniFolderRootNew : TMenuItem;
+    mniSnippetNew : TMenuItem;
+    mniEditNew : TMenuItem;
     mnuMain : TMainMenu;
     MenuItem1 : TMenuItem;
     mniSepItem4 : TMenuItem;
-    mniNewLibrary : TMenuItem;
-    mniSepItem3 : TMenuItem;
     mniFileOpen : TMenuItem;
     mniExit : TMenuItem;
     mniSepItem2 : TMenuItem;
     miCompact : TMenuItem;
     mniSepItem1 : TMenuItem;
     mniDelete : TMenuItem;
-    mniSnippetNew : TMenuItem;
-    mniFolderNew : TMenuItem;
-    mniRootFolderNew : TMenuItem;
     mniNew : TMenuItem;
     mnuFile : TMenuItem;
     mnuEditUndo : TMenuItem;
@@ -355,6 +355,7 @@ begin
     FCodeLib.Move(vTmp+Node.Text, vTmp+S);
   end;
 end;
+
 
 function TMainFrm.GetNodePath(aNode : TTreeNode) : String;
 var
