@@ -1,7 +1,7 @@
 object MainFrm: TMainFrm
-  Left = 238
+  Left = 230
   Height = 455
-  Top = 180
+  Top = 151
   Width = 994
   Caption = 'MainFrm'
   ClientHeight = 436
@@ -77,12 +77,6 @@ object MainFrm: TMainFrm
       Top = 2
       Action = actCollapseAll
     end
-    object ToolButton12: TToolButton
-      Left = 251
-      Top = 2
-      Caption = 'ToolButton12'
-      Visible = False
-    end
     object btnSnippetNew: TToolButton
       Left = 70
       Top = 2
@@ -111,6 +105,7 @@ object MainFrm: TMainFrm
     Height = 390
     Top = 26
     Width = 5
+    Beveled = True
   end
   inline snEditor: TSynEdit
     Left = 272
@@ -126,7 +121,9 @@ object MainFrm: TMainFrm
     ParentFont = False
     TabOrder = 3
     OnExit = snEditorExit
-    Gutter.Width = 10
+    BorderStyle = bsNone
+    Gutter.Color = 11468795
+    Gutter.Width = 17
     Gutter.MouseActions = <>
     RightGutter.Width = 0
     RightGutter.MouseActions = <>
@@ -572,7 +569,7 @@ object MainFrm: TMainFrm
     FoldedCodeColor.FrameColor = clGray
     MouseLinkColor.Background = clNone
     MouseLinkColor.Foreground = clBlue
-    LineHighlightColor.Background = clNone
+    LineHighlightColor.Background = 16444903
     LineHighlightColor.Foreground = clNone
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
@@ -582,12 +579,11 @@ object MainFrm: TMainFrm
       end
       object SynGutterLineNumber1: TSynGutterLineNumber
         Width = 17
-        Visible = False
         MouseActions = <>
-        MarkupInfo.Background = clBtnFace
+        MarkupInfo.Background = 12058620
         MarkupInfo.Foreground = clNone
         DigitCount = 2
-        ShowOnlyLineNumbersMultiplesOf = 1
+        ShowOnlyLineNumbersMultiplesOf = 10
         ZeroStart = False
         LeadingZeros = False
       end
@@ -604,6 +600,7 @@ object MainFrm: TMainFrm
         MouseActions = <>
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
+        Visible = False
         MouseActions = <>
         MarkupInfo.Background = clNone
         MarkupInfo.Foreground = clGray
@@ -618,6 +615,7 @@ object MainFrm: TMainFrm
     Top = 26
     Width = 267
     Align = alLeft
+    BorderStyle = bsNone
     DefaultItemHeight = 16
     Images = imlMain
     TabOrder = 4
@@ -655,6 +653,8 @@ object MainFrm: TMainFrm
       Caption = '&Undo'
       Hint = 'Undo'
       ImageIndex = 6
+      OnExecute = actEditUndoExecute
+      OnUpdate = actEditUndoUpdate
       ShortCut = 16474
     end
     object actFileOpen: TFileOpen
@@ -694,7 +694,7 @@ object MainFrm: TMainFrm
       Dialog.Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
       Hint = 'Open'
       ImageIndex = 12
-      ShortCut = 16463
+      ShortCut = 16462
       OnAccept = actFileNewAccept
     end
     object actFolderRootNew: TAction
@@ -705,6 +705,7 @@ object MainFrm: TMainFrm
     object actSnippetNew: TAction
       Caption = 'Snippet'
       ImageIndex = 11
+      OnExecute = actSnippetNewExecute
     end
     object actDelete: TAction
       Caption = 'Delete'
@@ -721,6 +722,17 @@ object MainFrm: TMainFrm
       Caption = 'actCollapseAll'
       ImageIndex = 18
       OnExecute = actCollapseAllExecute
+    end
+    object actCompact: TAction
+      Caption = 'Compact'
+      OnExecute = actCompactExecute
+      OnUpdate = actCompactUpdate
+    end
+    object actFileImport: TFileOpen
+      Category = 'File'
+      Caption = '&Import ...'
+      Hint = 'Open'
+      ShortCut = 16457
     end
   end
   object imlMain: TImageList
@@ -1345,21 +1357,25 @@ object MainFrm: TMainFrm
     object mnuFile: TMenuItem
       Caption = 'File'
       object mniNew: TMenuItem
-        Caption = 'New'
+        Caption = '&New'
         object mniNewLibrary: TMenuItem
           Action = actFileNew
+          Caption = '&Library'
         end
         object mniSepItem3: TMenuItem
           Caption = '-'
         end
         object mniRootFolderNew: TMenuItem
           Action = actFolderRootNew
+          Caption = '&Root Folder'
         end
         object mniFolderNew: TMenuItem
           Action = actFolderNew
+          Caption = '&Folder'
         end
         object mniSnippetNew: TMenuItem
           Action = actSnippetNew
+          Caption = '&Snippet'
         end
       end
       object mniFileOpen: TMenuItem
@@ -1401,17 +1417,21 @@ object MainFrm: TMainFrm
           59FD585C5AFD5D615FD6555555155B5B5B005B5B5B005B5B5B00
         }
       end
+      object MenuItem2: TMenuItem
+        Action = actFileImport
+      end
       object mniSepItem4: TMenuItem
         Caption = '-'
       end
       object mniDelete: TMenuItem
         Action = actDelete
+        Caption = '&Delete'
       end
       object mniSepItem1: TMenuItem
         Caption = '-'
       end
       object miCompact: TMenuItem
-        Caption = 'Compact'
+        Caption = '&Compact'
       end
       object mniSepItem2: TMenuItem
         Caption = '-'
@@ -1621,20 +1641,26 @@ object MainFrm: TMainFrm
     end
   end
   object shlPascal: TSynFreePascalSyn
-    Enabled = False
     AsmAttri.FrameEdges = sfeAround
+    CommentAttri.Foreground = 10658466
     CommentAttri.FrameEdges = sfeAround
     IDEDirectiveAttri.FrameEdges = sfeAround
     IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
     KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = clBlue
     NumberAttri.FrameEdges = sfeAround
     SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = clBlue
     StringAttri.FrameEdges = sfeAround
     SymbolAttri.FrameEdges = sfeAround
     CaseLabelAttri.FrameEdges = sfeAround
+    DirectiveAttri.Foreground = clTeal
     DirectiveAttri.FrameEdges = sfeAround
-    CompilerMode = pcmObjFPC
+    DirectiveAttri.Style = []
+    CompilerMode = pcmDelphi
     NestedComments = False
+    ExtendedKeywordsMode = True
     left = 304
     top = 216
   end

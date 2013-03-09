@@ -219,12 +219,15 @@ type
     function  IsFolderEmpty(const folderName: string): boolean;
     //:Compacts the structured storage (by copying it to a temporary file and then back).
     procedure Compact;
+    //: Check to see if a file is open.
+    function  IsInitialized:WordBool;
     //:Returns name of the underlying data file or '' if storage is stream-based.
     property DataFile: string read GetDataFile;
     //:Returns size of the underlying data file.
     property DataSize: integer read GetDataSize;
     //:Returns file information interface.
     property FileInfo[const fileName: string]: IGpStructuredFileInfo read GetFileInfo;
+
   end; { IGpStructuredStorage }
 
   IGpDebugStructuredStorage = interface ['{8F6AA5E9-24DF-4312-A779-19DD78C5CB96}']
@@ -648,6 +651,9 @@ type
     size is 2 GB.
     @since   2003-11-10
   }
+
+  { TGpStructuredStorage }
+
   TGpStructuredStorage = class(TInterfacedObject, IGpStructuredStorage, IGpDebugStructuredStorage)
   private
     gsmStorageMode : word;
@@ -709,6 +715,7 @@ type
     function  IsFolderEmpty(const folderName: string): boolean;
     function  IsStructuredStorage(const storageDataFile: string): boolean; overload;
     function  IsStructuredStorage(storageDataStream: TStream): boolean; overload;
+    function  IsInitialized:WordBool;
     procedure Move(const objectName, newName: string);
     function  OpenFile(const fileName: string; mode: word): TStream;
     procedure Dump(const fileName: string);
@@ -3027,6 +3034,11 @@ begin
     gssStorage := vTmpStorage;
   end;
 end; { TGpStructuredStorage.IsStructuredStorage }
+
+function TGpStructuredStorage.IsInitialized : WordBool;
+begin
+  Result := Assigned(gssStorage);
+end;
 
 {:Initializes structure storage object.
   @since   2003-11-10

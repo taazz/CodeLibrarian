@@ -9,7 +9,7 @@
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="CodeLibrarian"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="44"/>
       </Unit0>
       <Unit1>
         <Filename Value="umainform.pas"/>
@@ -21,12 +21,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="265"/>
-        <CursorPos X="47" Y="283"/>
-        <UsageCount Value="37"/>
-        <Bookmarks Count="1">
-          <Item0 X="13" Y="320" ID="0"/>
-        </Bookmarks>
+        <TopLine Value="279"/>
+        <CursorPos X="26" Y="295"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -38,7 +35,7 @@
         <TopLine Value="1278"/>
         <CursorPos X="1" Y="1299"/>
         <FoldState Value=" TK0091 TIkL2r0812142!"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="44"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpLists.pas"/>
@@ -48,7 +45,7 @@
         <TopLine Value="1"/>
         <CursorPos X="16" Y="281"/>
         <FoldState Value=" TK00X1 TImg2L:"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="44"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\Components\GpStreams.pas"/>
@@ -58,7 +55,7 @@
         <TopLine Value="1"/>
         <CursorPos X="16" Y="176"/>
         <FoldState Value=" TK00X1T"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="44"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
@@ -66,10 +63,10 @@
         <UnitName Value="GpStructuredStorage"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3075"/>
-        <CursorPos X="1" Y="3093"/>
+        <TopLine Value="199"/>
+        <CursorPos X="1" Y="219"/>
         <FoldState Value=" TK00a1$"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -94,123 +91,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umainform.pas"/>
-        <Caret Line="85" Column="15" TopLine="54"/>
+        <Caret Line="216" Column="1" TopLine="200"/>
       </Position1>
       <Position2>
         <Filename Value="umainform.pas"/>
-        <Caret Line="86" Column="15" TopLine="54"/>
+        <Caret Line="217" Column="1" TopLine="201"/>
       </Position2>
       <Position3>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3111" Column="1" TopLine="3092"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="224" Column="1" TopLine="208"/>
       </Position3>
       <Position4>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="2881" Column="1" TopLine="2862"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="208" Column="1" TopLine="199"/>
       </Position4>
       <Position5>
         <Filename Value="umainform.pas"/>
-        <Caret Line="174" Column="1" TopLine="155"/>
+        <Caret Line="205" Column="14" TopLine="180"/>
       </Position5>
       <Position6>
         <Filename Value="umainform.pas"/>
-        <Caret Line="279" Column="1" TopLine="267"/>
+        <Caret Line="203" Column="1" TopLine="180"/>
       </Position6>
       <Position7>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3111" Column="1" TopLine="3092"/>
+        <Caret Line="3093" Column="1" TopLine="3075"/>
       </Position7>
       <Position8>
         <Filename Value="umainform.pas"/>
-        <Caret Line="174" Column="1" TopLine="155"/>
+        <Caret Line="276" Column="6" TopLine="269"/>
       </Position8>
       <Position9>
         <Filename Value="umainform.pas"/>
-        <Caret Line="176" Column="25" TopLine="161"/>
+        <Caret Line="230" Column="5" TopLine="223"/>
       </Position9>
       <Position10>
         <Filename Value="umainform.pas"/>
-        <Caret Line="177" Column="25" TopLine="160"/>
+        <Caret Line="213" Column="17" TopLine="196"/>
       </Position10>
       <Position11>
         <Filename Value="umainform.pas"/>
-        <Caret Line="178" Column="25" TopLine="160"/>
+        <Caret Line="215" Column="17" TopLine="198"/>
       </Position11>
       <Position12>
         <Filename Value="umainform.pas"/>
-        <Caret Line="180" Column="32" TopLine="160"/>
+        <Caret Line="228" Column="19" TopLine="226"/>
       </Position12>
       <Position13>
         <Filename Value="umainform.pas"/>
-        <Caret Line="311" Column="1" TopLine="292"/>
+        <Caret Line="233" Column="54" TopLine="231"/>
       </Position13>
       <Position14>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="166" Column="29" TopLine="146"/>
+        <Filename Value="..\Components\GpStructuredStorage.pas"/>
+        <Caret Line="184" Column="34" TopLine="164"/>
       </Position14>
       <Position15>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="167" Column="29" TopLine="147"/>
+        <Filename Value="..\Components\GpStructuredStorage.pas"/>
+        <Caret Line="715" Column="37" TopLine="697"/>
       </Position15>
       <Position16>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="168" Column="29" TopLine="148"/>
+        <Filename Value="..\Components\GpStructuredStorage.pas"/>
+        <Caret Line="651" Column="15" TopLine="651"/>
       </Position16>
       <Position17>
         <Filename Value="umainform.pas"/>
-        <Caret Line="169" Column="29" TopLine="149"/>
+        <Caret Line="233" Column="20" TopLine="231"/>
       </Position17>
       <Position18>
         <Filename Value="umainform.pas"/>
-        <Caret Line="168" Column="29" TopLine="148"/>
+        <Caret Line="77" Column="34" TopLine="58"/>
       </Position18>
       <Position19>
         <Filename Value="umainform.pas"/>
-        <Caret Line="198" Column="35" TopLine="193"/>
+        <Caret Line="247" Column="45" TopLine="219"/>
       </Position19>
       <Position20>
         <Filename Value="umainform.pas"/>
-        <Caret Line="210" Column="18" TopLine="208"/>
+        <Caret Line="366" Column="27" TopLine="346"/>
       </Position20>
       <Position21>
         <Filename Value="umainform.pas"/>
-        <Caret Line="215" Column="1" TopLine="199"/>
+        <Caret Line="95" Column="24" TopLine="76"/>
       </Position21>
       <Position22>
         <Filename Value="umainform.pas"/>
-        <Caret Line="216" Column="1" TopLine="200"/>
+        <Caret Line="96" Column="24" TopLine="77"/>
       </Position22>
       <Position23>
         <Filename Value="umainform.pas"/>
-        <Caret Line="217" Column="1" TopLine="201"/>
+        <Caret Line="95" Column="24" TopLine="76"/>
       </Position23>
       <Position24>
         <Filename Value="umainform.pas"/>
-        <Caret Line="216" Column="1" TopLine="200"/>
+        <Caret Line="34" Column="17" TopLine="82"/>
       </Position24>
       <Position25>
         <Filename Value="umainform.pas"/>
-        <Caret Line="217" Column="1" TopLine="201"/>
+        <Caret Line="252" Column="3" TopLine="250"/>
       </Position25>
       <Position26>
         <Filename Value="umainform.pas"/>
-        <Caret Line="224" Column="1" TopLine="208"/>
+        <Caret Line="247" Column="57" TopLine="245"/>
       </Position26>
       <Position27>
         <Filename Value="umainform.pas"/>
-        <Caret Line="208" Column="1" TopLine="199"/>
+        <Caret Line="249" Column="57" TopLine="247"/>
       </Position27>
       <Position28>
         <Filename Value="umainform.pas"/>
-        <Caret Line="205" Column="14" TopLine="180"/>
+        <Caret Line="286" Column="42" TopLine="284"/>
       </Position28>
       <Position29>
         <Filename Value="umainform.pas"/>
-        <Caret Line="203" Column="1" TopLine="180"/>
+        <Caret Line="295" Column="26" TopLine="279"/>
       </Position29>
       <Position30>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3093" Column="1" TopLine="3075"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="294" Column="26" TopLine="278"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

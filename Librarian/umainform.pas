@@ -26,10 +26,13 @@ type
     actDelete : TAction;
     actExpandAll : TAction;
     actCollapseAll : TAction;
+    actCompact : TAction;
     actSnippetNew : TAction;
     actSnippetSave : TAction;
     actFileNew : TFileOpen;
+    actFileImport : TFileOpen;
     imlMain : TImageList;
+    MenuItem2 : TMenuItem;
     mnuMain : TMainMenu;
     MenuItem1 : TMenuItem;
     mniSepItem4 : TMenuItem;
@@ -59,7 +62,6 @@ type
     btnFileOpen : TToolButton;
     btnExpandAll : TToolButton;
     btnCollapseAll : TToolButton;
-    ToolButton12 : TToolButton;
     btnSnippetNew : TToolButton;
     btnFolderRootNew : TToolButton;
     btnFolderNew : TToolButton;
@@ -71,13 +73,18 @@ type
     ToolButton9 : TToolButton;
     tvData : TTreeView;
     procedure actCollapseAllExecute(Sender : TObject);
+    procedure actCompactExecute(Sender : TObject);
+    procedure actCompactUpdate(Sender : TObject);
     procedure actDeleteExecute(Sender : TObject);
     procedure actDeleteUpdate(Sender : TObject);
+    procedure actEditUndoExecute(Sender : TObject);
+    procedure actEditUndoUpdate(Sender : TObject);
     procedure actExpandAllExecute(Sender : TObject);
     procedure actFileNewAccept(Sender : TObject);
     procedure actFileOpenAccept(Sender : TObject);
     procedure actFolderNewExecute(Sender : TObject);
     procedure actFolderRootNewExecute(Sender : TObject);
+    procedure actSnippetNewExecute(Sender : TObject);
     procedure actSnippetSaveExecute(Sender : TObject);
     procedure actSnippetSaveUpdate(Sender : TObject);
     procedure snEditorExit(Sender : TObject);
@@ -192,6 +199,24 @@ begin
   tvData.Selected := vNode;
 end;
 
+procedure TMainFrm.actSnippetNewExecute(Sender : TObject);
+var
+  vNode : TTreeNode;
+  vPath : string;
+  vName : string;
+  vStrm : TStream;
+begin
+  vNode := tvData.Selected;
+  while (vNode <> nil) and (not IsFolder(vNode)) do
+    vNode := vNode.Parent;
+  vPath := GetNodePath(vNode);
+  vName := UniqueName(vPath, False);
+  vStrm := FCodeLib.OpenFile(vPath+vName, fmCreate);
+  vStrm.Free;
+  vNode := NewNode(vNode,vName, False);
+  tvData.Selected := vNode;
+end;
+
 procedure TMainFrm.actFileNewAccept(Sender : TObject);
 begin
   FCodeLib.Initialize(actFileNew.Dialog.FileName, fmCreate);
@@ -220,6 +245,16 @@ begin
   end;
 end;
 
+procedure TMainFrm.actCompactExecute(Sender : TObject);
+begin
+  if Assigned(FCodeLib) and FCodeLib.IsInitialized then FCodeLib.Compact;
+end;
+
+procedure TMainFrm.actCompactUpdate(Sender : TObject);
+begin
+  actCompact.Enabled := (FCodeLib <> nil) and FCodeLib.IsInitialized;
+end;
+
 procedure TMainFrm.actDeleteExecute(Sender : TObject);
 var
   vPath : string;
@@ -232,14 +267,23 @@ begin
     FCodeLib.Delete(vPath);
     vNode:=tvData.Selected;
     tvData.Selected := vNode.GetPrevVisible;
-    tvData.Items.Delete(vNode);
-    tvData.Selected := tvData.;
+    vNode.Delete;
   end;
 end;
 
 procedure TMainFrm.actDeleteUpdate(Sender : TObject);
 begin
   actDelete.Enabled := tvData.Selected <> nil;
+end;
+
+procedure TMainFrm.actEditUndoExecute(Sender : TObject);
+begin
+  if snEditor.CanUndo then snEditor.Undo;
+end;
+
+procedure TMainFrm.actEditUndoUpdate(Sender : TObject);
+begin
+  actEditUndo.Enabled := snEditor.CanUndo;
 end;
 
 procedure TMainFrm.actSnippetSaveExecute(Sender : TObject);
@@ -328,12 +372,15 @@ end;
 
 function TMainFrm.IsFolder(aNode : TTreeNode) : Boolean;
 begin
-  Result := Integer(aNode.Data) = tpFolder;
+  if Assigned(aNode) then Result := Integer(aNode.Data) = tpFolder
+  else Result := False;
 end;
 
 function TMainFrm.IsFile(aNode : TTreeNode) : Boolean;
 begin
-  Result := Integer(aNode.Data) = tpSnippet;
+  if Assigned(aNode) then
+   Result := Integer(aNode.Data) = tpSnippet
+  else Result:= False;
 end;
 
 function TMainFrm.UniqueName(aPath : String; Folder : Boolean) : string;

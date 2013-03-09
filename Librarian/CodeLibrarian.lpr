@@ -7,8 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uMainForm, GpStuff, GpLists, GpStreams, GpStructuredStorage
-  { you can add units after this };
+  Forms, uMainForm, GpStuff, GpLists, GpStreams, GpStructuredStorage;
 
 {$R *.res}
 
