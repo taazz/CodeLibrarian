@@ -4,12 +4,12 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="8">
+    <Units Count="10">
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="CodeLibrarian"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="66"/>
       </Unit0>
       <Unit1>
         <Filename Value="umainform.pas"/>
@@ -21,41 +21,46 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="279"/>
-        <CursorPos X="26" Y="295"/>
-        <UsageCount Value="49"/>
+        <TopLine Value="1"/>
+        <CursorPos X="22" Y="10"/>
+        <UsageCount Value="66"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\Components\GpStuff.pas"/>
-        <IsPartOfProject Value="True"/>
         <UnitName Value="GpStuff"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1278"/>
-        <CursorPos X="1" Y="1299"/>
-        <FoldState Value=" TK0091 TIkL2r0812142!"/>
-        <UsageCount Value="49"/>
+        <TopLine Value="396"/>
+        <CursorPos X="1" Y="1"/>
+        <FoldState Value=" TK0091 TIoZ2s02142 TCkNJQ]K7lRO35}"/>
+        <UsageCount Value="65"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpLists.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpLists"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="16" Y="281"/>
-        <FoldState Value=" TK00X1 TImg2L:"/>
-        <UsageCount Value="49"/>
+        <TopLine Value="258"/>
+        <CursorPos X="7" Y="285"/>
+        <FoldState Value=" TK00X1T"/>
+        <UsageCount Value="66"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\Components\GpStreams.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpStreams"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="16" Y="176"/>
+        <TopLine Value="521"/>
+        <CursorPos X="12" Y="552"/>
         <FoldState Value=" TK00X1T"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="66"/>
+        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
@@ -63,10 +68,10 @@
         <UnitName Value="GpStructuredStorage"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="199"/>
-        <CursorPos X="1" Y="219"/>
+        <TopLine Value="228"/>
+        <CursorPos X="18" Y="162"/>
         <FoldState Value=" TK00a1$"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="66"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -75,15 +80,34 @@
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="29" Y="79"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit6>
       <Unit7>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\sysutils\finah.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="25" Y="23"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="C:\lazarus.1.0\components\paxCompiler\PaxRegister.pas"/>
+        <UnitName Value="PaxRegister"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="107"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\lazarus.1.0\components\paxCompiler\PaxCompiler.def"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="1" Y="48"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit9>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
@@ -91,123 +115,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umainform.pas"/>
-        <Caret Line="216" Column="1" TopLine="200"/>
+        <Caret Line="77" Column="34" TopLine="58"/>
       </Position1>
       <Position2>
         <Filename Value="umainform.pas"/>
-        <Caret Line="217" Column="1" TopLine="201"/>
+        <Caret Line="247" Column="45" TopLine="219"/>
       </Position2>
       <Position3>
         <Filename Value="umainform.pas"/>
-        <Caret Line="224" Column="1" TopLine="208"/>
+        <Caret Line="366" Column="27" TopLine="346"/>
       </Position3>
       <Position4>
         <Filename Value="umainform.pas"/>
-        <Caret Line="208" Column="1" TopLine="199"/>
+        <Caret Line="95" Column="24" TopLine="76"/>
       </Position4>
       <Position5>
         <Filename Value="umainform.pas"/>
-        <Caret Line="205" Column="14" TopLine="180"/>
+        <Caret Line="96" Column="24" TopLine="77"/>
       </Position5>
       <Position6>
         <Filename Value="umainform.pas"/>
-        <Caret Line="203" Column="1" TopLine="180"/>
+        <Caret Line="95" Column="24" TopLine="76"/>
       </Position6>
       <Position7>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3093" Column="1" TopLine="3075"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="252" Column="3" TopLine="250"/>
       </Position7>
       <Position8>
         <Filename Value="umainform.pas"/>
-        <Caret Line="276" Column="6" TopLine="269"/>
+        <Caret Line="247" Column="57" TopLine="245"/>
       </Position8>
       <Position9>
         <Filename Value="umainform.pas"/>
-        <Caret Line="230" Column="5" TopLine="223"/>
+        <Caret Line="249" Column="57" TopLine="247"/>
       </Position9>
       <Position10>
         <Filename Value="umainform.pas"/>
-        <Caret Line="213" Column="17" TopLine="196"/>
+        <Caret Line="286" Column="42" TopLine="284"/>
       </Position10>
       <Position11>
         <Filename Value="umainform.pas"/>
-        <Caret Line="215" Column="17" TopLine="198"/>
+        <Caret Line="295" Column="26" TopLine="279"/>
       </Position11>
       <Position12>
         <Filename Value="umainform.pas"/>
-        <Caret Line="228" Column="19" TopLine="226"/>
+        <Caret Line="294" Column="26" TopLine="278"/>
       </Position12>
       <Position13>
         <Filename Value="umainform.pas"/>
-        <Caret Line="233" Column="54" TopLine="231"/>
+        <Caret Line="298" Column="25" TopLine="10"/>
       </Position13>
       <Position14>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="184" Column="34" TopLine="164"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="299" Column="25" TopLine="262"/>
       </Position14>
       <Position15>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="715" Column="37" TopLine="697"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="300" Column="25" TopLine="263"/>
       </Position15>
       <Position16>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="651" Column="15" TopLine="651"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="301" Column="25" TopLine="264"/>
       </Position16>
       <Position17>
         <Filename Value="umainform.pas"/>
-        <Caret Line="233" Column="20" TopLine="231"/>
+        <Caret Line="300" Column="25" TopLine="263"/>
       </Position17>
       <Position18>
         <Filename Value="umainform.pas"/>
-        <Caret Line="77" Column="34" TopLine="58"/>
+        <Caret Line="299" Column="25" TopLine="262"/>
       </Position18>
       <Position19>
         <Filename Value="umainform.pas"/>
-        <Caret Line="247" Column="45" TopLine="219"/>
+        <Caret Line="298" Column="25" TopLine="261"/>
       </Position19>
       <Position20>
         <Filename Value="umainform.pas"/>
-        <Caret Line="366" Column="27" TopLine="346"/>
+        <Caret Line="10" Column="73" TopLine="1"/>
       </Position20>
       <Position21>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="95" Column="24" TopLine="76"/>
+        <Filename Value="..\Components\GpStreams.pas"/>
+        <Caret Line="195" Column="1" TopLine="158"/>
       </Position21>
       <Position22>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="96" Column="24" TopLine="77"/>
+        <Filename Value="..\Components\GpLists.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position22>
       <Position23>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="95" Column="24" TopLine="76"/>
+        <Filename Value="C:\lazarus.1.0\components\paxCompiler\PaxRegister.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position23>
       <Position24>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="34" Column="17" TopLine="82"/>
+        <Filename Value="C:\lazarus.1.0\components\paxCompiler\PaxRegister.pas"/>
+        <Caret Line="358" Column="3" TopLine="345"/>
       </Position24>
       <Position25>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="252" Column="3" TopLine="250"/>
+        <Filename Value="C:\lazarus.1.0\components\paxCompiler\PaxRegister.pas"/>
+        <Caret Line="105" Column="1" TopLine="26"/>
       </Position25>
       <Position26>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="247" Column="57" TopLine="245"/>
+        <Filename Value="C:\lazarus.1.0\components\paxCompiler\PaxRegister.pas"/>
+        <Caret Line="358" Column="3" TopLine="356"/>
       </Position26>
       <Position27>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="249" Column="57" TopLine="247"/>
+        <Filename Value="..\Components\GpStreams.pas"/>
+        <Caret Line="554" Column="8" TopLine="540"/>
       </Position27>
       <Position28>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="286" Column="42" TopLine="284"/>
+        <Filename Value="..\Components\GpStructuredStorage.pas"/>
+        <Caret Line="162" Column="18" TopLine="228"/>
       </Position28>
       <Position29>
-        <Filename Value="umainform.pas"/>
-        <Caret Line="295" Column="26" TopLine="279"/>
+        <Filename Value="..\Components\GpStreams.pas"/>
+        <Caret Line="1" Column="1" TopLine="313"/>
       </Position29>
       <Position30>
         <Filename Value="umainform.pas"/>
-        <Caret Line="294" Column="26" TopLine="278"/>
+        <Caret Line="296" Column="45" TopLine="177"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

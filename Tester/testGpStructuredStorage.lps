@@ -24,7 +24,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="254"/>
+        <TopLine Value="253"/>
         <CursorPos X="3" Y="268"/>
         <FoldState Value=" T3jZ04BC216Q"/>
         <UsageCount Value="84"/>
@@ -34,7 +34,6 @@
       </Unit1>
       <Unit2>
         <Filename Value="..\Components\GpStuff.pas"/>
-        <IsPartOfProject Value="True"/>
         <UsageCount Value="22"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit2>

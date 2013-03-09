@@ -175,6 +175,7 @@ interface
   {$IFEND}
 {$ELSE}
   {$MODE DELPHI}
+  {$INTERFACES COM}
 {$ENDIF}
 uses
   SysUtils,

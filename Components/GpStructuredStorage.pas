@@ -129,7 +129,8 @@ unit GpStructuredStorage;
 
 interface
 {$IFDEF FPC}
-{$MODE DELPHI}
+  {$MODE DELPHI}
+  {$INTERFACES COM}
 {$ENDIF}
 uses
   {$IFNDEF FPC}
