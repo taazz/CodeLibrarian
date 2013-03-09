@@ -101,17 +101,17 @@ object MainFrm: TMainFrm
     SimplePanel = False
   end
   object Splitter1: TSplitter
-    Left = 267
+    Left = 277
     Height = 390
     Top = 26
     Width = 5
     Beveled = True
   end
   inline snEditor: TSynEdit
-    Left = 272
+    Left = 282
     Height = 390
     Top = 26
-    Width = 722
+    Width = 712
     Align = alClient
     Font.Height = -13
     Font.Name = 'Courier New'
@@ -613,7 +613,7 @@ object MainFrm: TMainFrm
     Left = 0
     Height = 390
     Top = 26
-    Width = 267
+    Width = 277
     Align = alLeft
     BorderStyle = bsNone
     DefaultItemHeight = 16
