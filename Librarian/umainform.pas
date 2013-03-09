@@ -95,15 +95,19 @@ type
       );
   private
     { private declarations }
-    FCodeLib : IGpStructuredStorage;
-    function GetNodePath(aNode:TTreeNode):String;
-    function IsFolder(aNode:TTreeNode):Boolean;
-    function IsFile(aNode:TTreeNode):Boolean;
-    function UniqueName(aPath:String;Folder:Boolean):string;
-    function NewNode(const aParent:TTreeNode; aText:String; Folder:Boolean = True):TTreeNode;
-    procedure ValidateName(aName:String);
-    procedure OpenLibrary(aName:String);
-    //procedure MoveToEndOfFolders(aNode:TTreeNode);
+
+    FAutoExpandNodes : Boolean;
+    FCodeLib         : IGpStructuredStorage;
+
+    function GetNodePath (aNode:TTreeNode)                                             : String;
+    function IsFolder    (aNode:TTreeNode)                                             : Boolean;
+    function IsFile      (aNode:TTreeNode)                                             : Boolean;
+    function UniqueName  (aPath:string;Folder:Boolean)                                 : string;
+    function NewNode     (const aParent:TTreeNode; aText:String; Folder:Boolean = True): TTreeNode;
+    procedure SetAutoExpandNodes (aValue      : Boolean);
+    procedure ValidateName       (aObjectName : string);
+    procedure ValidateFileName   (aName       : string);
+    procedure OpenLibrary        (aName       : string);
   public
     { public declarations }
     procedure Test;
@@ -111,6 +115,9 @@ type
     constructor Create(TheOwner : TComponent); override;
 
     Procedure LoadCodeLib;
+
+    //when true it opens all tree nodes when opening a library.
+    property AutoExpandNodes : Boolean read FAutoExpandNodes write SetAutoExpandNodes;
   end;
 
 var
@@ -127,9 +134,13 @@ resourcestring
   rsInvalidName = 'Invalid Object name <%S>';
 
 const
-  CodeLibPathSep = '/';
-  tpSnippet      = 1;
-  tpFolder       = 2;
+  cCodeLibPathSep     = '/';
+  tpSnippet           = 1;
+  tpFolder            = 2;
+  idxFolderNormal     = 9;
+  idxFolderSelected   = 9;
+  idxSnippetNormal    = 11;
+  idxSnippetSelected  = 11;
 
 function addSlash(aItem:string):string;
 begin
@@ -140,12 +151,12 @@ function MakeFileName(const FolderName, FileName: string): string;
 begin
   Result := FolderName;
   if Result = '' then
-    Result := CodeLibPathSep
+    Result := cCodeLibPathSep
   else
     Result := AddSlash(Result);
   if FileName <> '' then
   begin
-    if FileName[1] = CodeLibPathSep then
+    if FileName[1] = cCodeLibPathSep then
       Result := Result + Copy(FileName, 2, 9999999)
     else
       Result := Result + FileName;
@@ -173,6 +184,7 @@ begin
     vNode := vNode.Parent;
   vPath := GetNodePath(vNode);
   vName := UniqueName(GetNodePath(vNode), True);
+  ValidateFileName(vName);
   ValidateName(vPath + vName);
   FCodeLib.CreateFolder(vPath + vName);
   tvData.Items.BeginUpdate;
@@ -193,6 +205,7 @@ var
 begin
   vPath := GetNodePath(nil);
   vName := UniqueName(vPath, True);
+  ValidateFileName(vName);
   ValidateName(vPath + vName);
   FCodeLib.CreateFolder(vPath+vName);
   vNode := NewNode(nil, vName);
@@ -384,10 +397,16 @@ begin
   else Result:= False;
 end;
 
+procedure TMainFrm.SetAutoExpandNodes(aValue : Boolean);
+begin
+  if FAutoExpandNodes = aValue then Exit;
+  FAutoExpandNodes := aValue;
+end;
+
 function TMainFrm.UniqueName(aPath : String; Folder : Boolean) : string;
 var
-  vCnt : UInt32 =0;
-  vTmp : string = '';
+  vCnt : Cardinal = 0;
+  vTmp : string   = '';
 begin
   Result := IfThen(Folder, FolderPrefix, FilePrefix);
   While True do begin
@@ -400,6 +419,7 @@ begin
     if vCnt = 0 then raise Exception.Create(rsclbUniqueNameFailed); //searched all the range of uint32 and hit 0 again.
   end;
 end;
+
 function IfThen(aCondition : Boolean; const TrueResult : Pointer; const FalseResult : Pointer = nil) : Pointer; overload;
 begin
   if aCondition then Result := TrueResult else Result := FalseResult;
@@ -414,15 +434,22 @@ function TMainFrm.NewNode(const aParent : TTreeNode; aText : String;
   Folder : Boolean) : TTreeNode;
 begin
   Result               := tvData.Items.AddChild(aParent, aText);
-  Result.Data          := IfThen(Folder, Pointer(tpFolder), Pointer(tpSnippet));
-  Result.ImageIndex    := IfThen(Folder, 9, 11);
-  Result.SelectedIndex := IfThen(Folder, 9, 11);
+  Result.Data          := IfThen(Folder, Pointer(tpFolder), Pointer(tpSnippet) );
+  Result.ImageIndex    := IfThen(Folder, idxFolderNormal,   idxSnippetNormal   );
+  Result.SelectedIndex := IfThen(Folder, idxFolderSelected, idxSnippetSelected );
 end;
 
-procedure TMainFrm.ValidateName(aName : String);
+procedure TMainFrm.ValidateName(aObjectName : String);
 begin
-  if (aName ='') or (aName[1] <> CodeLibPathSep) then
-    raise Exception.CreateFmt(rsInvalidName, [aName]);
+  if (aObjectName ='') or (aObjectName[1] <> cCodeLibPathSep) then
+    raise Exception.CreateFmt(rsInvalidName, [aObjectName]);
+end;
+
+procedure TMainFrm.ValidateFileName(aName : string);
+begin
+  if (Pos('/',aName) > 0) then raise Exception.Create('</> is an invalid character');
+  if (Pos('\',aName) > 0) then raise Exception.Create('<\> is an invalid character');
+  if aName = '' then raise Exception.Create('Name must be at least 1 character long');
 end;
 
 procedure TMainFrm.OpenLibrary(aName : String);
@@ -450,14 +477,12 @@ procedure TMainFrm.LoadCodeLib;
     vFolders,vFiles : TStringList;
     vCnt            : Integer;
     vPath           : string;
-    vSum            : Integer;
   begin
     vFolders := TStringList.Create;
     vFiles   := TStringList.Create;
     try
       vPath := GetNodePath(aNode);
-      FCodeLib.FolderNames(vPath,vFolders);
-      vSum := vFolders.Count;
+      FCodeLib.FolderNames(vPath, vFolders);
       for vCnt := 0 to vFolders.Count -1 do begin
         vNode := NewNode(aNode, vFolders[vCnt]);
         LoadNodeFolder(vNode);

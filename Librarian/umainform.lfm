@@ -618,8 +618,11 @@ object MainFrm: TMainFrm
     Width = 277
     Align = alLeft
     BorderStyle = bsNone
-    DefaultItemHeight = 16
+    DefaultItemHeight = 18
+    Font.Height = -13
+    Font.Quality = fqCleartype
     Images = imlMain
+    ParentFont = False
     TabOrder = 4
     OnChange = tvDataChange
     OnChanging = tvDataChanging

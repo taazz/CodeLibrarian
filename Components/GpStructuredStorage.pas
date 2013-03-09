@@ -676,15 +676,13 @@ type
     procedure CreateEmptyStorage;
     function  CreateFileInfo(owner: TGpStructuredStorage;
       folder: TGpStructuredFolder; const fileName: string): IGpStructuredFileInfo;
-    function  DescendTree(folderName: string; autoCreate: boolean = true):
-      TGpStructuredFolder;
+    function  DescendTree(folderName: string; autoCreate: boolean = true):TGpStructuredFolder;
     function  GetDataFile: string;
     function  GetDataSize: integer;
     function  GetFileInfo(const fileName: string): IGpStructuredFileInfo;
     procedure InitializeStorage;
     procedure LoadStorageMetadata;
-    function  NormalizeFileName(const fileName: string;
-      isFolder: boolean = false): string;
+    function  NormalizeFileName(const fileName: string; isFolder: boolean = false): string;
     function  OpenAttributeFile(const fileName: string; mode: word): TStream;
     function  OpenStorageAttributeFile: TGpStructuredFile;
     procedure PrepareStructures;
@@ -695,15 +693,14 @@ type
     procedure RootFolderSizeChanged(sender: TObject);
     procedure SplitFileName(const fullName: string; var folderName, fileName: string);
     procedure StorageAttributeFileSizeChanged(sender: TObject);
-    function  StripTrailingDelimiter(const fileName: string;
-      leaveRootDelimited: boolean = false): string;
+    function  StripTrailingDelimiter(const fileName: string; leaveRootDelimited: boolean = false): string;
     procedure UnregisterAllFileInfo;
     procedure UnregisterFileInfo(fileInfo: TGpStructuredFileInfo);
     function  VerifyHeader: boolean;
     property FAT: TGpStructuredFAT read gssFAT;
     property Storage: TGpStructuredStream read gssStream;
   public
-    destructor  Destroy; override;
+    destructor Destroy; override;
     procedure Compact;
     procedure CreateFolder(const folderName: string);
     procedure Delete(const objectName: string);
