@@ -1,8 +1,8 @@
 License
 
-Each part of the repository comes with each own license the components folder are under the BSD license simple because that is the license the original author choose to use and I find no reason to relisense it to something more restrictive like the GPL variations. 
+Each part of the repository comes with its own license the components folder are under the BSD license simple because that is the license the original author choose to use and I see no reason to re lisense it to something more restrictive like the GPL variations. 
 
 The tester is public domain you can do what ever you want with it.
 
-The Librarian will be licensed under GPL because it suppose to be an addin for Lazarus it self and since lazarus is a GPLed application too I decided to keep things clear and uncomplicated. 
+The Librarian will be licensed under GPL because it will be an addin for Lazarus it self and I want to keep things clear and uncomplicated. 
 

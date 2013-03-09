@@ -14,6 +14,7 @@ object MainFrm: TMainFrm
     Top = 0
     Width = 994
     Caption = 'ToolBar1'
+    EdgeBorders = [ebTop, ebBottom]
     Images = imlMain
     TabOrder = 0
     object btnFileOpen: TToolButton
@@ -662,7 +663,7 @@ object MainFrm: TMainFrm
       Caption = '&Open ...'
       Dialog.DefaultExt = '.clb'
       Dialog.Filter = 'Librarian Files (*.clb)|*.clb|GExperts Library Files (*.fs)|*.fs|All Known Files|*.clb;*.fs|All Files (*.*)|*.*'
-      Dialog.FilterIndex = 2
+      Dialog.FilterIndex = 3
       Hint = 'Open'
       ImageIndex = 8
       ShortCut = 16463
@@ -691,6 +692,7 @@ object MainFrm: TMainFrm
       Caption = 'Library'
       Dialog.DefaultExt = '.clb'
       Dialog.Filter = 'Librarian Files (*.clb)|*.clb|GExperts Library Files (*.fs)|*.fs|All Known Files|*.clb;*.fs|All Files (*.*)|*.*'
+      Dialog.FilterIndex = 3
       Dialog.Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
       Hint = 'Open'
       ImageIndex = 12
@@ -731,6 +733,9 @@ object MainFrm: TMainFrm
     object actFileImport: TFileOpen
       Category = 'File'
       Caption = '&Import ...'
+      Dialog.Filter = 'Librarian Files (*.clb)|*.clb|GExperts Library Files (*.fs)|*.fs|All Known Files|*.clb;*.fs|All Files (*.*)|*.*'
+      Dialog.FilterIndex = 3
+      Enabled = False
       Hint = 'Open'
       ShortCut = 16457
     end
