@@ -14,85 +14,86 @@ type
   { TMainFrm }
 
   TMainFrm = class(TForm)
-    aclMain : TActionList;
-    actEditCopy : TEditCopy;
-    actEditCut : TEditCut;
-    actEditPaste : TEditPaste;
-    actEditUndo : TEditUndo;
-    actFileExit : TFileExit;
-    actFileOpen : TFileOpen;
+    aclMain          : TActionList;
+    actEditCopy      : TEditCopy;
+    actEditCut       : TEditCut;
+    actEditPaste     : TEditPaste;
+    actEditUndo      : TEditUndo;
+    actFileExit      : TFileExit;
+    actFileOpen      : TFileOpen;
     actFolderRootNew : TAction;
-    actFolderNew : TAction;
-    actDelete : TAction;
-    actExpandAll : TAction;
-    actCollapseAll : TAction;
-    actCompact : TAction;
-    actSnippetNew : TAction;
-    actSnippetSave : TAction;
-    actFileNew : TFileOpen;
-    actFileImport : TFileOpen;
-    imlMain : TImageList;
-    MenuItem2 : TMenuItem;
-    mniSepItem6 : TMenuItem;
-    mniFolderNew : TMenuItem;
-    mniFolderRootNew : TMenuItem;
-    mniSnippetNew : TMenuItem;
-    mniEditNew : TMenuItem;
-    mnuMain : TMainMenu;
-    MenuItem1 : TMenuItem;
-    mniSepItem4 : TMenuItem;
-    mniFileOpen : TMenuItem;
-    mniExit : TMenuItem;
-    mniSepItem2 : TMenuItem;
-    miCompact : TMenuItem;
-    mniSepItem1 : TMenuItem;
+    actFolderNew     : TAction;
+    actDelete        : TAction;
+    actExpandAll     : TAction;
+    actCollapseAll   : TAction;
+    actCompact       : TAction;
+    actSnippetNew    : TAction;
+    actSnippetSave   : TAction;
+    actFileNew       : TFileOpen;
+    actFileImport    : TFileOpen;
+    imlMain          : TImageList;
+    MenuItem2        : TMenuItem;
     mniDelete : TMenuItem;
-    mniNew : TMenuItem;
-    mnuFile : TMenuItem;
-    mnuEditUndo : TMenuItem;
-    mnuEditPaste : TMenuItem;
-    mnuEditCut : TMenuItem;
-    mnuEditCopy : TMenuItem;
-    mnuEdit : TMenuItem;
-    Splitter1 : TSplitter;
-    StatusBar1 : TStatusBar;
-    snEditor : TSynEdit;
-    shlPascal : TSynFreePascalSyn;
-    ToolBar1 : TToolBar;
-    btnFileOpen : TToolButton;
-    btnExpandAll : TToolButton;
-    btnCollapseAll : TToolButton;
-    btnSnippetNew : TToolButton;
+    mniSepItem : TMenuItem;
+    mniSepItem6      : TMenuItem;
+    mniFolderNew     : TMenuItem;
+    mniFolderRootNew : TMenuItem;
+    mniSnippetNew    : TMenuItem;
+    mniEditNew       : TMenuItem;
+    mnuMain          : TMainMenu;
+    MenuItem1        : TMenuItem;
+    mniFileOpen      : TMenuItem;
+    mniExit          : TMenuItem;
+    mniSepItem2      : TMenuItem;
+    miCompact        : TMenuItem;
+    mniSepItem1      : TMenuItem;
+    mniNew           : TMenuItem;
+    mnuFile          : TMenuItem;
+    mnuEditUndo      : TMenuItem;
+    mnuEditPaste     : TMenuItem;
+    mnuEditCut       : TMenuItem;
+    mnuEditCopy      : TMenuItem;
+    mnuEdit          : TMenuItem;
+    Splitter1        : TSplitter;
+    StatusBar1       : TStatusBar;
+    snEditor         : TSynEdit;
+    shlPascal        : TSynFreePascalSyn;
+    ToolBar1         : TToolBar;
+    btnFileOpen      : TToolButton;
+    btnExpandAll     : TToolButton;
+    btnCollapseAll   : TToolButton;
+    btnSnippetNew    : TToolButton;
     btnFolderRootNew : TToolButton;
-    btnFolderNew : TToolButton;
-    ToolButton4 : TToolButton;
-    btnEditCopy : TToolButton;
-    btnEditCut : TToolButton;
-    btnEditPaste : TToolButton;
-    btnEditUndo : TToolButton;
-    ToolButton9 : TToolButton;
-    tvData : TTreeView;
-    procedure actCollapseAllExecute(Sender : TObject);
-    procedure actCompactExecute(Sender : TObject);
-    procedure actCompactUpdate(Sender : TObject);
-    procedure actDeleteExecute(Sender : TObject);
-    procedure actDeleteUpdate(Sender : TObject);
-    procedure actEditUndoExecute(Sender : TObject);
-    procedure actEditUndoUpdate(Sender : TObject);
-    procedure actExpandAllExecute(Sender : TObject);
-    procedure actFileNewAccept(Sender : TObject);
-    procedure actFileOpenAccept(Sender : TObject);
-    procedure actFolderNewExecute(Sender : TObject);
-    procedure actFolderRootNewExecute(Sender : TObject);
-    procedure actSnippetNewExecute(Sender : TObject);
-    procedure actSnippetSaveExecute(Sender : TObject);
-    procedure actSnippetSaveUpdate(Sender : TObject);
-    procedure snEditorExit(Sender : TObject);
-    procedure tvDataChange(Sender : TObject; Node : TTreeNode);
-    procedure tvDataChanging(Sender : TObject; Node : TTreeNode;
-      var AllowChange : Boolean);
-    procedure tvDataEdited(Sender : TObject; Node : TTreeNode; var S : string
-      );
+    btnFolderNew     : TToolButton;
+    ToolButton1 : TToolButton;
+    ToolButton4      : TToolButton;
+    btnEditCopy      : TToolButton;
+    btnEditCut       : TToolButton;
+    btnEditPaste     : TToolButton;
+    btnEditUndo      : TToolButton;
+    ToolButton9      : TToolButton;
+    tvData           : TTreeView;
+    procedure actCollapseAllExecute   (Sender : TObject);
+    procedure actCompactExecute       (Sender : TObject);
+    procedure actCompactUpdate        (Sender : TObject);
+    procedure actDeleteExecute        (Sender : TObject);
+    procedure actDeleteUpdate         (Sender : TObject);
+    procedure actEditUndoExecute      (Sender : TObject);
+    procedure actEditUndoUpdate       (Sender : TObject);
+    procedure actExpandAllExecute     (Sender : TObject);
+    procedure actFileImportAccept     (Sender : TObject);
+    procedure actFileNewAccept        (Sender : TObject);
+    procedure actFileOpenAccept       (Sender : TObject);
+    procedure actFolderNewExecute     (Sender : TObject);
+    procedure actFolderRootNewExecute (Sender : TObject);
+    procedure actSnippetNewExecute    (Sender : TObject);
+    procedure actSnippetSaveExecute   (Sender : TObject);
+    procedure actSnippetSaveUpdate    (Sender : TObject);
+    procedure snEditorExit            (Sender : TObject);
+    procedure tvDataChange            (Sender : TObject; Node : TTreeNode);
+    procedure tvDataChanging          (Sender : TObject; Node : TTreeNode;
+                                       var AllowChange : Boolean);
+    procedure tvDataEdited            (Sender : TObject; Node : TTreeNode; var S : string);
   private
     { private declarations }
 
@@ -110,12 +111,10 @@ type
     procedure OpenLibrary        (aName       : string);
   public
     { public declarations }
-    procedure Test;
-
     constructor Create(TheOwner : TComponent); override;
 
-    Procedure LoadCodeLib;
-
+    procedure LoadCodeLib;
+    procedure ImportLib(const aFileName:string; const aRootFolder : string = '');
     //when true it opens all tree nodes when opening a library.
     property AutoExpandNodes : Boolean read FAutoExpandNodes write SetAutoExpandNodes;
   end;
@@ -124,14 +123,15 @@ var
   MainFrm : TMainFrm;
 
 implementation
-uses strutils;
+uses strutils, variants;
 {$R *.lfm}
 
 resourcestring
-  FolderPrefix = 'Folder ';
-  FilePrefix = 'Snippet ';
+  FolderPrefix          = 'Folder ';
+  FilePrefix            = 'Snippet ';
   rsclbUniqueNameFailed = 'Unable to find unique Name';
-  rsInvalidName = 'Invalid Object name <%S>';
+  rsInvalidName         = 'Invalid Object name <%S>';
+
 
 const
   cCodeLibPathSep     = '/';
@@ -144,7 +144,7 @@ const
 
 function addSlash(aItem:string):string;
 begin
-  if aItem[Length(aItem)] <> '/' then Result := aItem+'/' else Result := aItem;
+  if aItem[Length(aItem)] <> cCodeLibPathSep then Result := aItem + cCodeLibPathSep else Result := aItem;
 end;
 
 function MakeFileName(const FolderName, FileName: string): string;
@@ -247,6 +247,15 @@ begin
   end;
 end;
 
+procedure TMainFrm.actFileImportAccept(Sender : TObject);
+var
+  vFName : string;
+begin
+  vFName := actFileImport.Dialog.FileName;
+  vFName := ExtractFileNameOnly(vFName);
+  ImportLib(actFileImport.Dialog.FileName, cCodeLibPathSep + vFName);
+end;
+
 procedure TMainFrm.actCollapseAllExecute(Sender : TObject);
 var
   vNode: TTreeNode;
@@ -278,8 +287,9 @@ begin
     vPath := GetNodePath(tvData.Selected);
     ValidateName(vPath);
     FCodeLib.Delete(vPath);
-    vNode:=tvData.Selected;
+    vNode := tvData.Selected;
     tvData.Selected := vNode.GetPrevVisible;
+    if tvData.Selected = nil then tvData.Selected := vNode.GetNextVisible;
     vNode.Delete;
   end;
 end;
@@ -320,7 +330,7 @@ end;
 
 procedure TMainFrm.snEditorExit(Sender : TObject);
 begin
-  //if snEditor.Modified then actSnippetSave(Nil);
+  if snEditor.Modified then actSnippetSaveExecute(Nil);
 end;
 
 procedure TMainFrm.tvDataChange(Sender : TObject; Node : TTreeNode);
@@ -459,10 +469,6 @@ begin
   FCodeLib.Initialize(aName, fmOpenReadWrite or fmShareExclusive);
 end;
 
-procedure TMainFrm.Test;
-begin
-  canvas.brush.Style := bsSolid;
-end;
 
 constructor TMainFrm.Create(TheOwner : TComponent);
 begin
@@ -507,6 +513,71 @@ begin
   finally
     tvData.SortType := stText;
     tvData.Items.EndUpdate;
+  end;
+end;
+
+procedure TMainFrm.ImportLib(const aFileName : string; const aRootFolder : string);
+const
+  cDelim = cCodeLibPathSep;
+  function InclPathDel(inStr:String):string;
+  begin
+    Result:=inStr;
+    if Result[Length(Result)] <> cDelim then Result := Result + cDelim;
+  end;
+
+var
+  vFromLib, vToLib : IGpStructuredStorage;
+  vBckCurs         : TCursor;
+  procedure ImportFolder(aSourceFolder, aDestFolder:string);
+  var
+    vFolders, vFiles : TStringList;
+    vFrom,    vTo    : TStream;
+    vCnt             : Integer;
+    vNewFolder       : string;
+  begin
+    vFolders := TStringList.Create;
+    vFiles   := TStringList.Create;
+    try
+      aSourceFolder := InclPathDel(aSourceFolder);
+      vFromLib.FolderNames(aSourceFolder, vFolders);
+      for vCnt := 0 to vFolders.Count -1 do begin
+        vNewFolder := InclPathDel(aDestFolder) + vFolders[vCnt];
+        vToLib.CreateFolder(vNewFolder);
+        ImportFolder(aSourceFolder + vFolders[vCnt] +cDelim, vNewFolder);
+      end;
+      vFromLib.FileNames(aSourceFolder, vFiles);
+      aDestFolder := InclPathDel(aDestFolder);
+      for vCnt := 0 to vFiles.Count -1 do begin
+        vFrom      := vFromLib.OpenFile(aSourceFolder+vFiles[vCnt], fmOpenReadWrite);
+        vTo        := vToLib.OpenFile(aDestFolder+vFiles[vCnt], fmCreate);
+        try
+          vTo.CopyFrom(vFrom, 0);
+        finally
+          vFrom.Free;
+          vTo.Free;
+        end;
+      end;
+    finally
+      vFolders.Free;
+      vFiles.Free;
+    end;
+  end;
+
+begin
+  Enabled := False;
+  vBckCurs := Screen.Cursor;
+  Screen.Cursor := crHourGlass;
+  try
+    vFromLib := CreateStorage;
+    vFromLib.Initialize(aFileName, fmOpenReadWrite or fmShareExclusive);
+    vToLib := FCodeLib;
+    if vToLib.FolderExists(aRootFolder) then
+      raise Exception.CreateFmt('Folder %S already exists in code library',[aRootFolder]);
+    ImportFolder('/', aRootFolder);
+    LoadCodeLib;
+  finally
+    Screen.Cursor := vBckCurs;
+    Enabled := True;
   end;
 end;
 
