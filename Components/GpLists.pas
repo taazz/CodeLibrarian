@@ -34,6 +34,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    Version           : 1.60
 </pre>*)(*
    History:
+     GRAEME -- 001
+            GetCurrentThreadID Patch to work with macosx and FreeBSD
+            jkoz-- converted to PtrUInt in fpc permanently.
      1.60: 2012-03-16
        - Added TAnsiStringList, written by Remy Lebeau.
      1.59: 2012-01-23
@@ -2017,7 +2020,7 @@ type
     FActiveBlock : TStream;
     FCurrentSize : integer;
     FFifo        : TGpDoublyLinkedList;
-    FLastThreadId: cardinal;
+    FLastThreadId: {$IFDEF FPC}PTRUINT{$ELSE}cardinal{$ENDIF};
     FMaxSize     : integer;
     FOnGetMem    : TGpFifoMemoryEvent;
     FOnFreeMem   : TGpFifoMemoryEvent;
@@ -2146,6 +2149,12 @@ function GUIDListCompare(List: TGpGUIDList; idx1, idx2: integer): integer; {$IFD
 begin
   Result := GUIDCompare(List[idx1], List[idx2]);
 end; { GUIDListCompare }
+
+function gpGetCurrentThreadID: {$IFDEF FPC}PtrUInt{$ELSE}Cardinal{$ENDIF};  //GRAEME 001
+begin
+  Result := PtrUInt(GetCurrentThreadID);  // Work around for MacOSX and FreeBSD
+end;
+
 
 { TGpInt64 }
 
@@ -6420,9 +6429,9 @@ var
   totalSize: integer;
 begin
   if FLastThreadId = 0 then
-    FLastThreadId := GetCurrentThreadID
-  else if FLastThreadId <> GetCurrentThreadID then
-    raise Exception.CreateFmt('TGpFifoBuffer: Used from %d and %d', [FLastThreadId, GetCurrentThreadID]);
+    FLastThreadId := gpGetCurrentThreadID              //GRAEME 001
+  else if FLastThreadId <> gpGetCurrentThreadID then
+    raise Exception.CreateFmt('TGpFifoBuffer: Used from %d and %d', [FLastThreadId, gpGetCurrentThreadID]);
   totalSize := 0;
   if assigned(FActiveBlock) then
     Inc(totalSize, FActiveBlock.Size - FActiveBlock.Position);

@@ -33,8 +33,8 @@ type
     actFileImport    : TFileOpen;
     imlMain          : TImageList;
     MenuItem2        : TMenuItem;
-    mniDelete : TMenuItem;
-    mniSepItem : TMenuItem;
+    mniDelete        : TMenuItem;
+    mniSepItem       : TMenuItem;
     mniSepItem6      : TMenuItem;
     mniFolderNew     : TMenuItem;
     mniFolderRootNew : TMenuItem;
@@ -65,7 +65,7 @@ type
     btnSnippetNew    : TToolButton;
     btnFolderRootNew : TToolButton;
     btnFolderNew     : TToolButton;
-    ToolButton1 : TToolButton;
+    ToolButton1      : TToolButton;
     ToolButton4      : TToolButton;
     btnEditCopy      : TToolButton;
     btnEditCut       : TToolButton;
@@ -89,6 +89,7 @@ type
     procedure actSnippetNewExecute    (Sender : TObject);
     procedure actSnippetSaveExecute   (Sender : TObject);
     procedure actSnippetSaveUpdate    (Sender : TObject);
+    procedure FormClose(Sender : TObject; var CloseAction : TCloseAction);
     procedure snEditorExit            (Sender : TObject);
     procedure tvDataChange            (Sender : TObject; Node : TTreeNode);
     procedure tvDataChanging          (Sender : TObject; Node : TTreeNode;
@@ -108,13 +109,14 @@ type
     procedure SetAutoExpandNodes (aValue      : Boolean);
     procedure ValidateName       (aObjectName : string);
     procedure ValidateFileName   (aName       : string);
-    procedure OpenLibrary        (aName       : string);
+    procedure SaveData           (const aNode:TTreeNode);
+    procedure LoadCodeLib;
   public
     { public declarations }
     constructor Create(TheOwner : TComponent); override;
 
-    procedure LoadCodeLib;
-    procedure ImportLib(const aFileName:string; const aRootFolder : string = '');
+    procedure OpenLibrary   (aName       : string);
+    procedure ImportLib     (const aFileName:string; const aRootFolder : string = '');
     //when true it opens all tree nodes when opening a library.
     property AutoExpandNodes : Boolean read FAutoExpandNodes write SetAutoExpandNodes;
   end;
@@ -170,7 +172,6 @@ var
 begin
   vFName := actFileOpen.Dialog.FileName;
   if FCodeLib.IsStructuredStorage(vFName) then OpenLibrary(vFName);
-  LoadCodeLib;
 end;
 
 procedure TMainFrm.actFolderNewExecute(Sender : TObject);
@@ -279,13 +280,20 @@ end;
 
 procedure TMainFrm.actDeleteExecute(Sender : TObject);
 var
-  vPath : string;
-  vName : string;
-  vNode : TTreeNode;
+  vPath   : string;
+  vName   : string;
+  vNode   : TTreeNode;
+  vChoice : Integer;
 begin
   if tvData.Selected <> nil then begin
     vPath := GetNodePath(tvData.Selected);
     ValidateName(vPath);
+    vChoice := MessageDlg('Delete ' + IfThen(IsFolder(tvData.Selected),Trim(FolderPrefix), Trim(FilePrefix)),
+                          'Are you sure you want to delete ' + tvData.Selected.Text +' ?',
+                          mtConfirmation,mbYesNoCancel, 0);
+    if vChoice in [mrNo, mrCancel] then begin
+      Exit;
+    end;
     FCodeLib.Delete(vPath);
     vNode := tvData.Selected;
     tvData.Selected := vNode.GetPrevVisible;
@@ -310,17 +318,8 @@ begin
 end;
 
 procedure TMainFrm.actSnippetSaveExecute(Sender : TObject);
-var
-  vFname : String  = '';
-  vStrm  : TStream = nil;
 begin
-  vFname := GetNodePath(tvData.Selected);
-  if not FCodeLib.FileExists(vFname) then vStrm := FCodeLib.OpenFile(vFname, fmCreate) else vStrm := FCodeLib.OpenFile(vFname, fmOpenReadWrite);
-  try
-    snEditor.Lines.SaveToStream(vStrm);
-  finally
-    vStrm.Free;
-  end;
+  if snEditor.Modified then SaveData(tvData.Selected);
 end;
 
 procedure TMainFrm.actSnippetSaveUpdate(Sender : TObject);
@@ -328,9 +327,14 @@ begin
   actSnippetSave.Enabled := snEditor.Modified;
 end;
 
+procedure TMainFrm.FormClose(Sender : TObject; var CloseAction : TCloseAction);
+begin
+  if snEditor.Modified then SaveData(tvData.Selected);
+end;
+
 procedure TMainFrm.snEditorExit(Sender : TObject);
 begin
-  if snEditor.Modified then actSnippetSaveExecute(Nil);
+  if snEditor.Modified then SaveData(tvData.Selected);
 end;
 
 procedure TMainFrm.tvDataChange(Sender : TObject; Node : TTreeNode);
@@ -351,16 +355,9 @@ end;
 
 procedure TMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode;
   var AllowChange : Boolean);
-var
-  vTmp : TStream;
 begin
-  if snEditor.Modified and IsFile(Node) then begin
-    vTmp := FCodeLib.OpenFile(GetNodePath(Node), fmOpenReadWrite);
-    try
-      snEditor.Lines.SaveToStream(vTmp);
-    finally
-      vTmp.Free;
-    end;
+  if snEditor.Modified then begin
+    SaveData(Node);
   end;
 end;
 
@@ -467,6 +464,25 @@ begin
   FCodeLib := Nil;
   FCodeLib := CreateStorage;
   FCodeLib.Initialize(aName, fmOpenReadWrite or fmShareExclusive);
+  LoadCodeLib;
+end;
+
+procedure TMainFrm.SaveData(const aNode : TTreeNode);
+var
+  vFname : String  = '';
+  vStrm  : TStream = nil;
+begin
+  if not IsFile(aNode) then Exit;
+  ValidateFileName(aNode.Text);
+  vFName := GetNodePath(aNode);
+  ValidateName(vFname);
+  if not FCodeLib.FileExists(vFname) then vStrm := FCodeLib.OpenFile(vFname, fmCreate)
+  else vStrm := FCodeLib.OpenFile(vFname, fmOpenReadWrite);
+  try
+    snEditor.Lines.SaveToStream(vStrm);
+  finally
+    vStrm.Free;
+  end;
 end;
 
 

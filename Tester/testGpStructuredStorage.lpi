@@ -57,6 +57,7 @@
       <Unit2>
         <Filename Value="..\Components\GpLists.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="GpLists"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpStreams.pas"/>
