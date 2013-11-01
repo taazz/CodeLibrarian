@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units Count="28">
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
@@ -18,10 +18,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMainForm"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="289"/>
-        <CursorPos X="15" Y="681"/>
+        <CursorPos X="27" Y="302"/>
         <FoldState Value=" T3m00E3E"/>
         <UsageCount Value="332"/>
         <Bookmarks Count="1">
@@ -34,24 +35,22 @@
         <Filename Value="..\Components\GpLists.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpLists"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1860"/>
-        <CursorPos X="23" Y="2023"/>
-        <FoldState Value=" TK00Z1 TIihX4C T7pYG66 pjJlWJ{03 pkHnVfA315 pidm7NW7]K7lVG)6]IelUME4]mDkcYA2]96jVHE[,4CkEOb111 TCr5J78 p0,LbC2,"/>
+        <TopLine Value="1858"/>
+        <CursorPos X="57" Y="1869"/>
+        <FoldState Value=" TK00Z1 T7pYG66 pjJlWJ{03 pkHnVfA315 TCr5J78H"/>
         <UsageCount Value="332"/>
-        <Bookmarks Count="1">
-          <Item0 X="20" Y="6295" ID="0"/>
-        </Bookmarks>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpStructuredStorage"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3052"/>
-        <CursorPos X="22" Y="3079"/>
+        <CursorPos X="7" Y="3066"/>
         <UsageCount Value="332"/>
         <Loaded Value="True"/>
       </Unit3>

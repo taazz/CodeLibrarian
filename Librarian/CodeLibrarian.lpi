@@ -15,7 +15,9 @@
       <EnableI18N LFM="False"/>
     </i18n>
     <VersionInfo>
-      <StringTable ProductVersion=""/>
+      <UseVersionInfo Value="True"/>
+      <MinorVersionNr Value="2"/>
+      <StringTable Comments="Your very own code library." CompanyName="EVOSI" FileDescription="Snippets" InternalName="Code Librarian" LegalCopyright="Copyright 2013 Evosi, all rights reserved." OriginalFilename="snippets.exe" ProductName="Code Snippets"/>
     </VersionInfo>
     <BuildModes Count="2">
       <Item1 Name="Release" Default="True"/>
