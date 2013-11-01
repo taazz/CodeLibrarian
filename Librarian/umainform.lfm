@@ -1,19 +1,22 @@
 object MainFrm: TMainFrm
-  Left = 236
-  Height = 531
-  Top = 139
-  Width = 994
+  Left = 289
+  Height = 383
+  Top = 148
+  Width = 895
+  HorzScrollBar.Page = 895
+  VertScrollBar.Page = 364
+  AutoScroll = True
   Caption = 'Code Librarian'
-  ClientHeight = 512
-  ClientWidth = 994
+  ClientHeight = 364
+  ClientWidth = 895
   Menu = mnuMain
   OnClose = FormClose
-  LCLVersion = '1.0.6.0'
+  LCLVersion = '1.0.10.0'
   object ToolBar1: TToolBar
     Left = 0
     Height = 26
     Top = 0
-    Width = 994
+    Width = 895
     Caption = 'ToolBar1'
     EdgeBorders = [ebTop, ebBottom]
     Images = imlMain
@@ -95,23 +98,30 @@ object MainFrm: TMainFrm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 20
-    Top = 492
-    Width = 994
-    Panels = <>
+    Top = 344
+    Width = 895
+    Panels = <    
+      item
+        Width = 278
+      end    
+      item
+        Width = 50
+      end>
     SimplePanel = False
   end
   object Splitter1: TSplitter
     Left = 277
-    Height = 466
+    Height = 318
     Top = 26
     Width = 5
     Beveled = True
+    OnMoved = Splitter1Moved
   end
   inline snEditor: TSynEdit
     Left = 282
-    Height = 466
+    Height = 318
     Top = 26
-    Width = 712
+    Width = 613
     Align = alClient
     Font.Height = -13
     Font.Name = 'Courier New'
@@ -128,7 +138,7 @@ object MainFrm: TMainFrm
     Gutter.MouseActions = <>
     RightGutter.Width = 0
     RightGutter.MouseActions = <>
-    Highlighter = shlPascal
+    Highlighter = shlPHP
     Keystrokes = <    
       item
         Command = ecUp
@@ -552,6 +562,94 @@ object MainFrm: TMainFrm
       end>
     MouseActions = <>
     MouseSelActions = <>
+    Lines.Strings = (
+      '<?php'
+      '/*******************************************************************************'
+      '*  Title: Help Desk Software HESK'
+      '*  Version: 2.5.2 from 13th October 2013'
+      '*  Author: Klemen Stirn'
+      '*  Website: http://www.hesk.com'
+      '********************************************************************************'
+      '*  COPYRIGHT AND TRADEMARK NOTICE'
+      '*  Copyright 2005-2013 Klemen Stirn. All Rights Reserved.'
+      '*  HESK is a registered trademark of Klemen Stirn.'
+      '*******************************************************************************/'
+      ''
+      'define(''IN_SCRIPT'',1);'
+      'define(''HESK_PATH'',''./'');'
+      ''
+      '// Get all the required files and functions'
+      'require(HESK_PATH . ''hesk_settings.inc.php'');'
+      'require(HESK_PATH . ''inc/common.inc.php'');'
+      'hesk_load_database_functions();'
+      ''
+      'hesk_session_start();'
+      ''
+      '// A security check'
+      'hesk_token_check();'
+      ''
+      '// Get the tracking ID'
+      '$trackingID = hesk_cleanID() or die("$hesklang[int_error]: $hesklang[no_trackID]");'
+      ''
+      '// Get new status'
+      '$status = intval( hesk_GET(''s'', 0) );'
+      ''
+      '$locked = 0;'
+      ''
+      'if ($status == 3) // Closed'
+      '{'
+      #9'$action = $hesklang[''closed''];'
+      '    $revision = sprintf($hesklang[''thist3''],hesk_date(),$hesklang[''customer'']);'
+      ''
+      '    if ($hesk_settings[''custopen''] != 1)'
+      '    {'
+      '    '#9'$locked = 1;'
+      '    }'
+      '}'
+      'elseif ($status == 2) // Opened'
+      '{'
+      #9'// Is customer reopening tickets enabled?'
+      #9'if ( ! $hesk_settings[''custopen''])'
+      #9'{'
+      #9#9'hesk_error($hesklang[''attempt'']);'
+      #9'}'
+      ''
+      #9'$action = $hesklang[''opened''];'
+      '    $revision = sprintf($hesklang[''thist4''],hesk_date(),$hesklang[''customer'']);'
+      ''
+      #9'// We will ask the customer why is the ticket being reopened'
+      #9'$_SESSION[''force_form_top''] = true;'
+      '}'
+      'else'
+      '{'
+      #9'die("$hesklang[int_error]: $hesklang[status_not_valid].");'
+      '}'
+      ''
+      '// Connect to database'
+      'hesk_dbConnect();'
+      ''
+      '// Verify email address match if needed'
+      'hesk_verifyEmailMatch($trackingID);'
+      ''
+      '// Modify values in the database'
+      'hesk_dbQuery("UPDATE `".hesk_dbEscape($hesk_settings[''db_pfix''])."tickets` SET `status`=''{$status}'', `locked`=''{$locked}'', `history`=CONCAT(`history`,''".hesk_dbEscape($revision)."'') WHERE `trackid`=''".hesk_dbEscape($trackingID)."'' AND `locked` != ''1'' LIMIT 1");'
+      ''
+      '// Did we modify anything*'
+      'if (hesk_dbAffectedRows() != 1)'
+      '{'
+      #9'hesk_error($hesklang[''elocked'']);'
+      '}'
+      ''
+      '// Show success message'
+      'if ($status == 2)'
+      '{'
+      #9'hesk_process_messages($hesklang[''wrepo''],''ticket.php?track=''.$trackingID.$hesk_settings[''e_param''].''&Refresh=''.rand(10000,99999),''NOTICE'');'
+      '}'
+      'else'
+      '{'
+      #9'hesk_process_messages($hesklang[''your_ticket_been''].'' ''.$action,''ticket.php?track=''.$trackingID.$hesk_settings[''e_param''].''&Refresh=''.rand(10000,99999),''SUCCESS'');'
+      '}'
+    )
     Options = [eoAutoIndent, eoBracketHighlight, eoGroupUndo, eoScrollPastEol, eoSmartTabs, eoTabIndent, eoTabsToSpaces, eoTrimTrailingSpaces, eoDragDropEditing, eoDoubleClickSelectsLine]
     MouseOptions = [emDragDropEditing, emDoubleClickSelectsLine]
     VisibleSpecialChars = [vscSpace, vscTabAtLast]
@@ -599,6 +697,8 @@ object MainFrm: TMainFrm
         Width = 2
         Visible = False
         MouseActions = <>
+        MarkupInfo.Background = clWhite
+        MarkupInfo.Foreground = clGray
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
         Visible = False
@@ -612,7 +712,7 @@ object MainFrm: TMainFrm
   end
   object tvData: TTreeView
     Left = 0
-    Height = 466
+    Height = 318
     Top = 26
     Width = 277
     Align = alLeft
@@ -622,6 +722,7 @@ object MainFrm: TMainFrm
     Font.Quality = fqCleartype
     Images = imlMain
     ParentFont = False
+    PopupMenu = pmnuTree
     TabOrder = 4
     OnChange = tvDataChange
     OnChanging = tvDataChanging
@@ -679,6 +780,7 @@ object MainFrm: TMainFrm
       ImageIndex = 7
     end
     object actSnippetSave: TAction
+      Category = 'File'
       Caption = 'Save'
       Hint = 'Save Snippet'
       ImageIndex = 13
@@ -687,6 +789,7 @@ object MainFrm: TMainFrm
       ShortCut = 16467
     end
     object actFolderNew: TAction
+      Category = 'Edit'
       Caption = 'Folder'
       Hint = 'New Folder'
       ImageIndex = 14
@@ -705,18 +808,21 @@ object MainFrm: TMainFrm
       OnAccept = actFileNewAccept
     end
     object actFolderRootNew: TAction
+      Category = 'Edit'
       Caption = 'Root Folder'
       Hint = 'New Root Folder'
       ImageIndex = 15
       OnExecute = actFolderRootNewExecute
     end
     object actSnippetNew: TAction
+      Category = 'Edit'
       Caption = 'Snippet'
       Hint = 'New Snippet'
       ImageIndex = 11
       OnExecute = actSnippetNewExecute
     end
     object actDelete: TAction
+      Category = 'Edit'
       Caption = 'Delete'
       Hint = 'Delete Selected Node'
       ImageIndex = 16
@@ -736,6 +842,7 @@ object MainFrm: TMainFrm
       OnExecute = actCollapseAllExecute
     end
     object actCompact: TAction
+      Category = 'File'
       Caption = 'Compact'
       Hint = 'Compact Snippet Library File'
       OnExecute = actCompactExecute
@@ -749,6 +856,10 @@ object MainFrm: TMainFrm
       Hint = 'Import Existing Library'
       ShortCut = 16457
       OnAccept = actFileImportAccept
+    end
+    object actSetHighlighter: TAction
+      Caption = 'actSetHighlighter'
+      OnExecute = actSetHighlighterExecute
     end
   end
   object imlMain: TImageList
@@ -1368,8 +1479,8 @@ object MainFrm: TMainFrm
   end
   object mnuMain: TMainMenu
     Images = imlMain
-    left = 231
-    top = 259
+    left = 310
+    top = 40
     object mnuFile: TMenuItem
       Caption = '&File'
       object mniNew: TMenuItem
@@ -1868,6 +1979,7 @@ object MainFrm: TMainFrm
     end
   end
   object shlPascal: TSynFreePascalSyn
+    Tag = 1
     Enabled = False
     AsmAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = 10658466
@@ -1889,7 +2001,198 @@ object MainFrm: TMainFrm
     CompilerMode = pcmObjFPC
     NestedComments = True
     ExtendedKeywordsMode = True
-    left = 304
-    top = 216
+    left = 449
+    top = 159
+  end
+  object shlVB: TSynVBSyn
+    Tag = 2
+    Enabled = False
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = 4174598
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = 10637649
+    SymbolAttri.FrameEdges = sfeAround
+    left = 481
+    top = 159
+  end
+  object shlSQL: TSynSQLSyn
+    Tag = 3
+    DefaultFilter = 'SQL Files (*.sql)|*.sql'
+    Enabled = False
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    DataTypeAttri.FrameEdges = sfeAround
+    DefaultPackageAttri.FrameEdges = sfeAround
+    ExceptionAttri.FrameEdges = sfeAround
+    FunctionAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    PLSQLAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    SQLPlusAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = 4174598
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = 10637649
+    SymbolAttri.FrameEdges = sfeAround
+    TableNameAttri.FrameEdges = sfeAround
+    VariableAttri.FrameEdges = sfeAround
+    SQLDialect = sqlSybase
+    left = 510
+    top = 159
+  end
+  object shlPython: TSynPythonSyn
+    Tag = 4
+    DefaultFilter = 'Python Files (*.py)|*.py'
+    Enabled = False
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NonKeyAttri.FrameEdges = sfeAround
+    SystemAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    HexAttri.FrameEdges = sfeAround
+    OctalAttri.FrameEdges = sfeAround
+    FloatAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = 4174598
+    StringAttri.FrameEdges = sfeAround
+    DocStringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = 10637649
+    SymbolAttri.FrameEdges = sfeAround
+    ErrorAttri.FrameEdges = sfeAround
+    left = 539
+    top = 159
+  end
+  object shlPHP: TSynPHPSyn
+    Tag = 5
+    DefaultFilter = 'PHP Files (*.php,*.php3,*.phtml,*.inc)|*.php;*.php3;*.phtml;*.inc'
+    Enabled = False
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    InvalidSymbolAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = 4174598
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = 10637649
+    SymbolAttri.FrameEdges = sfeAround
+    VariableAttri.Foreground = clNavy
+    VariableAttri.FrameEdges = sfeAround
+    left = 568
+    top = 159
+  end
+  object shlPerl: TSynPerlSyn
+    Tag = 6
+    DefaultFilter = 'Perl Files (*.pl,*.pm,*.cgi)|*.pl;*.pm;*.cgi'
+    Enabled = False
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    InvalidAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    OperatorAttri.FrameEdges = sfeAround
+    PragmaAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = 4174598
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = 10637649
+    SymbolAttri.FrameEdges = sfeAround
+    VariableAttri.FrameEdges = sfeAround
+    left = 597
+    top = 159
+  end
+  object shlJava: TSynJavaSyn
+    Tag = 7
+    DefaultFilter = 'Java Files (*.java)|*.java'
+    Enabled = False
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    DocumentAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    InvalidAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = 4174598
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = 10637649
+    SymbolAttri.FrameEdges = sfeAround
+    left = 626
+    top = 159
+  end
+  object shlBAT: TSynBatSyn
+    Tag = 8
+    DefaultFilter = 'MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd'
+    Enabled = False
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    VariableAttri.FrameEdges = sfeAround
+    left = 655
+    top = 159
+  end
+  object shlCPP: TSynCppSyn
+    Tag = 9
+    DefaultFilter = 'C++ Files (*.c,*.cpp,*.h,*.hpp,*.hh)|*.c;*.cpp;*.h;*.hpp;*.hh'
+    Enabled = False
+    AsmAttri.FrameEdges = sfeAround
+    CommentAttri.Foreground = 10658466
+    CommentAttri.FrameEdges = sfeAround
+    DirecAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    InvalidAttri.FrameEdges = sfeAround
+    KeyAttri.Foreground = clNavy
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = 4227327
+    NumberAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = 4174598
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = 10637649
+    SymbolAttri.FrameEdges = sfeAround
+    left = 684
+    top = 159
+  end
+  object pmnuTree: TPopupMenu
+    left = 365
+    top = 40
+    object MenuItem3: TMenuItem
+      Caption = 'New Item1'
+    end
+  end
+  object shlMultiHl: TSynMultiSyn
+    Enabled = False
+    Schemes = <>
+    DefaultHighlighter = shlPascal
+    DefaultLanguageName = 'Pascal'
+    left = 716
+    top = 159
   end
 end

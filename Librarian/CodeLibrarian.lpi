@@ -24,7 +24,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="CodeLibrarian"/>
+            <Filename Value="bin\CodeLibrarian"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -76,7 +76,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="4">
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -96,22 +96,17 @@
         <UnitName Value="GpLists"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\Components\GpStreams.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="GpStreams"/>
-      </Unit3>
-      <Unit4>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpStructuredStorage"/>
-      </Unit4>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="CodeLibrarian"/>
+      <Filename Value="bin\CodeLibrarian"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

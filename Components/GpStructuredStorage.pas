@@ -138,7 +138,8 @@ uses
   {$ENDIF}
   SysUtils,
   Classes,
-  GpLists;
+  GpLists
+  ;
 
 const
   //:Structured storage path delimiter.
@@ -218,6 +219,8 @@ type
     procedure FolderNames(const folderName: string; {out} folders: TStrings);
     //:Fast way to check if folder is empty.
     function  IsFolderEmpty(const folderName: string): boolean;
+    //:an extractfilepath clone specific for the storage.
+    function ParentFolder (const aName :string):string;
     //:Compacts the structured storage (by copying it to a temporary file and then back).
     procedure Compact;
     //: Check to see if a file is open.
@@ -246,8 +249,9 @@ uses
   Contnrs,
   Math,
   SyncObjs,
-  GpStreams,
+  //GpStreams,
   LCLIntf
+  //,strutils
   ;
 
 const
@@ -330,6 +334,31 @@ type
   {$ELSE}
   TUnicodeString = WideString;
   {$ENDIF Unicode}
+
+  {Copied here from gpstreams and removed from the dependencies.
+
+  :Provides streamed access to a fixed memory buffer.
+    @since   2006-09-26
+  }
+  TGpFixedMemoryStream = class(TStream)
+  private
+    fmsBuffer  : pointer;
+    fmsPosition: integer;
+    fmsSize    : integer;
+  protected
+    procedure SetPosition(const value: integer);
+  public
+    constructor Create; overload;
+    constructor Create(const data; size: integer); overload;
+    constructor Create(const data: string); overload;
+    constructor CreateA(const data: AnsiString); overload;
+    function  Read(var data; size: integer): integer; override;
+    function  Seek(offset: longint; origin: word): longint; override;
+    procedure SetBuffer(const data; size: integer);
+    function  Write(const data; size: integer): integer; override;
+    property  Position: integer read fmsPosition write SetPosition;
+    property  Memory: pointer read fmsBuffer;
+  end; { TGpFixedMemoryStream }
 
   {:Stream wrapper, used for all accesses to structured storage.
     @since   2004-01-06
@@ -714,6 +743,7 @@ type
     function  IsStructuredStorage(const storageDataFile: string): boolean; overload;
     function  IsStructuredStorage(storageDataStream: TStream): boolean; overload;
     function  IsInitialized:WordBool;
+    function ParentFolder (const aName :string):string;
     procedure Move(const objectName, newName: string);
     function  OpenFile(const fileName: string; mode: word): TStream;
     procedure Dump(const fileName: string);
@@ -3038,6 +3068,19 @@ begin
   Result := Assigned(gssStorage);
 end;
 
+function TGpStructuredStorage.ParentFolder(const aName : string) : string;
+var
+  vName : string;
+  vLen  : integer;
+begin
+  Result := '';
+  if aName = '' then Exit;
+  vName := aName;
+  vLen  := Length(aName);
+  if vName[vLen] in AllowDirectorySeparators then SetLength(vName,vLen-1);
+  if vName <> '' then Result := ExtractFilePath(vName);
+end;
+
 {:Initializes structure storage object.
   @since   2003-11-10
 }
@@ -3279,6 +3322,86 @@ begin
               (gssHeader.Version >= CLowestSupported);
 end; { TGpStructuredStorage.VerifyHeader }
 
+
+{$REGION ' TGpFixedMemoryStream '}
+
+constructor TGpFixedMemoryStream.Create;
+begin
+  inherited Create;
+end; { TGpFixedMemoryStream.Create }
+
+constructor TGpFixedMemoryStream.Create(const data; size: integer);
+begin
+  inherited Create;
+  SetBuffer(data, size);
+end; { TGpFixedMemoryStream.Create }
+
+constructor TGpFixedMemoryStream.Create(const data: string);
+begin
+  inherited Create;
+  if data = '' then
+    SetBuffer(self, 0)
+  else
+    SetBuffer(data[1], Length(data)*SizeOf(char));
+end; { TGpFixedMemoryStream.Create }
+
+constructor TGpFixedMemoryStream.CreateA(const data: AnsiString);
+begin
+  inherited Create;
+  if data = '' then
+    SetBuffer(self, 0)
+  else
+    SetBuffer(data[1], Length(data)*SizeOf(AnsiChar));
+end; { TGpFixedMemoryStream.Create }
+
+function TGpFixedMemoryStream.Read(var data; size: integer): integer;
+begin
+  Result := size;
+  if (fmsPosition + Result) > fmsSize then
+    Result := fmsSize - fmsPosition;
+  if Result < 0 then
+    Result := 0
+  else if Result > 0 then begin
+    Move(pointer(integer(fmsBuffer)+fmsPosition)^, data, Result);
+    fmsPosition := fmsPosition + Result
+  end;
+end; { TGpFixedMemoryStream.Read }
+
+function TGpFixedMemoryStream.Seek(offset: longint; origin: word): longint;
+begin
+  if origin = soFromBeginning then
+    fmsPosition := offset
+  else if origin = soFromCurrent then
+    fmsPosition := fmsPosition + offset
+  else
+    fmsPosition := fmsSize - offset;
+  Result := fmsPosition;
+end; { TGpFixedMemoryStream.Seek }
+
+procedure TGpFixedMemoryStream.SetBuffer(const data; size: integer);
+begin
+  fmsBuffer  := @data;
+  fmsSize    := size;
+  fmsPosition:= 0;
+end; { TGpFixedMemoryStream.SetBuffer }
+
+procedure TGpFixedMemoryStream.SetPosition(const value: integer);
+begin
+  if (value < 0) or (value > fmsSize) then
+    raise Exception.CreateFmt(
+      'TGpFixedMemoryStream.SetPosition: Invalid position %d, should lie in range [0, %d].',
+      [value, fmsSize-1]);
+  fmsPosition := value;
+end; { TGpFixedMemoryStream.SetPosition }
+
+function TGpFixedMemoryStream.Write(const data; size: integer): integer;
+begin
+  if (fmsPosition+size) > fmsSize then size := fmsSize-fmsPosition;
+  Move(data,pointer(integer(fmsBuffer)+fmsPosition)^,size);
+  fmsPosition := fmsPosition + size;
+  Write := size;
+end; { TGpFixedMemoryStream.Write }
+{$ENDREGION}
 //initialization
 //  GpLog.FileName := 'GpStructuredStorage.log';
 //  GpLog.LoggingType := ltFastFile;

@@ -32,8 +32,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    Creation date     : 2002-07-04
    Last modification : 2012-03-16
    Version           : 1.60
-</pre>*)(*
-   History:
+
+</pre>*)
+(*   History:
      GRAEME -- 001
             GetCurrentThreadID Patch to work with macosx and FreeBSD
             jkoz-- converted to PtrUInt in fpc permanently.
@@ -253,7 +254,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      1.01: 2002-09-23
        - Added method TIntegerList.IndexOf.
 *)
+{-- Evosi Changes
+    JKOZ  1  : added supported for FPC compiler enabling only the most basic defines.
+    JKOZ  2  : TFifoBlock on the constructor the assumption is made that the stream will return
+               the same size data as asked for needs to ammented and the variables
+               should hold the true values. Need to do more testing on the subject to see if
+               this will make any difference on the long run.
+    GRAEME 1 : changed the GetCurrentThreadID to an internal function to make it
+               work with FreeBSD. I changed the cardinal result to a PTRUINT.
 
+}
 unit GpLists;
 
 interface
@@ -281,12 +291,16 @@ interface
   {$ENDIF}
 {$ENDIF}
 
+
 {$IFDEF FPC}
   {$MODE DELPHI}
   {.$DEFINE GpLists_Enumerators}
   {$DEFINE GpLists_Sorting}
   {$DEFINE GpLists_Inline}
 {$ENDIF}
+
+{EVOSI SPECIFIC SCHANGES}
+  {.$DEFINE EVS_CHNG1}
 uses
   {$IFNDEF FPC}
   Windows,
@@ -6278,8 +6292,17 @@ begin
     onGetMem(FMemEventSender, bufSize, FData)
   else
     GetMem(FData, bufSize);
+  {$IFDEF EVS_CHNG1}
+  //JKOZ 2 assumption with the datasize.
+  FDataSize := data.Read(FData^, bufSize);
+  // do I need to make sure that the rest of the bufsize is zero or should
+  // I raise an exception at this point?
+
+  //if FDataSize < bufSize then FillByte(FData^[FDataSize + 1], bufSize-FDataSize-1, 0);
+  {$ELSE}
   data.Read(FData^, bufSize);
   FDataSize := bufSize;
+  {$ENDIF}
   FMemEventSender := memoryEventSender;
   FOnFreeMem := onFreeMem;
 end; { TFifoBlock.Create }

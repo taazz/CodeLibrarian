@@ -6,11 +6,13 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, SynEdit, SynHighlighterPas, ActnList, StdActns, Menus,
-  GpStructuredStorage;
+  ExtCtrls, SynEdit, ActnList, StdActns, Menus, Buttons, Grids, StdCtrls,
+  SynEditHighlighter, SynHighlighterPas, SynHighlighterVB, SynHighlighterSQL,
+  SynHighlighterPython, SynHighlighterPHP, SynHighlighterPerl,
+  SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp, GpStructuredStorage,
+  SynHighlighterMulti, SynHighlighterJScript;
 
 type
-
   { TMainFrm }
 
   TMainFrm = class(TForm)
@@ -27,12 +29,14 @@ type
     actExpandAll     : TAction;
     actCollapseAll   : TAction;
     actCompact       : TAction;
+    actSetHighlighter: TAction;
     actSnippetNew    : TAction;
     actSnippetSave   : TAction;
     actFileNew       : TFileOpen;
     actFileImport    : TFileOpen;
     imlMain          : TImageList;
     MenuItem2        : TMenuItem;
+    MenuItem3        : TMenuItem;
     mniDelete        : TMenuItem;
     mniSepItem       : TMenuItem;
     mniSepItem6      : TMenuItem;
@@ -54,10 +58,20 @@ type
     mnuEditCut       : TMenuItem;
     mnuEditCopy      : TMenuItem;
     mnuEdit          : TMenuItem;
+    pmnuTree         : TPopupMenu;
     Splitter1        : TSplitter;
     StatusBar1       : TStatusBar;
     snEditor         : TSynEdit;
     shlPascal        : TSynFreePascalSyn;
+    shlBAT           : TSynBatSyn;
+    shlCPP           : TSynCppSyn;
+    shlJava          : TSynJavaSyn;
+    shlPerl          : TSynPerlSyn;
+    shlPHP           : TSynPHPSyn;
+    shlPython        : TSynPythonSyn;
+    shlSQL           : TSynSQLSyn;
+    shlVB            : TSynVBSyn;
+    shlMultiHl : TSynMultiSyn;
     ToolBar1         : TToolBar;
     btnFileOpen      : TToolButton;
     btnExpandAll     : TToolButton;
@@ -86,37 +100,53 @@ type
     procedure actFileOpenAccept       (Sender : TObject);
     procedure actFolderNewExecute     (Sender : TObject);
     procedure actFolderRootNewExecute (Sender : TObject);
+    procedure actSetHighlighterExecute(Sender : TObject);
     procedure actSnippetNewExecute    (Sender : TObject);
     procedure actSnippetSaveExecute   (Sender : TObject);
     procedure actSnippetSaveUpdate    (Sender : TObject);
-    procedure FormClose(Sender : TObject; var CloseAction : TCloseAction);
+    procedure FormClose               (Sender : TObject;
+                                       var CloseAction : TCloseAction);
     procedure snEditorExit            (Sender : TObject);
+    procedure Splitter1Moved          (Sender : TObject);
     procedure tvDataChange            (Sender : TObject; Node : TTreeNode);
     procedure tvDataChanging          (Sender : TObject; Node : TTreeNode;
                                        var AllowChange : Boolean);
+
+    // called when the tree view text editor finsihed editting aka renaming a node
     procedure tvDataEdited            (Sender : TObject; Node : TTreeNode; var S : string);
   private
     { private declarations }
 
-    FAutoExpandNodes : Boolean;
-    FCodeLib         : IGpStructuredStorage;
+    FAutoExpandNodes    : Boolean;  //for ??
+    FCodeLib            : IGpStructuredStorage; // library file opened.
+    FDefaultHighlighter : TSynCustomHighlighter;// always set to shlPascal user selectable in the future.
+    FShlJavaScript      : TSynCustomHighlighter;
+    function DefaultHighLighter(aFileName: String)                        : TSynCustomHighlighter;overload;
+    function DefaultHighLighter(aNode    : TTreeNode)                     : TSynCustomHighlighter;overload;
+    function GetHighLighter    (aFileName: string)                        : TSynCustomHighlighter;overload;
+    function GetHighLighter    (aNode    : TTreeNode)                     : TSynCustomHighlighter;overload;
+    function HighLighterTitle  (const aHighLighter: TSynCustomHighlighter): string;
 
-    function GetNodePath (aNode:TTreeNode)                                             : String;
-    function IsFolder    (aNode:TTreeNode)                                             : Boolean;
-    function IsFile      (aNode:TTreeNode)                                             : Boolean;
-    function UniqueName  (aPath:string;Folder:Boolean)                                 : string;
-    function NewNode     (const aParent:TTreeNode; aText:String; Folder:Boolean = True): TTreeNode;
-    procedure SetAutoExpandNodes (aValue      : Boolean);
-    procedure ValidateName       (aObjectName : string);
-    procedure ValidateFileName   (aName       : string);
-    procedure SaveData           (const aNode:TTreeNode);
+    function GetNodePath(aNode:TTreeNode)                                             : String;
+    function IsFile     (aNode:TTreeNode)                                             : Boolean;
+    function IsFolder   (aNode:TTreeNode)                                             : Boolean;
+    function NewNode    (const aParent:TTreeNode; aText:String; Folder:Boolean = True): TTreeNode;
+    function UniqueName (aPath:string;Folder:Boolean)                                 : string;
+
+    procedure BuildHighLightPopup(const aParent     : TMenuItem);
+    procedure CheckMenu          (const aHighlighter: TSynCustomHighlighter);
+    procedure SaveData           (const aNode: TTreeNode);
+    procedure SetAutoExpandNodes (aValue     : Boolean);
+    procedure SetHighlighter     (const aHighlighter: TSynCustomHighlighter; const aFile:string);
+    procedure ValidateFileName   (aName      : string);// raise exception on invalid characters in the filename path must not be included.
+    procedure ValidateName       (aObjectName: string);//make sure that the objectname passed is a valid filename with path.
     procedure LoadCodeLib;
   public
     { public declarations }
     constructor Create(TheOwner : TComponent); override;
 
-    procedure OpenLibrary   (aName       : string);
-    procedure ImportLib     (const aFileName:string; const aRootFolder : string = '');
+    procedure OpenLibrary(aName : string);
+    procedure ImportLib  (const aFileName:string; const aRootFolder : string = '');
     //when true it opens all tree nodes when opening a library.
     property AutoExpandNodes : Boolean read FAutoExpandNodes write SetAutoExpandNodes;
   end;
@@ -133,10 +163,20 @@ resourcestring
   FilePrefix            = 'Snippet ';
   rsclbUniqueNameFailed = 'Unable to find unique Name';
   rsInvalidName         = 'Invalid Object name <%S>';
-
+  rsHLPascal            = 'Pascal';
+  rsHLVb                = 'Visual Basic';
+  rsHLSql               = 'SQL';
+  rsHLPython            = 'Python';
+  rsHLPHP               = 'PHP';
+  rsHLPerl              = 'Perl';
+  rsHLJava              = 'Java';
+  rsHLBat               = '.Bat';
+  rsHLCPP               = 'C / C++';
+  rsHLJavaScript        = 'JavaScript';
 
 const
   cCodeLibPathSep     = '/';
+  cHighlighter        = 'Highlighter';
   tpSnippet           = 1;
   tpFolder            = 2;
   idxFolderNormal     = 9;
@@ -144,7 +184,31 @@ const
   idxSnippetNormal    = 11;
   idxSnippetSelected  = 11;
 
+type
+  THighlighterData = record
+    Title       : String;
+    Instance    : TSynCustomHighlighter;
+  end;
+
+var
+  LangTitles : array[1..10] of THighlighterData = ((Title:rsHLPascal;  Instance:Nil), (Title:rsHLVb;         Instance:Nil),
+                                                   (Title:rsHLSql;     Instance:Nil), (Title:rsHLPython;     Instance:Nil),
+                                                   (Title:rsHLPHP;     Instance:Nil), (Title:rsHLPerl;       Instance:Nil),
+                                                   (Title:rsHLJava;    Instance:Nil), (Title:rsHLBat;        Instance:Nil),
+                                                   (Title:rsHLCPP;     Instance:Nil), (Title:rsHLJavaScript; Instance:Nil)
+                                                  );
+//type
+  //TLibFolder = class
+  //
+  //end;
+  //
+  //TLibFile   = class
+  //
+  //end;
+
 function addSlash(aItem:string):string;
+var
+  vTmp : array of string;
 begin
   if aItem[Length(aItem)] <> cCodeLibPathSep then Result := aItem + cCodeLibPathSep else Result := aItem;
 end;
@@ -211,6 +275,17 @@ begin
   FCodeLib.CreateFolder(vPath+vName);
   vNode := NewNode(nil, vName);
   tvData.Selected := vNode;
+end;
+
+procedure TMainFrm.actSetHighlighterExecute(Sender : TObject);
+var
+  vCntr : Integer;
+begin
+  if (Sender is TMenuItem) and (TMenuItem(sender).Tag <> 0) then begin
+    for vCntr := 0 to tvData.SelectionCount -1 do begin
+      SetHighlighter(TSynCustomHighlighter(TMenuItem(Sender).Tag),GetNodePath(tvData.Selections[vCntr]));
+    end;
+  end;
 end;
 
 procedure TMainFrm.actSnippetNewExecute(Sender : TObject);
@@ -337,6 +412,11 @@ begin
   if snEditor.Modified then SaveData(tvData.Selected);
 end;
 
+procedure TMainFrm.Splitter1Moved(Sender : TObject);
+begin
+  StatusBar1.Panels[0].Width := tvData.Width+1;
+end;
+
 procedure TMainFrm.tvDataChange(Sender : TObject; Node : TTreeNode);
 var
   vFile : String;
@@ -346,11 +426,16 @@ begin
     vFile := GetNodePath(Node);
     vStrm := FCodeLib.OpenFile(vFile,fmOpenReadWrite);
     try
-      snEditor.Lines.LoadFromStream(vStrm)
+      snEditor.Lines.LoadFromStream(vStrm);
     finally
       vStrm.Free;
     end;
-  end;// else snEditor.ClearAll;
+  end else begin
+    snEditor.ClearAll;
+  end;
+  snEditor.Highlighter := GetHighLighter(vFile);
+  CheckMenu(snEditor.Highlighter);
+  StatusBar1.Panels[1].Text := HighLighterTitle(snEditor.Highlighter);
 end;
 
 procedure TMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode;
@@ -440,10 +525,28 @@ end;
 function TMainFrm.NewNode(const aParent : TTreeNode; aText : String;
   Folder : Boolean) : TTreeNode;
 begin
-  Result               := tvData.Items.AddChild(aParent, aText);
-  Result.Data          := IfThen(Folder, Pointer(tpFolder), Pointer(tpSnippet) );
-  Result.ImageIndex    := IfThen(Folder, idxFolderNormal,   idxSnippetNormal   );
-  Result.SelectedIndex := IfThen(Folder, idxFolderSelected, idxSnippetSelected );
+  Result := tvData.Items.AddChild(aParent, aText);
+  if Folder then begin
+    Result.Data          := Pointer(tpFolder);
+    Result.ImageIndex    := idxFolderNormal;
+    Result.SelectedIndex := idxFolderSelected;
+  end else begin
+    Result.Data          := Pointer(tpSnippet);
+    Result.ImageIndex    := idxSnippetNormal;
+    Result.SelectedIndex := idxSnippetSelected;
+  end;
+end;
+
+function TMainFrm.HighLighterTitle(const aHighLighter: TSynCustomHighlighter): string;
+var
+  vCntr : Integer;
+begin
+  Result := '';
+  for vCntr := low(LangTitles) to High(LangTitles) do
+    if LangTitles[vCntr].Instance = aHighLighter then begin
+      Result := LangTitles[vCntr].Title;
+      Break;
+    end;
 end;
 
 procedure TMainFrm.ValidateName(aObjectName : String);
@@ -485,11 +588,39 @@ begin
   end;
 end;
 
+procedure TMainFrm.SetHighlighter(const aHighlighter : TSynCustomHighlighter; const aFile : string);
+begin
+  FCodeLib.GetFileInfo(aFile).SetAttribute(cHighlighter,aHighlighter.Name);
+  snEditor.Highlighter := aHighlighter;
+end;
+
 
 constructor TMainFrm.Create(TheOwner : TComponent);
 begin
   inherited Create(TheOwner);
   FCodeLib := CreateStorage;
+
+  FShlJavaScript          := TSynJScriptSyn.Create(Self);
+  FShlJavaScript.IdentifierAttribute.Foreground := clNone;
+  FShlJavaScript.CommentAttribute.Foreground := $00A2A2A2;
+  FShlJavaScript.KeywordAttribute.Foreground := clNavy;
+  //FShlJavaScript.NumberAttribute.ForeGround  := $004080FF;
+  FShlJavaScript.StringAttribute.ForeGround  := $003FB306;
+  FShlJavaScript.SymbolAttribute.ForeGround  := $00A25151;
+  //FShlJavaScript.VariableAttribute.ForeGround  := clNavy;
+
+  LangTitles[01].Instance := shlPascal;
+  LangTitles[02].Instance := shlVB;
+  LangTitles[03].Instance := shlSQL;
+  LangTitles[04].Instance := shlPython;
+  LangTitles[05].Instance := shlPHP;
+  LangTitles[06].Instance := shlPerl;
+  LangTitles[07].Instance := shlJava;
+  LangTitles[08].Instance := shlBAT;
+  LangTitles[09].Instance := shlCPP;
+  LangTitles[10].Instance := FShlJavaScript;
+  BuildHighLightPopup(pmnuTree.Items);
+  FDefaultHighlighter := shlPascal;
 end;
 
 procedure TMainFrm.LoadCodeLib;
@@ -515,7 +646,7 @@ procedure TMainFrm.LoadCodeLib;
       end;
     finally
       vFolders.Free;
-      VFiles.Free;
+      vFiles.Free;
     end;
   end;
 
@@ -526,9 +657,80 @@ begin
     tvData.SortType := stNone;
     LoadNodeFolder(nil);
     tvData.Selected := nil;
+    snEditor.ClearAll;
   finally
     tvData.SortType := stText;
     tvData.Items.EndUpdate;
+  end;
+end;
+
+procedure TMainFrm.BuildHighLightPopup(const aParent : TMenuItem);
+var
+  vCntr : Integer;
+  vMni  : TMenuItem;
+begin
+  aParent.Clear;
+  for vCntr := Low(LangTitles) to High(LangTitles) do begin
+    if LangTitles[vCntr].Instance <> nil then begin
+      vMni           := TMenuItem.Create(Self);
+      vMni.Caption   := LangTitles[vCntr].Title;
+      vMni.Tag       := PtrUInt(LangTitles[vCntr].Instance);
+      vMni.OnClick   := @actSetHighlighterExecute;
+      vMni.AutoCheck := True;
+      vMni.RadioItem := True;
+      vMni.GroupIndex:= 1;
+      vMni.Checked   := (LangTitles[vCntr].Instance = FDefaultHighlighter);
+      aParent.Add(vMni);
+    end;
+  end;
+end;
+
+procedure TMainFrm.CheckMenu(const aHighlighter : TSynCustomHighlighter);
+var
+  vCntr : Integer;
+begin
+  for vCntr := 0 to pmnuTree.Items.Count -1 do begin
+    if (pmnuTree.Items[vCntr].Tag = PtrInt(aHighlighter)) and (not pmnuTree.Items[vCntr].Checked) then begin
+      pmnuTree.Items[vCntr].Checked := True;
+      Break;
+    end;
+  end;
+end;
+
+function TMainFrm.DefaultHighLighter(aNode : TTreeNode) : TSynCustomHighlighter;
+begin
+  Result := DefaultHighLighter(GetNodePath(aNode));
+end;
+
+function TMainFrm.DefaultHighLighter(aFileName : String) : TSynCustomHighlighter;
+begin
+  Result := shlPascal;
+end;
+
+function TMainFrm.GetHighLighter(aNode : TTreeNode) : TSynCustomHighlighter;
+begin
+  Result := GetHighLighter(GetNodePath(aNode));
+end;
+
+function TMainFrm.GetHighLighter(aFileName : string) : TSynCustomHighlighter;
+var
+  vTmp : string;
+  vFN  : string;
+  vCmp : TComponent;
+  function Highlighter(const aFName:string):TSynCustomHighlighter;
+  begin
+    Result := Nil;
+    vTmp := FCodeLib.GetFileInfo(aFName).GetAttribute(cHighlighter);
+    vCmp := FindComponent(vTmp);
+    if (vCmp is TSynCustomHighlighter) then Result := TSynCustomHighlighter(vCmp);
+  end;
+begin
+  vFN := aFileName;
+  Result := Highlighter(vFN);
+  while (Result = nil) do begin
+   vFN := FCodeLib.ParentFolder(vFN);
+   Result := Highlighter(vFN);
+   if ((vFN = '') or (vFN = '/')) and (Result = nil) then Result := FDefaultHighlighter;
   end;
 end;
 

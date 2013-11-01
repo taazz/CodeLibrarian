@@ -66,6 +66,7 @@
       <Unit4>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="GpStructuredStorage"/>
       </Unit4>
     </Units>
   </ProjectOptions>
