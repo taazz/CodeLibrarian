@@ -243,6 +243,9 @@ type
 }
 function CreateStorage:IGpStructuredStorage;
 procedure SetCustomSignature(const aSing:AnsiString);
+function IsStructuredStorage(const aFilename:string):Boolean;overload;
+function IsStructuredStorage(const aStream:TStream):Boolean;overload;
+
 implementation
                  
 uses
@@ -756,6 +759,31 @@ type
 //begin
 //  Result := TGpStructuredStorage.Create;
 //end; { CreateStructuredStorage }
+function IsStructuredStorage(const aFilename:string):Boolean;
+var
+  vTmp : TGpStructuredStorage;
+begin
+  Result := False;
+  vTmp := TGpStructuredStorage.Create;
+  try
+    Result := vTmp.IsStructuredStorage(aFilename);
+  finally
+    vTmp.Free;
+  end;
+end;
+
+function IsStructuredStorage(const aStream:TStream):Boolean;
+var
+  vTmp : TGpStructuredStorage;
+begin
+  Result := False;
+  vTmp := TGpStructuredStorage.Create;
+  try
+    Result := vTmp.IsStructuredStorage(aStream);
+  finally
+    vTmp.Free;
+  end;
+end;
 
 function CreateStorage : IGpStructuredStorage;
 begin

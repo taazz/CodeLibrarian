@@ -3,8 +3,8 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release"/>
-    <Units Count="28">
+    <BuildModes Active="Debug"/>
+    <Units Count="34">
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -14,20 +14,16 @@
       <Unit1>
         <Filename Value="umainform.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="MainFrm"/>
+        <ComponentName Value="SnippetsMainFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMainForm"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="289"/>
-        <CursorPos X="27" Y="302"/>
-        <FoldState Value=" T3m00E3E"/>
+        <TopLine Value="754"/>
+        <CursorPos X="28" Y="785"/>
         <UsageCount Value="332"/>
-        <Bookmarks Count="1">
-          <Item0 X="56" Y="593" ID="0"/>
-        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -35,70 +31,75 @@
         <Filename Value="..\Components\GpLists.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpLists"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1858"/>
+        <TopLine Value="1856"/>
         <CursorPos X="57" Y="1869"/>
         <FoldState Value=" TK00Z1 T7pYG66 pjJlWJ{03 pkHnVfA315 TCr5J78H"/>
         <UsageCount Value="332"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpStructuredStorage"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3052"/>
-        <CursorPos X="7" Y="3066"/>
+        <TopLine Value="3030"/>
+        <CursorPos X="16" Y="3053"/>
+        <FoldState Value=" TK00a1$"/>
         <UsageCount Value="332"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
+        <Filename Value="uoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="EvsOptionsForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uOptions"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="23"/>
+        <CursorPos X="34" Y="31"/>
+        <UsageCount Value="191"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit4>
+      <Unit5>
         <Filename Value="..\Components\GpStreams.pas"/>
         <UnitName Value="GpStreams"/>
         <WindowIndex Value="0"/>
         <TopLine Value="894"/>
         <CursorPos X="1" Y="901"/>
         <FoldState Value=" TK00X1 TIkU2F T7pMM) T3+g038I"/>
-        <UsageCount Value="296"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="..\Components\GpStuff.pas"/>
-        <UnitName Value="GpStuff"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="396"/>
-        <CursorPos X="1" Y="1"/>
-        <FoldState Value=" TK0091 TIoZ2s02142 TCkNJQ]K7lRO35}"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="279"/>
       </Unit5>
       <Unit6>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\threadh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="126"/>
         <CursorPos X="11" Y="143"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="100"/>
       </Unit6>
       <Unit7>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\win\sysosh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="3" Y="25"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="100"/>
       </Unit7>
       <Unit8>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1757"/>
         <CursorPos X="14" Y="1773"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="100"/>
       </Unit8>
       <Unit9>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\classes\streams.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="3" Y="29"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="100"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\packages\fcl-base\src\custapp.pp"/>
@@ -106,15 +107,15 @@
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="14" Y="73"/>
-        <UsageCount Value="103"/>
+        <UsageCount Value="86"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\Components\Common\Src\uevsmisc.pas"/>
         <UnitName Value="UEvsMisc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="259"/>
-        <CursorPos X="3" Y="261"/>
-        <UsageCount Value="99"/>
+        <TopLine Value="249"/>
+        <CursorPos X="63" Y="256"/>
+        <UsageCount Value="83"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\Components\Common\Src\uevstypes.pas"/>
@@ -122,14 +123,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="56"/>
         <CursorPos X="3" Y="94"/>
-        <UsageCount Value="96"/>
+        <UsageCount Value="80"/>
       </Unit12>
       <Unit13>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\sysutils\osutilsh.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="10" Y="39"/>
-        <UsageCount Value="96"/>
+        <TopLine Value="32"/>
+        <CursorPos X="3" Y="61"/>
+        <UsageCount Value="80"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\win\sysutils.pp"/>
@@ -137,7 +138,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1025"/>
         <CursorPos X="45" Y="1092"/>
-        <UsageCount Value="96"/>
+        <UsageCount Value="80"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\lazarus.1.0\lcl\menus.pp"/>
@@ -145,21 +146,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="369"/>
         <CursorPos X="3" Y="387"/>
-        <UsageCount Value="96"/>
+        <UsageCount Value="80"/>
       </Unit15>
       <Unit16>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\sysutils\finah.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="9"/>
-        <CursorPos X="10" Y="31"/>
-        <UsageCount Value="48"/>
+        <TopLine Value="6"/>
+        <CursorPos X="10" Y="23"/>
+        <UsageCount Value="32"/>
       </Unit16>
       <Unit17>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\sysutils\fina.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="340"/>
-        <CursorPos X="3" Y="349"/>
-        <UsageCount Value="48"/>
+        <TopLine Value="87"/>
+        <CursorPos X="3" Y="96"/>
+        <UsageCount Value="32"/>
       </Unit17>
       <Unit18>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\win32\system.pp"/>
@@ -167,21 +168,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="2" Y="42"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="32"/>
       </Unit18>
       <Unit19>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\sysutils\syspchh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="15" Y="17"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="32"/>
       </Unit19>
       <Unit20>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\i386\strings.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="140"/>
         <CursorPos X="10" Y="157"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="32"/>
       </Unit20>
       <Unit21>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\strutils.pp"/>
@@ -189,29 +190,31 @@
         <WindowIndex Value="0"/>
         <TopLine Value="437"/>
         <CursorPos X="3" Y="444"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="32"/>
       </Unit21>
       <Unit22>
         <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="236"/>
-        <CursorPos X="3" Y="253"/>
-        <UsageCount Value="48"/>
+        <TopLine Value="1101"/>
+        <CursorPos X="10" Y="1118"/>
+        <UsageCount Value="38"/>
       </Unit22>
       <Unit23>
         <Filename Value="C:\lazarus.1.0\components\synedit\synhighlighterpas.pp"/>
         <UnitName Value="SynHighlighterPas"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="574"/>
-        <CursorPos X="3" Y="591"/>
-        <UsageCount Value="47"/>
+        <TopLine Value="279"/>
+        <CursorPos X="3" Y="296"/>
+        <UsageCount Value="83"/>
+        <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="C:\lazarus.1.0\lcl\include\treeview.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4321"/>
         <CursorPos X="3" Y="4329"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="8"/>
       </Unit24>
       <Unit25>
         <Filename Value="C:\lazarus.1.0\lcl\comctrls.pp"/>
@@ -219,7 +222,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2881"/>
         <CursorPos X="22" Y="2896"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="7"/>
       </Unit25>
       <Unit26>
         <Filename Value="C:\lazarus.1.0\lcl\controls.pp"/>
@@ -227,112 +230,206 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1281"/>
         <CursorPos X="15" Y="1298"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="7"/>
       </Unit26>
       <Unit27>
         <Filename Value="C:\lazarus.1.0\lcl\include\control.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1332"/>
         <CursorPos X="3" Y="1417"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="7"/>
       </Unit27>
+      <Unit28>
+        <Filename Value="C:\lazarus.1.0\lcl\forms.pp"/>
+        <UnitName Value="Forms"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1360"/>
+        <CursorPos X="21" Y="1369"/>
+        <UsageCount Value="5"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="C:\lazarus.1.0\lcl\include\application.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2208"/>
+        <CursorPos X="25" Y="2234"/>
+        <UsageCount Value="5"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="uvar.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uVar"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="5" Y="18"/>
+        <UsageCount Value="153"/>
+        <Loaded Value="True"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="C:\lazarus.1.0\components\synedit\synedithighlighterfoldbase.pas"/>
+        <UnitName Value="SynEditHighlighterFoldBase"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="249"/>
+        <CursorPos X="3" Y="266"/>
+        <UsageCount Value="54"/>
+        <Loaded Value="True"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="C:\lazarus.1.0\components\synedit\synedithighlighter.pp"/>
+        <UnitName Value="SynEditHighlighter"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="24" Y="28"/>
+        <UsageCount Value="54"/>
+        <Loaded Value="True"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\packages\fcl-base\src\inifiles.pp"/>
+        <UnitName Value="IniFiles"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="602"/>
+        <CursorPos X="31" Y="627"/>
+        <UsageCount Value="32"/>
+        <Loaded Value="True"/>
+      </Unit33>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umainform.pas"/>
-        <Caret Line="431" Column="29" TopLine="414"/>
+        <Caret Line="769" Column="1" TopLine="748"/>
       </Position1>
       <Position2>
         <Filename Value="umainform.pas"/>
-        <Caret Line="432" Column="1" TopLine="414"/>
+        <Caret Line="767" Column="1" TopLine="748"/>
       </Position2>
       <Position3>
         <Filename Value="umainform.pas"/>
-        <Caret Line="737" Column="1" TopLine="720"/>
+        <Caret Line="764" Column="28" TopLine="748"/>
       </Position3>
       <Position4>
         <Filename Value="umainform.pas"/>
-        <Caret Line="738" Column="1" TopLine="720"/>
+        <Caret Line="757" Column="25" TopLine="748"/>
       </Position4>
       <Position5>
         <Filename Value="umainform.pas"/>
-        <Caret Line="739" Column="1" TopLine="720"/>
+        <Caret Line="764" Column="1" TopLine="748"/>
       </Position5>
       <Position6>
         <Filename Value="umainform.pas"/>
-        <Caret Line="740" Column="1" TopLine="720"/>
+        <Caret Line="783" Column="18" TopLine="776"/>
       </Position6>
       <Position7>
         <Filename Value="umainform.pas"/>
-        <Caret Line="744" Column="1" TopLine="720"/>
+        <Caret Line="784" Column="36" TopLine="776"/>
       </Position7>
       <Position8>
         <Filename Value="umainform.pas"/>
-        <Caret Line="745" Column="1" TopLine="720"/>
+        <Caret Line="787" Column="1" TopLine="776"/>
       </Position8>
       <Position9>
         <Filename Value="umainform.pas"/>
-        <Caret Line="746" Column="1" TopLine="720"/>
+        <Caret Line="763" Column="1" TopLine="746"/>
       </Position9>
       <Position10>
         <Filename Value="umainform.pas"/>
-        <Caret Line="747" Column="1" TopLine="720"/>
+        <Caret Line="764" Column="1" TopLine="746"/>
       </Position10>
       <Position11>
         <Filename Value="umainform.pas"/>
-        <Caret Line="745" Column="1" TopLine="720"/>
+        <Caret Line="785" Column="1" TopLine="768"/>
       </Position11>
       <Position12>
         <Filename Value="umainform.pas"/>
-        <Caret Line="749" Column="1" TopLine="721"/>
+        <Caret Line="764" Column="1" TopLine="747"/>
       </Position12>
       <Position13>
         <Filename Value="umainform.pas"/>
-        <Caret Line="436" Column="12" TopLine="411"/>
+        <Caret Line="785" Column="1" TopLine="768"/>
       </Position13>
       <Position14>
         <Filename Value="umainform.pas"/>
-        <Caret Line="439" Column="23" TopLine="411"/>
+        <Caret Line="764" Column="1" TopLine="747"/>
       </Position14>
       <Position15>
         <Filename Value="umainform.pas"/>
-        <Caret Line="745" Column="3" TopLine="728"/>
+        <Caret Line="785" Column="1" TopLine="768"/>
       </Position15>
       <Position16>
         <Filename Value="umainform.pas"/>
-        <Caret Line="746" Column="1" TopLine="728"/>
+        <Caret Line="761" Column="1" TopLine="747"/>
       </Position16>
       <Position17>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3075" Column="1" TopLine="3058"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="823" Column="1" TopLine="806"/>
       </Position17>
       <Position18>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3076" Column="1" TopLine="3058"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="824" Column="1" TopLine="806"/>
       </Position18>
       <Position19>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3077" Column="1" TopLine="3058"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="509" Column="1" TopLine="492"/>
       </Position19>
       <Position20>
-        <Filename Value="..\Components\GpStructuredStorage.pas"/>
-        <Caret Line="3082" Column="1" TopLine="3058"/>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="510" Column="1" TopLine="492"/>
       </Position20>
       <Position21>
         <Filename Value="umainform.pas"/>
-        <Caret Line="746" Column="1" TopLine="728"/>
+        <Caret Line="511" Column="1" TopLine="492"/>
       </Position21>
       <Position22>
         <Filename Value="umainform.pas"/>
-        <Caret Line="735" Column="1" TopLine="728"/>
+        <Caret Line="512" Column="1" TopLine="492"/>
       </Position22>
       <Position23>
         <Filename Value="umainform.pas"/>
-        <Caret Line="745" Column="57" TopLine="728"/>
+        <Caret Line="513" Column="1" TopLine="492"/>
       </Position23>
+      <Position24>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="514" Column="1" TopLine="492"/>
+      </Position24>
+      <Position25>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="513" Column="1" TopLine="492"/>
+      </Position25>
+      <Position26>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="514" Column="1" TopLine="492"/>
+      </Position26>
+      <Position27>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="516" Column="1" TopLine="492"/>
+      </Position27>
+      <Position28>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="517" Column="1" TopLine="492"/>
+      </Position28>
+      <Position29>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="828" Column="1" TopLine="811"/>
+      </Position29>
+      <Position30>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="834" Column="27" TopLine="811"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <Watches Count="2">
+      <Item1 ClassAutoCast="True">
+        <Expression Value="vHLData^"/>
+      </Item1>
+      <Item2>
+        <Expression Value="aHighLighter"/>
+      </Item2>
+    </Watches>
+  </Debugging>
 </CONFIG>
