@@ -26,11 +26,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\CodeLibrarian"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)\CodeLibrarian"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\Components"/>
+            <OtherUnitFiles Value="..\Components;HighLighters"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -55,6 +55,7 @@
             <CompilerMessages>
               <MsgFileName Value=""/>
             </CompilerMessages>
+            <CustomOptions Value="-dDebug"/>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
@@ -70,21 +71,18 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="EvsCommons"/>
+        <PackageName Value="LazControls"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="SynEdit"/>
       </Item2>
       <Item3>
-        <PackageName Value="SynEdit"/>
-      </Item3>
-      <Item4>
         <PackageName Value="LCL"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="9">
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -121,6 +119,21 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uVar"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="HighLighters\uevssynhighlightersql.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uEvsSynhighlightersql"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="HighLighters\StrConst.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="StrConst"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="HighLighters\synhighlightercs.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SynHighlighterCS"/>
+      </Unit8>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -131,10 +144,11 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\Components"/>
+      <OtherUnitFiles Value="..\Components;HighLighters"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
@@ -142,6 +156,7 @@
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
+        <StripSymbols Value="True"/>
       </Debugging>
       <LinkSmart Value="True"/>
       <Options>
@@ -154,6 +169,7 @@
       <CompilerMessages>
         <MsgFileName Value=""/>
       </CompilerMessages>
+      <CustomOptions Value="-dRelease"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
