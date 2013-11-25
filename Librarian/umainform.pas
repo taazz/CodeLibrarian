@@ -301,7 +301,7 @@ var
   vCntr : Integer;
 begin
   Result := '';
-  if not Assigned(aHighlighter) then begin
+  if Assigned(aHighlighter) then begin
     for vCntr := low(LangTitles) to High(LangTitles) do begin
       if LangTitles[vCntr].Instance = aHighlighter then begin
         Result := LangTitles[vCntr].Title;
