@@ -10,7 +10,7 @@ uses
   SynEditHighlighter, SynHighlighterPas, SynHighlighterVB, SynHighlighterSQL,
   SynHighlighterPython, SynHighlighterPHP, SynHighlighterPerl, SynHighlighterJava,
   SynHighlighterBat, SynHighlighterCpp, GpStructuredStorage, SynHighlighterMulti,
-  SynHighlighterJScript, synhighlighterunixshellscript, uVar;
+  SynHighlighterJScript, synhighlighterunixshellscript, uVar, sqldb;
 
 type
   { TSnippetsMainFrm }
@@ -35,7 +35,6 @@ type
     actSnippetSave    : TAction;
     actFileNew        : TFileOpen;
     actFileImport     : TFileOpen;
-    ImageList1 : TImageList;
     imlMain           : TImageList;
     mnuMain           : TMainMenu;
     MenuItem2         : TMenuItem;
@@ -209,6 +208,7 @@ resourcestring
   rsHLMsSQL             = 'MsSQL Dialect';
   rsHLASM               = 'Assembly';
   rsHLCS                = 'C#';
+  rsHLSQLite            = 'SQLite';
 
 const
   cHighlighter        = 'Highlighter';
@@ -254,28 +254,31 @@ const
   idxSnippetAsmSelected       = 37;
   idxSnippetCSNormal          = 38;
   idxSnippetCSSelected        = 38;
+  idxSnippetSqliteNormal      = 39;
+  idxSnippetSqliteSelected    = 39;
 
 
 var
-  LangTitles : array[0..16] of THighlighterData =
-    ((Title:rsHLNone;       Instance:Nil;IconIndexNormal:idxSnippetNormal;            IconIndexSelected:idxSnippetSelected),
-     (Title:rsHLPascal;     Instance:Nil;IconIndexNormal:idxSnippetPascalNormal;      IconIndexSelected:idxSnippetPascalSelected),
-     (Title:rsHLVb;         Instance:Nil;IconIndexNormal:idxSnippetVBNormal;          IconIndexSelected:idxSnippetVBSelected),
-     (Title:rsHLPython;     Instance:Nil;IconIndexNormal:idxSnippetPythonNormal;      IconIndexSelected:idxSnippetPythonSelected),
-     (Title:rsHLPHP;        Instance:Nil;IconIndexNormal:idxSnippetPHPNormal;         IconIndexSelected:idxSnippetPHPSelected),
-     (Title:rsHLPerl;       Instance:Nil;IconIndexNormal:idxSnippetPerlNormal;        IconIndexSelected:idxSnippetPerlSelected),
-     (Title:rsHLJava;       Instance:Nil;IconIndexNormal:idxSnippetJavaNormal;        IconIndexSelected:idxSnippetJavaSelected),
-     (Title:rsHLBat;        Instance:Nil;IconIndexNormal:idxSnippetBatNormal;         IconIndexSelected:idxSnippetBatSelected),
-     (Title:rsHLCPP;        Instance:Nil;IconIndexNormal:idxSnippetCppNormal;         IconIndexSelected:idxSnippetCppSelected),
-     (Title:rsHLJavaScript; Instance:Nil;IconIndexNormal:idxSnippetJScriptNormal;     IconIndexSelected:idxSnippetJScriptSelected),
-     (Title:rsHLCS;         Instance:Nil;IconIndexNormal:idxSnippetCSNormal;          IconIndexSelected:idxSnippetCSSelected),
+  LangTitles : array[0..17] of THighlighterData =
+{00}    ((Title:rsHLNone;       Instance:Nil;IconIndexNormal:idxSnippetNormal;            IconIndexSelected:idxSnippetSelected),
+{01}     (Title:rsHLPascal;     Instance:Nil;IconIndexNormal:idxSnippetPascalNormal;      IconIndexSelected:idxSnippetPascalSelected),
+{02}     (Title:rsHLVb;         Instance:Nil;IconIndexNormal:idxSnippetVBNormal;          IconIndexSelected:idxSnippetVBSelected),
+{03}     (Title:rsHLPython;     Instance:Nil;IconIndexNormal:idxSnippetPythonNormal;      IconIndexSelected:idxSnippetPythonSelected),
+{04}     (Title:rsHLPHP;        Instance:Nil;IconIndexNormal:idxSnippetPHPNormal;         IconIndexSelected:idxSnippetPHPSelected),
+{05}     (Title:rsHLPerl;       Instance:Nil;IconIndexNormal:idxSnippetPerlNormal;        IconIndexSelected:idxSnippetPerlSelected),
+{06}     (Title:rsHLJava;       Instance:Nil;IconIndexNormal:idxSnippetJavaNormal;        IconIndexSelected:idxSnippetJavaSelected),
+{07}     (Title:rsHLBat;        Instance:Nil;IconIndexNormal:idxSnippetBatNormal;         IconIndexSelected:idxSnippetBatSelected),
+{08}     (Title:rsHLCPP;        Instance:Nil;IconIndexNormal:idxSnippetCppNormal;         IconIndexSelected:idxSnippetCppSelected),
+{09}     (Title:rsHLJavaScript; Instance:Nil;IconIndexNormal:idxSnippetJScriptNormal;     IconIndexSelected:idxSnippetJScriptSelected),
+{10}     (Title:rsHLCS;         Instance:Nil;IconIndexNormal:idxSnippetCSNormal;          IconIndexSelected:idxSnippetCSSelected),
      /// SQL HighLighters make sure they are the lastr ones in the array.
-     (Title:rsHLSql;        Instance:Nil;IconIndexNormal:idxSnippetSqlNormal;         IconIndexSelected:idxSnippetSqlSelected),
-     (Title:rsHLFirebird;   Instance:Nil;IconIndexNormal:idxSnippetFireBirdNormal;    IconIndexSelected:idxSnippetFirebirdSelected),
-     (Title:rsHLOracleSql;  Instance:Nil;IconIndexNormal:idxSnippetOracleNormal;      IconIndexSelected:idxSnippetOracleSelected),
-     (Title:rsHLPostgreSQL; Instance:Nil;IconIndexNormal:idxSnippetPostgresNormal;    IconIndexSelected:idxSnippetPostgresSelected),
-     (Title:rsHLMySQL;      Instance:Nil;IconIndexNormal:idxSnippetMySQLNormal;       IconIndexSelected:idxSnippetMySQLSelected),
-     (Title:rsHLMsSQL;      Instance:Nil;IconIndexNormal:idxSnippetMsSQLNormal;       IconIndexSelected:idxSnippetMsSQLSelected)
+{11}     (Title:rsHLSql;        Instance:Nil;IconIndexNormal:idxSnippetSqlNormal;         IconIndexSelected:idxSnippetSqlSelected),
+{12}     (Title:rsHLFirebird;   Instance:Nil;IconIndexNormal:idxSnippetFireBirdNormal;    IconIndexSelected:idxSnippetFirebirdSelected),
+{13}     (Title:rsHLOracleSql;  Instance:Nil;IconIndexNormal:idxSnippetOracleNormal;      IconIndexSelected:idxSnippetOracleSelected),
+{14}     (Title:rsHLPostgreSQL; Instance:Nil;IconIndexNormal:idxSnippetPostgresNormal;    IconIndexSelected:idxSnippetPostgresSelected),
+{15}     (Title:rsHLMySQL;      Instance:Nil;IconIndexNormal:idxSnippetMySQLNormal;       IconIndexSelected:idxSnippetMySQLSelected),
+{16}     (Title:rsHLMsSQL;      Instance:Nil;IconIndexNormal:idxSnippetMsSQLNormal;       IconIndexSelected:idxSnippetMsSQLSelected),
+{17}     (Title:rsHLSQLite;     Instance:Nil;IconIndexNormal:idxSnippetSqliteNormal;      IconIndexSelected:idxSnippetSqliteSelected)
     );
 
 function Languages: StringArray;
@@ -733,6 +736,7 @@ begin
   LoadCodeLib;
   FLastLibrary := aName;
   if FAutoExpandNodes then ExpandTreeNodes(FAutoExpandAll);
+  StatusBar1.Panels[1].Text := aName;
 end;
 
 procedure TSnippetsMainFrm.SaveData(const aNode : TTreeNode);
@@ -789,16 +793,36 @@ begin
   //TSynAsmSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
   ////TSynAsmSyn(Result).VariableAttribute.ForeGround   := clNavy;
 end;
+
 function CSharpHighlighter : TSynCustomHighlighter;
 begin
-  Result := TSynCSSyn.Create(Self);
-  Result.Name := 'shlCSharp';
-  TSynCSSyn(Result).IdentifierAttribute.Foreground := clNone;
-  TSynCSSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
-  TSynCSSyn(Result).KeywordAttribute.Foreground    := clNavy;
-  TSynCSSyn(Result).NumberAttri.ForeGround         := $004080FF;
-  TSynCSSyn(Result).StringAttribute.ForeGround     := $003FB306;
-  TSynCSSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  //Result := TSynCSSyn.Create(Self);
+  //Result.Name := 'shlCSharp';
+  //TSynCSSyn(Result).IdentifierAttribute.Foreground := clNone;
+  //TSynCSSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+  //TSynCSSyn(Result).KeywordAttribute.Foreground    := clNavy;
+  //TSynCSSyn(Result).NumberAttri.ForeGround         := $004080FF;
+  //TSynCSSyn(Result).StringAttribute.ForeGround     := $003FB306;
+  //TSynCSSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+end;
+
+function SQLiteHighlighter : TSynCustomHighlighter;
+begin
+  Result      := nil;
+  Result      := TEvsSynSQLSyn.Create(Self);
+  Result.Name := 'shlSQLiteSQL';
+  Result.Tag  := cSQLSubMenuStart+6;
+  Result.Assign(shlSQL);
+  TEvsSynSQLSyn(Result).SQLDialect := sqlSQLite;
+end;
+function PostgreSQLHighlighter : TSynCustomHighlighter;
+begin
+  Result      := nil;
+  Result      := TEvsSynSQLSyn.Create(Self);
+  Result.Name := 'shlPostgreSQL';
+  Result.Tag  := cSQLSubMenuStart+3;
+  Result.Assign(shlSQL);
+  TEvsSynSQLSyn(Result).SQLDialect := sqlPostgres;
 end;
 
 begin
@@ -818,15 +842,10 @@ begin
   LangTitles[cSQLSubMenuStart].Instance := shlSQL;
   LangTitles[cSQLSubMenuStart+1].Instance := shlSqlInterbase;
   LangTitles[cSQLSubMenuStart+2].Instance := shlSqlOracle;
-
-  LangTitles[cSQLSubMenuStart+3].Instance := TEvsSynSQLSyn.Create(Self);
-  LangTitles[cSQLSubMenuStart+3].Instance.Name := 'shlPostgreSQL';
-  LangTitles[cSQLSubMenuStart+3].Instance.Tag := cSQLSubMenuStart+3;
-  LangTitles[cSQLSubMenuStart+3].Instance.Assign(shlSQL);
-  TEvsSynSQLSyn(LangTitles[cSQLSubMenuStart+3].Instance).SQLDialect := sqlPostgres;
-
+  LangTitles[cSQLSubMenuStart+3].Instance := PostgreSQLHighlighter;
   LangTitles[cSQLSubMenuStart+4].Instance := shlSqlMySQL;
   LangTitles[cSQLSubMenuStart+5].Instance := shlSqlMsSql2000;
+  LangTitles[cSQLSubMenuStart+6].Instance := SQLiteHighlighter;
 
   BuildHighLightPopup(pmnuTree.Items);
   FDefaultHighlighter := shlPascal;
@@ -1077,7 +1096,7 @@ var
   vCntr : Integer;
 begin
   for vCntr := 0 to pmnuTree.Items.Count -2 do begin
-    if (pmnuTree.Items[vCntr].Tag = PtrInt(aHighlighter)) and (not pmnuTree.Items[vCntr].Checked) then begin
+    if (pmnuTree.Items[vCntr].Tag = PtrInt(aHighlighter)) then begin
       pmnuTree.Items[vCntr].Checked := True;
       Exit;
     end;
