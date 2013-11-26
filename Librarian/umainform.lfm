@@ -5441,6 +5441,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
     Images = imlMain
     ParentFont = False
     PopupMenu = pmnuTree
+    RightClickSelect = True
     SortType = stBoth
     TabOrder = 4
     OnChange = tvDataChange
@@ -5448,6 +5449,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
     OnCompare = tvDataCompare
     OnEdited = tvDataEdited
     OnEditingEnd = tvDataEditingEnd
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoRightClickSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
   end
   object aclMain: TActionList
     Images = imlMain
@@ -7550,6 +7552,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object shlPascal: TSynFreePascalSyn
     Tag = 1
+    Enabled = False
     AsmAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = 10658466
     CommentAttri.FrameEdges = sfeAround

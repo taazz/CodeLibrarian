@@ -159,7 +159,7 @@ type
     procedure LoadCodeLib;
     procedure LoadSettings;
     procedure SaveSettings;
-    procedure SetNodeIcons          (const aNode   : TTreeNode);
+    procedure SetNodeIcons          (const aNode   : TTreeNode; Recursive:Boolean=False);
     procedure SetDefaultHighLighter (const aTitle  : string);
     procedure ResetChildIcons       (const aParent : TTreeNode; const Recursive:boolean = False);
     procedure ExpandTreeNodes       (const aAll    : Boolean = False);
@@ -360,9 +360,12 @@ begin
     tvData.Selected := Nil;
     vNode := NewNode(vNode, vName);
     tvData.Selected := vNode;
+    tvData.AlphaSort;
+    vNode.MakeVisible;
   finally
     tvData.items.EndUpdate;
   end;
+
 end;
 
 procedure TSnippetsMainFrm.actFolderRootNewExecute(Sender : TObject);
@@ -376,8 +379,15 @@ begin
   ValidateFileName(vName);
   ValidateName(vPath + vName);
   FCodeLib.CreateFolder(vPath+vName);
-  vNode := NewNode(nil, vName);
-  tvData.Selected := vNode;
+  tvData.BeginUpdate;
+  try
+    vNode := NewNode(nil, vName);
+    tvData.Selected := vNode;
+    tvData.AlphaSort;
+    vNode.MakeVisible;
+  finally
+    tvData.EndUpdate;
+  end;
 end;
 
 procedure TSnippetsMainFrm.actSetHighlighterExecute(Sender : TObject);
@@ -388,6 +398,7 @@ begin
     for vCntr := 0 to tvData.SelectionCount -1 do begin
       SetHighlighter(TSynCustomHighlighter(TMenuItem(Sender).Tag),GetNodePath(tvData.Selections[vCntr]));
       SetNodeIcons(tvData.Selections[vCntr]);
+      if IsFolder(tvData.Selections[vCntr]) then ResetChildIcons(tvData.Selections[vCntr], True);
     end;
   end;
 end;
@@ -612,6 +623,7 @@ begin
   try
     //Node.Parent.AlphaSort;
     tvData.AlphaSort;
+    Node.MakeVisible;
   finally
     tvData.EndUpdate;
   end;
@@ -769,6 +781,7 @@ end;
 
 
 constructor TSnippetsMainFrm.Create(TheOwner : TComponent);
+
 function JavaScriptHighlighter : TSynCustomHighlighter;
 begin
   Result := TSynJScriptSyn.Create(Self);
@@ -780,6 +793,7 @@ begin
   TSynJScriptSyn(Result).StringAttribute.ForeGround     := $003FB306;
   TSynJScriptSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
 end;
+
 function AssemblyHighlighter : TSynCustomHighlighter;
 begin
   Result := nil;
@@ -815,6 +829,7 @@ begin
   Result.Assign(shlSQL);
   TEvsSynSQLSyn(Result).SQLDialect := sqlSQLite;
 end;
+
 function PostgreSQLHighlighter : TSynCustomHighlighter;
 begin
   Result      := nil;
@@ -969,7 +984,20 @@ begin
   end;
 end;
 
-procedure TSnippetsMainFrm.SetNodeIcons(const aNode : TTreeNode);
+procedure TSnippetsMainFrm.SetNodeIcons(const aNode : TTreeNode; Recursive:Boolean=False);
+  procedure DoRecursive;
+  var
+    vNode   : TTreeNode;
+  begin
+    if Recursive and aNode.HasChildren then begin
+      vNode:= aNode.GetFirstChild;
+      repeat
+        SetNodeIcons(vNode, Recursive);
+        vNode := vNode.GetNextSibling;
+      until vNode = Nil;
+    end;
+  end;
+
 var
   vHL     : TSynCustomHighlighter;
   vHLData : PHighlighterData;
@@ -983,6 +1011,7 @@ begin
     if IsFolder(aNode) then begin
       aNode.ImageIndex    := idxFolderNormal;
       aNode.SelectedIndex := idxFolderSelected;
+      //DoRecursive;
     end else begin
      aNode.ImageIndex    := idxSnippetNormal;
      aNode.SelectedIndex := idxSnippetSelected;
