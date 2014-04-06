@@ -326,6 +326,12 @@ begin
       Result := Result + FileName;
   end;
 end;
+
+function ApplicationFolder : string; inline;
+begin
+  Result := ExtractFilePath(Application.ExeName);
+end;
+
 { TSnippetsMainFrm }
 
 procedure TSnippetsMainFrm.actFileOpenAccept(Sender : TObject);
@@ -922,12 +928,15 @@ var
   vFname       : string;
   vConfig      : TIniFile;
   vShowCaption : Boolean;
+  vLastLib     : string;
 begin
   vFname := uVar.ConfigFileName;
   vConfig := TIniFile.Create(vFname);
   try
     FAutoLoadLast        := vConfig.ReadBool  ('General', 'LoadLast',     False);
-    FLastLibrary         := vConfig.ReadString('General', 'Library',      '');
+    //FLastLibrary         := vConfig.ReadString('General', 'Library',      '');
+    vLastLib             := vConfig.ReadString('General', 'Library',      '');
+    FLastLibrary         := CreateAbsolutePath(vLastLib, ApplicationFolder);
     FAutoExpandNodes     := vConfig.ReadBool  ('General', 'AutoExpand',   False);
     FAutoExpandAll       := vConfig.ReadBool  ('General', 'AllNodes',     True);
     vShowCaption         := vConfig.ReadBool  ('ToolBar', 'ShowCaptions', True);
@@ -941,8 +950,9 @@ end;
 
 procedure TSnippetsMainFrm.SaveSettings;
 var
-  vFname:string;
-  vConfig:TIniFile;
+  vFname   : string;
+  vConfig  : TIniFile;
+  vLastLib : string;
 begin
   vFname := uVar.ConfigFileName;
   vConfig := TIniFile.Create(vFname);
@@ -951,7 +961,8 @@ begin
     vConfig.WriteBool  ('ToolBar', 'ShowCaptions',       ToolBar1.ShowCaptions);
     vConfig.WriteBool  ('General', 'AutoExpand',         FAutoExpandNodes);
     vConfig.WriteBool  ('General', 'AllNodes',           FAutoExpandAll);
-    vConfig.WriteString('General', 'Library',            FLastLibrary);
+    vLastLib := CreateRelativePath(FLastLibrary, ApplicationFolder);
+    vConfig.WriteString('General', 'Library',            vLastLib);
     vConfig.WriteString('General', 'DefaultHighLighter', FDefaultHighlighter.Name);
   finally
     vConfig.Free;

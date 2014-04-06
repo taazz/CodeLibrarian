@@ -1,17 +1,17 @@
 object SnippetsMainFrm: TSnippetsMainFrm
-  Left = 145
+  Left = 144
   Height = 600
-  Top = 133
+  Top = 52
   Width = 1133
   HorzScrollBar.Page = 1133
-  VertScrollBar.Page = 581
+  VertScrollBar.Page = 580
   AutoScroll = True
   Caption = 'Code Librarian'
-  ClientHeight = 581
+  ClientHeight = 580
   ClientWidth = 1133
   Menu = mnuMain
   OnClose = FormClose
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.0.3'
   object ToolBar1: TToolBar
     Left = 0
     Height = 40
@@ -40,13 +40,13 @@ object SnippetsMainFrm: TSnippetsMainFrm
       AutoSize = True
     end
     object btnFolderNew: TToolButton
-      Left = 114
+      Left = 119
       Top = 2
       Action = actFolderNew
       AutoSize = True
     end
     object ToolButton4: TToolButton
-      Left = 235
+      Left = 249
       Top = 2
       Width = 10
       Caption = 'ToolButton4'
@@ -54,31 +54,31 @@ object SnippetsMainFrm: TSnippetsMainFrm
       Wrap = True
     end
     object btnEditCopy: TToolButton
-      Left = 245
+      Left = 259
       Top = 2
       Action = actEditCopy
       AutoSize = True
     end
     object btnEditCut: TToolButton
-      Left = 278
+      Left = 295
       Top = 2
       Action = actEditCut
       AutoSize = True
     end
     object btnEditPaste: TToolButton
-      Left = 303
+      Left = 322
       Top = 2
       Action = actEditPaste
       AutoSize = True
     end
     object btnEditUndo: TToolButton
-      Left = 338
+      Left = 358
       Top = 2
       Action = actEditUndo
       AutoSize = True
     end
     object ToolButton9: TToolButton
-      Left = 371
+      Left = 395
       Top = 2
       Width = 10
       Caption = 'ToolButton9'
@@ -86,31 +86,31 @@ object SnippetsMainFrm: TSnippetsMainFrm
       Wrap = True
     end
     object btnExpandAll: TToolButton
-      Left = 458
+      Left = 487
       Top = 2
       Action = actExpandAll
       AutoSize = True
     end
     object btnCollapseAll: TToolButton
-      Left = 516
+      Left = 550
       Top = 2
       Action = actCollapseAll
       AutoSize = True
     end
     object btnSnippetNew: TToolButton
-      Left = 152
+      Left = 160
       Top = 2
       Action = actSnippetNew
       AutoSize = True
     end
     object ToolButton1: TToolButton
-      Left = 196
+      Left = 208
       Top = 2
       Action = actDelete
       AutoSize = True
     end
     object ToolButton2: TToolButton
-      Left = 381
+      Left = 405
       Top = 2
       AutoSize = True
       Caption = 'Language'
@@ -119,7 +119,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
       Style = tbsDropDown
     end
     object ToolButton3: TToolButton
-      Left = 448
+      Left = 477
       Top = 2
       Width = 10
       Caption = 'ToolButton3'
@@ -128,8 +128,8 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 20
-    Top = 561
+    Height = 23
+    Top = 557
     Width = 1133
     Panels = <    
       item
@@ -142,7 +142,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object Splitter1: TSplitter
     Left = 277
-    Height = 521
+    Height = 517
     Top = 40
     Width = 5
     Beveled = True
@@ -150,7 +150,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   inline snEditor: TSynEdit
     Left = 282
-    Height = 521
+    Height = 517
     Top = 40
     Width = 851
     Align = alClient
@@ -5371,23 +5371,31 @@ object SnippetsMainFrm: TSnippetsMainFrm
     )
     Options = [eoAutoIndent, eoBracketHighlight, eoGroupUndo, eoScrollPastEol, eoSmartTabs, eoTabIndent, eoTabsToSpaces, eoTrimTrailingSpaces]
     VisibleSpecialChars = [vscSpace, vscTabAtLast]
+    SelectedColor.FrameEdges = sfeAround
     SelectedColor.BackPriority = 50
     SelectedColor.ForePriority = 50
     SelectedColor.FramePriority = 50
     SelectedColor.BoldPriority = 50
     SelectedColor.ItalicPriority = 50
     SelectedColor.UnderlinePriority = 50
+    SelectedColor.StrikeOutPriority = 50
+    IncrementColor.FrameEdges = sfeAround
+    HighlightAllColor.FrameEdges = sfeAround
     BracketHighlightStyle = sbhsBoth
     BracketMatchColor.Background = clNone
     BracketMatchColor.Foreground = clNone
+    BracketMatchColor.FrameEdges = sfeAround
     BracketMatchColor.Style = [fsBold]
     FoldedCodeColor.Background = clNone
     FoldedCodeColor.Foreground = clGray
     FoldedCodeColor.FrameColor = clGray
+    FoldedCodeColor.FrameEdges = sfeAround
     MouseLinkColor.Background = clNone
     MouseLinkColor.Foreground = clBlue
+    MouseLinkColor.FrameEdges = sfeAround
     LineHighlightColor.Background = 16444903
     LineHighlightColor.Foreground = clNone
+    LineHighlightColor.FrameEdges = sfeAround
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
         Width = 24
@@ -5399,6 +5407,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
         MouseActions = <>
         MarkupInfo.Background = 12058620
         MarkupInfo.Foreground = clNone
+        MarkupInfo.FrameEdges = sfeAround
         DigitCount = 3
         ShowOnlyLineNumbersMultiplesOf = 10
         ZeroStart = False
@@ -5417,12 +5426,14 @@ object SnippetsMainFrm: TSnippetsMainFrm
         MouseActions = <>
         MarkupInfo.Background = clWhite
         MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
         Visible = False
         MouseActions = <>
         MarkupInfo.Background = clNone
         MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
         MouseActionsExpanded = <>
         MouseActionsCollapsed = <>
       end
@@ -5430,12 +5441,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object tvData: TTreeView
     Left = 0
-    Height = 521
+    Height = 517
     Top = 40
     Width = 277
     Align = alLeft
     BorderStyle = bsNone
-    DefaultItemHeight = 18
     Font.Height = -13
     Font.Quality = fqCleartype
     Images = imlMain
@@ -7696,6 +7706,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
     Tag = 7
     DefaultFilter = 'Java Files (*.java)|*.java'
     Enabled = False
+    AnnotationAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = 10658466
     CommentAttri.FrameEdges = sfeAround
     DocumentAttri.FrameEdges = sfeAround

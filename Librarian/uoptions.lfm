@@ -1,34 +1,44 @@
 object EvsOptionsForm: TEvsOptionsForm
-  Left = 388
+  Left = 558
   Height = 152
-  Top = 250
-  Width = 310
+  Top = 222
+  Width = 327
   BorderStyle = bsDialog
   Caption = 'Options'
   ClientHeight = 152
-  ClientWidth = 310
+  ClientWidth = 327
   OnKeyPress = FormKeyPress
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.0.3'
+  object Label2: TLabel
+    Left = 15
+    Height = 14
+    Top = 37
+    Width = 140
+    AutoSize = False
+    Caption = 'Load last opened library'
+    ParentColor = False
+    OnClick = Label2Click
+  end
   object cmbDefaultLang: TComboBox
     Left = 138
-    Height = 21
+    Height = 23
     Top = 6
-    Width = 157
-    ItemHeight = 13
+    Width = 178
+    ItemHeight = 15
     OnCloseUp = cmbDefaultLangCloseUp
     OnDropDown = cmbDefaultLangDropDown
     TabOrder = 0
   end
   object Label1: TLabel
     Left = 15
-    Height = 14
+    Height = 15
     Top = 10
-    Width = 86
+    Width = 93
     Caption = 'Default Language'
     ParentColor = False
   end
   object btnOK: TSpeedButton
-    Left = 217
+    Left = 234
     Height = 22
     Top = 120
     Width = 28
@@ -62,11 +72,10 @@ object EvsOptionsForm: TEvsOptionsForm
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    NumGlyphs = 0
     OnClick = btnOKClick
   end
   object btnCancel: TSpeedButton
-    Left = 267
+    Left = 284
     Height = 22
     Top = 120
     Width = 28
@@ -108,46 +117,35 @@ object EvsOptionsForm: TEvsOptionsForm
       FF005E5EB36C9999D0D36A6ABA9000008002FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF006161B6819191CACA5E5EB26AFFFFFF00FFFFFF00
     }
-    NumGlyphs = 0
     OnClick = btnCancelClick
   end
   object DividerBevel1: TDividerBevel
     Left = 15
-    Height = 17
-    Top = 104
-    Width = 280
+    Height = 15
+    Top = 106
+    Width = 297
     Anchors = [akLeft, akRight, akBottom]
     Font.Style = [fsBold]
     ParentFont = False
   end
   object cbAutoLoad: TCheckBox
-    Left = 138
-    Height = 17
+    Left = 147
+    Height = 19
     Top = 36
     Width = 20
     TabOrder = 1
   end
-  object Label2: TLabel
-    Left = 15
-    Height = 14
-    Top = 36
-    Width = 140
-    AutoSize = False
-    Caption = 'Load last opened library'
-    ParentColor = False
-    OnClick = Label2Click
-  end
   object cbShowCaptions: TCheckBox
-    Left = 275
-    Height = 17
+    Left = 302
+    Height = 19
     Top = 36
     Width = 20
     TabOrder = 2
   end
   object lblShowToolbarCaptions: TLabel
-    Left = 164
+    Left = 171
     Height = 14
-    Top = 36
+    Top = 37
     Width = 131
     AutoSize = False
     Caption = 'Show toolbar captions'
@@ -165,18 +163,18 @@ object EvsOptionsForm: TEvsOptionsForm
     TabOrder = 3
     object rbLevel1: TRadioButton
       Left = 18
-      Height = 17
+      Height = 19
       Top = 18
-      Width = 63
+      Width = 65
       Caption = '1st Level'
       Enabled = False
       TabOrder = 2
     end
     object rbAll: TRadioButton
       Left = 97
-      Height = 17
+      Height = 19
       Top = 18
-      Width = 31
+      Width = 34
       Caption = 'All'
       Checked = True
       Enabled = False
@@ -185,9 +183,9 @@ object EvsOptionsForm: TEvsOptionsForm
     end
     object cbAutoExpand: TCheckBox
       Left = 2
-      Height = 17
+      Height = 19
       Top = -3
-      Width = 123
+      Width = 133
       Caption = 'Auto Expand on Load'
       OnChange = cbAutoExpandChange
       TabOrder = 1
