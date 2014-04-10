@@ -7,8 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uMainForm, GpLists, GpStructuredStorage, uOptions, lazcontrols, uVar,
-  uEvsSynhighlightersql, StrConst;
+  Forms, uMainForm, GpLists, GpStructuredStorage, uOptions, lazcontrols, sdflaz,
+  uVar, uEvsSynhighlightersql, StrConst;
 
 {$R *.res}
 

@@ -17,6 +17,8 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="1"/>
+      <RevisionNr Value="1"/>
+      <BuildNr Value="3"/>
       <StringTable Comments="Your very own code library." CompanyName="EVOSI" FileDescription="Snippets" InternalName="Code Librarian" LegalCopyright="Copyright 2013 Evosi, all rights reserved." OriginalFilename="snippets.exe" ProductName="Code Snippets" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -71,19 +73,25 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="SQLDBLaz"/>
+        <PackageName Value="EvsControls"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="SDFLaz"/>
       </Item2>
       <Item3>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="SQLDBLaz"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LazControls"/>
       </Item4>
+      <Item5>
+        <PackageName Value="SynEdit"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
     </RequiredPackages>
     <Units Count="8">
       <Unit0>
@@ -169,6 +177,10 @@
       </CompilerMessages>
       <CustomOptions Value="-dRelease"/>
       <CompilerPath Value="$(CompPath)"/>
+      <ExecuteAfter>
+        <Command Value="$Path($TargetFile())\cp.bat"/>
+        <CompileReasons Run="False"/>
+      </ExecuteAfter>
     </Other>
   </CompilerOptions>
   <Debugging>

@@ -1,7 +1,7 @@
 object SnippetsMainFrm: TSnippetsMainFrm
-  Left = 144
+  Left = 166
   Height = 600
-  Top = 52
+  Top = 57
   Width = 1133
   HorzScrollBar.Page = 1133
   VertScrollBar.Page = 580
@@ -5457,8 +5457,12 @@ object SnippetsMainFrm: TSnippetsMainFrm
     OnChange = tvDataChange
     OnChanging = tvDataChanging
     OnCompare = tvDataCompare
+    OnDragDrop = tvDataDragDrop
+    OnDragOver = tvDataDragOver
     OnEdited = tvDataEdited
     OnEditingEnd = tvDataEditingEnd
+    OnMouseDown = tvDataMouseDown
+    OnStartDrag = tvDataStartDrag
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoRightClickSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
   end
   object aclMain: TActionList

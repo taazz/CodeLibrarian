@@ -21,8 +21,9 @@ type
 
   StringArray = array of string;
 
-function ConfigFileName : string;
-function AddSlash(aItem:string):string;
+function ConfigFileName         : string;
+function AddSlash(aItem:string) : string;
+function ApplicationFolder      : string; inline;
 
 implementation
 uses Forms;
@@ -58,6 +59,11 @@ end;
 function EvosiVendorName : String;
 begin
   Result := 'Evosi';
+end;
+
+function ApplicationFolder : string; inline;
+begin
+  Result := ExtractFilePath(Application.ExeName);
 end;
 
 initialization

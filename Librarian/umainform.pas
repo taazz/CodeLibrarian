@@ -7,10 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   ExtCtrls, SynEdit, ActnList, StdActns, Menus, Buttons, Grids, StdCtrls,
-  SynEditHighlighter, SynHighlighterPas, SynHighlighterVB, SynHighlighterSQL,
-  SynHighlighterPython, SynHighlighterPHP, SynHighlighterPerl, SynHighlighterJava,
-  SynHighlighterBat, SynHighlighterCpp, GpStructuredStorage, SynHighlighterMulti,
-  SynHighlighterJScript, synhighlighterunixshellscript, uVar, sqldb;
+  uEvsRuler, SynEditHighlighter, SynHighlighterPas, SynHighlighterVB,
+  SynHighlighterSQL, SynHighlighterPython, SynHighlighterPHP,
+  SynHighlighterPerl, SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
+  GpStructuredStorage, SynHighlighterMulti, SynHighlighterJScript,
+  synhighlighterunixshellscript, uVar;
 
 type
   { TSnippetsMainFrm }
@@ -122,9 +123,15 @@ type
     procedure tvDataChange            (Sender : TObject; Node : TTreeNode);
     procedure tvDataChanging          (Sender : TObject; Node : TTreeNode; var AllowChange : Boolean);
     procedure tvDataCompare           (Sender : TObject; Node1, Node2 : TTreeNode; var Compare : Integer);
+    procedure tvDataDragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure tvDataDragOver(Sender, Source: TObject; X, Y: Integer;
+      State: TDragState; var Accept: Boolean);
     // called when the tree view text editor finsihed editting aka renaming a node
     procedure tvDataEdited            (Sender : TObject; Node : TTreeNode; var S : string);
     procedure tvDataEditingEnd        (Sender : TObject; Node : TTreeNode; Cancel : Boolean);
+    procedure tvDataMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure tvDataStartDrag(Sender: TObject; var DragObject: TDragObject);
   private
     { private declarations }
     FCodeLib            : IGpStructuredStorage; // library file opened.
@@ -327,11 +334,6 @@ begin
   end;
 end;
 
-function ApplicationFolder : string; inline;
-begin
-  Result := ExtractFilePath(Application.ExeName);
-end;
-
 { TSnippetsMainFrm }
 
 procedure TSnippetsMainFrm.actFileOpenAccept(Sender : TObject);
@@ -459,14 +461,7 @@ begin
 end;
 
 procedure TSnippetsMainFrm.actExpandAllExecute(Sender : TObject);
-//var
-//  vNode: TTreeNode;
 begin
-  //vNode := tvData.Items.GetFirstNode;
-  //while vNode <> nil do begin
-  //  vNode.Expand(True);
-  //  vNode := vNode.GetNextSibling;
-  //end;
   ExpandTreeNodes(True)
 end;
 
@@ -605,6 +600,31 @@ begin
   Compare := CompareText(vStr1, vStr2);
 end;
 
+procedure TSnippetsMainFrm.tvDataDragDrop(Sender, Source: TObject; X, Y: Integer
+  );
+  function vSender:TTreeview;inline;
+  begin
+    Result := TTreeView(Sender);
+  end;
+begin
+  /// after the drop is made we have to check the following.
+  /// 1) is the droped node a folder or a snipet node.
+  /// 2) is the target node outside the selected nodes childrent if it is not
+  ///    then scream a curse and exit. OTher wise start the move operation.
+  /// 3) complete the move operation and exit.
+  /// The move operation has the following steps.
+  ///  1) select all the files and subfiles of the dragged node.
+  ///  2) move them inside the library container first to allow.
+  ///  3) move the dragged node as child of the dropped node.
+
+end;
+
+procedure TSnippetsMainFrm.tvDataDragOver(Sender, Source: TObject; X,
+  Y: Integer; State: TDragState; var Accept: Boolean);
+begin
+  Accept := (Source = Sender);
+end;
+
 procedure TSnippetsMainFrm.tvDataEdited(Sender : TObject; Node : TTreeNode;
   var S : string);
 var
@@ -633,6 +653,18 @@ begin
   finally
     tvData.EndUpdate;
   end;
+end;
+
+procedure TSnippetsMainFrm.tvDataMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+   tvData.BeginDrag(False, 5);//5 pixel error threshold for double clicking selecting and everything else that might be needed.
+end;
+
+procedure TSnippetsMainFrm.tvDataStartDrag(Sender: TObject;
+  var DragObject: TDragObject);
+begin
+  /// make sure that you create the appropriate data to pass around and avoid using the the treeview after that.
 end;
 
 function TSnippetsMainFrm.GetNodePath(aNode : TTreeNode) : String;
