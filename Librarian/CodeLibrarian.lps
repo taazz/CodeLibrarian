@@ -3,8 +3,8 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release"/>
-    <Units Count="41">
+    <BuildModes Active="Debug"/>
+    <Units Count="48">
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -21,16 +21,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMainForm"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="591"/>
-        <CursorPos X="31" Y="614"/>
-        <FoldState Value=" T3v223b"/>
+        <TopLine Value="346"/>
+        <CursorPos X="36" Y="372"/>
+        <FoldState Value=" TL30V0"/>
         <UsageCount Value="332"/>
-        <Bookmarks Count="2">
-          <Item0 X="33" Y="893" ID="0"/>
-          <Item1 X="27" Y="221" ID="9"/>
+        <Bookmarks Count="3">
+          <Item0 X="27" Y="275" ID="9"/>
+          <Item1 X="2" Y="232" ID="2"/>
+          <Item2 X="1" Y="1123" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -50,8 +50,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="GpStructuredStorage"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="877"/>
-        <CursorPos X="34" Y="903"/>
+        <TopLine Value="732"/>
+        <CursorPos X="24" Y="755"/>
         <UsageCount Value="332"/>
       </Unit3>
       <Unit4>
@@ -62,8 +62,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uOptions"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="127"/>
-        <CursorPos X="38" Y="135"/>
+        <TopLine Value="3"/>
+        <CursorPos X="3" Y="19"/>
         <UsageCount Value="216"/>
       </Unit4>
       <Unit5>
@@ -88,18 +88,21 @@
         <Filename Value="HighLighters\StrConst.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="StrConst"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="38"/>
+        <TopLine Value="172"/>
+        <CursorPos X="38" Y="237"/>
         <UsageCount Value="209"/>
+        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="HighLighters\synhighlightercs.pas"/>
         <UnitName Value="SynHighlighterCS"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="73"/>
-        <CursorPos X="21" Y="109"/>
-        <UsageCount Value="227"/>
+        <TopLine Value="242"/>
+        <CursorPos X="15" Y="257"/>
+        <FoldState Value=" TL00d1^"/>
+        <UsageCount Value="213"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\Components\GpStreams.pas"/>
@@ -108,297 +111,450 @@
         <TopLine Value="894"/>
         <CursorPos X="1" Y="901"/>
         <FoldState Value=" TK00X1 TIkU2F T7pMM) T3+g038I"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="175"/>
       </Unit9>
       <Unit10>
-        <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\inc\threadh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="126"/>
-        <CursorPos X="11" Y="143"/>
-        <UsageCount Value="11"/>
-      </Unit10>
-      <Unit11>
-        <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\win\sysosh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="3" Y="25"/>
-        <UsageCount Value="11"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\classes\classesh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1757"/>
-        <CursorPos X="14" Y="1773"/>
-        <UsageCount Value="11"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\rtl\objpas\classes\streams.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="27"/>
-        <CursorPos X="3" Y="29"/>
-        <UsageCount Value="11"/>
-      </Unit13>
-      <Unit14>
         <Filename Value="C:\lazarus.1.0\components\synedit\synhighlighterpas.pp"/>
         <UnitName Value="SynHighlighterPas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="279"/>
         <CursorPos X="3" Y="296"/>
-        <UsageCount Value="32"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="C:\lazarus.1.0\lcl\include\treeview.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1553"/>
-        <CursorPos X="3" Y="1563"/>
-        <UsageCount Value="10"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="C:\lazarus.1.0\lcl\comctrls.pp"/>
-        <UnitName Value="ComCtrls"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="2881"/>
-        <CursorPos X="15" Y="2900"/>
-        <UsageCount Value="10"/>
-      </Unit16>
-      <Unit17>
+        <UsageCount Value="17"/>
+      </Unit10>
+      <Unit11>
         <Filename Value="C:\lazarus.1.0\components\synedit\synedithighlighterfoldbase.pas"/>
         <UnitName Value="SynEditHighlighterFoldBase"/>
         <WindowIndex Value="0"/>
         <TopLine Value="249"/>
         <CursorPos X="3" Y="266"/>
-        <UsageCount Value="30"/>
-      </Unit17>
-      <Unit18>
+        <UsageCount Value="15"/>
+      </Unit11>
+      <Unit12>
         <Filename Value="C:\lazarus.1.0\components\synedit\synedithighlighter.pp"/>
         <UnitName Value="SynEditHighlighter"/>
         <WindowIndex Value="0"/>
         <TopLine Value="316"/>
         <CursorPos X="15" Y="351"/>
-        <UsageCount Value="90"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="C:\lazarus.1.0\fpc\2.6.2\Source\packages\fcl-base\src\inifiles.pp"/>
-        <UnitName Value="IniFiles"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="602"/>
-        <CursorPos X="31" Y="627"/>
-        <UsageCount Value="9"/>
-      </Unit19>
-      <Unit20>
+        <UsageCount Value="75"/>
+      </Unit12>
+      <Unit13>
         <Filename Value="C:\lazarus.1.0\components\synedit\syneditstrconst.pp"/>
         <UnitName Value="SynEditStrConst"/>
         <WindowIndex Value="0"/>
         <TopLine Value="327"/>
         <CursorPos X="23" Y="335"/>
-        <UsageCount Value="87"/>
-      </Unit20>
-      <Unit21>
+        <UsageCount Value="72"/>
+      </Unit13>
+      <Unit14>
         <Filename Value="C:\lazarus.1.0\components\synedit\syneditfoldedview.pp"/>
         <UnitName Value="SynEditFoldedView"/>
         <WindowIndex Value="0"/>
         <TopLine Value="732"/>
         <CursorPos X="1" Y="758"/>
-        <UsageCount Value="106"/>
-      </Unit21>
-      <Unit22>
+        <UsageCount Value="91"/>
+      </Unit14>
+      <Unit15>
         <Filename Value="..\..\Components\Controls\Source\uevssplitter.pas"/>
         <UnitName Value="uEvsSplitter"/>
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="34" Y="88"/>
-        <UsageCount Value="92"/>
-      </Unit22>
-      <Unit23>
+        <UsageCount Value="77"/>
+      </Unit15>
+      <Unit16>
         <Filename Value="C:\lazarus.1.0\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1067"/>
         <CursorPos X="14" Y="1084"/>
-        <UsageCount Value="100"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="..\..\..\..\1.2.0\fpc\2.6.2\source\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1613"/>
-        <CursorPos X="14" Y="1616"/>
-        <UsageCount Value="10"/>
-      </Unit24>
-      <Unit25>
+        <UsageCount Value="85"/>
+      </Unit16>
+      <Unit17>
         <Filename Value="..\..\..\..\1.2.0\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2431"/>
         <CursorPos X="8" Y="2448"/>
-        <UsageCount Value="73"/>
-      </Unit25>
-      <Unit26>
+        <UsageCount Value="58"/>
+      </Unit17>
+      <Unit18>
         <Filename Value="..\..\..\..\1.2.0\lcl\include\dragobject.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="3" Y="31"/>
-        <UsageCount Value="73"/>
-      </Unit26>
-      <Unit27>
+        <UsageCount Value="58"/>
+      </Unit18>
+      <Unit19>
         <Filename Value="..\..\..\..\1.2.0\lcl\include\control.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="349"/>
         <CursorPos X="3" Y="373"/>
-        <UsageCount Value="73"/>
+        <UsageCount Value="58"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\..\..\1.2.0\lcl\lmessages.pp"/>
+        <UnitName Value="LMessages"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="579"/>
+        <CursorPos X="5" Y="595"/>
+        <UsageCount Value="7"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="..\..\..\..\1.2.0\lcl\lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1166"/>
+        <CursorPos X="3" Y="1182"/>
+        <UsageCount Value="7"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="..\..\..\..\1.2.0\lcl\include\treeview.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="4158"/>
+        <CursorPos X="1" Y="4188"/>
+        <UsageCount Value="7"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\..\..\..\1.2.0\components\synedit\synhighlightervb.pas"/>
+        <UnitName Value="SynHighlighterVB"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="21" Y="72"/>
+        <FoldState Value=" TL10Z*"/>
+        <UsageCount Value="14"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="HighLighters\synhighlighterasm.pas"/>
+        <UnitName Value="SynHighlighterAsm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="485"/>
+        <CursorPos X="1" Y="488"/>
+        <FoldState Value=" TL00Z,"/>
+        <UsageCount Value="11"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="..\..\..\..\1.2.0\components\synedit\synedithighlighter.pp"/>
+        <UnitName Value="SynEditHighlighter"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="712"/>
+        <CursorPos X="1" Y="731"/>
+        <UsageCount Value="20"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="..\..\..\..\1.2.0\components\synedit\synedittextbuffer.pp"/>
+        <UnitName Value="SynEditTextBuffer"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="359"/>
+        <CursorPos X="29" Y="376"/>
+        <UsageCount Value="18"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="..\..\..\..\1.2.0\components\synedit\synhighlightersql.pas"/>
+        <UnitName Value="SynHighlighterSQL"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1582"/>
+        <CursorPos X="16" Y="1591"/>
+        <UsageCount Value="4"/>
       </Unit27>
       <Unit28>
-        <Filename Value="..\..\..\..\Components\VirtualTreesExtra\source\vte_dbgrid.pas"/>
-        <UnitName Value="vte_dbgrid"/>
+        <Filename Value="..\..\..\..\1.2.0\components\synedit\synhighlighterjscript.pas"/>
+        <UnitName Value="SynHighlighterJScript"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2347"/>
-        <CursorPos X="26" Y="2403"/>
-        <FoldState Value=" T1isO0mC"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="249"/>
+        <CursorPos X="15" Y="267"/>
+        <UsageCount Value="5"/>
       </Unit28>
       <Unit29>
-        <Filename Value="..\..\..\..\Components\virtualtreeview\VirtualTrees.pas"/>
-        <UnitName Value="VirtualTrees"/>
+        <Filename Value="HighLighters\synhighlighterdot.pas"/>
+        <UnitName Value="SynHighlighterDOT"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2609"/>
-        <CursorPos X="15" Y="2626"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1253"/>
+        <CursorPos X="1" Y="1256"/>
+        <FoldState Value=" TL00Y\"/>
+        <UsageCount Value="8"/>
       </Unit29>
       <Unit30>
-        <Filename Value="..\..\..\..\Components\VirtualTreesExtra\source\vte_dbtree.pas"/>
-        <UnitName Value="vte_dbtree"/>
+        <Filename Value="..\..\..\..\1.2.0\components\synedit\syneditstrconst.pp"/>
+        <UnitName Value="SynEditStrConst"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="799"/>
-        <CursorPos X="103" Y="817"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="253"/>
+        <CursorPos X="25" Y="339"/>
+        <FoldState Value=" TL00Y\"/>
+        <UsageCount Value="27"/>
       </Unit30>
       <Unit31>
-        <Filename Value="..\..\..\..\Components\VirtualTreesExtra\source\vte_dbtreeex.pas"/>
-        <UnitName Value="vte_dbtreeex"/>
+        <Filename Value="..\..\..\..\1.2.0\cfg\inputhistory.xml"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="841"/>
-        <CursorPos X="1" Y="859"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1"/>
+        <CursorPos X="43" Y="8"/>
+        <UsageCount Value="3"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
       </Unit31>
       <Unit32>
-        <Filename Value="..\..\..\..\Components\VirtualTreesExtra\source\vte_ddbtreeview.pas"/>
-        <UnitName Value="vte_ddbtreeview"/>
+        <Filename Value="HighLighters\synhighlighterinno.pas"/>
+        <UnitName Value="SynHighlighterInno"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="974"/>
-        <CursorPos X="2" Y="1042"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1"/>
+        <CursorPos X="25" Y="51"/>
+        <FoldState Value=" TL00X1O"/>
+        <UsageCount Value="24"/>
       </Unit32>
       <Unit33>
-        <Filename Value="..\..\..\..\Components\VirtualTreesExtra\source\AllVTExtraRegister.pas"/>
-        <UnitName Value="AllVTExtraRegister"/>
+        <Filename Value="HighLighters\synhighlightercobol.pas"/>
+        <UnitName Value="SynHighlighterCobol"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="80"/>
-        <CursorPos X="27" Y="123"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="299"/>
+        <CursorPos X="19" Y="299"/>
+        <FoldState Value=" TL00Z,"/>
+        <UsageCount Value="7"/>
       </Unit33>
       <Unit34>
-        <Filename Value="..\..\..\..\1.2.0\components\todolist\tododlg.pas"/>
-        <ComponentName Value="TodoDialog"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ToDoDlg"/>
+        <Filename Value="HighLighters\synhighlightereiffel.pas"/>
+        <UnitName Value="SynHighlighterEiffel"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="81"/>
-        <CursorPos X="18" Y="84"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1379"/>
+        <CursorPos X="13" Y="1397"/>
+        <FoldState Value=" TL00Y\"/>
+        <UsageCount Value="6"/>
       </Unit34>
       <Unit35>
-        <Filename Value="..\..\..\..\1.2.0\components\todolist\todolist.pas"/>
-        <ComponentName Value="IDETodoWindow"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="TodoList"/>
+        <Filename Value="HighLighters\synhighlighterfortran.pas"/>
+        <UnitName Value="SynHighlighterFortran"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="187"/>
-        <CursorPos X="24" Y="202"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1"/>
+        <CursorPos X="27" Y="45"/>
+        <FoldState Value=" TL00Z1K"/>
+        <UsageCount Value="5"/>
       </Unit35>
       <Unit36>
-        <Filename Value="..\..\..\..\1.2.0\components\todolist\todolistlaz.pas"/>
-        <UnitName Value="ToDoListLaz"/>
+        <Filename Value="HighLighters\synhighlighterruby.pas"/>
+        <UnitName Value="SynHighlighterRuby"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="17" Y="21"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="25"/>
+        <CursorPos X="48" Y="55"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
       </Unit36>
       <Unit37>
-        <Filename Value="..\..\..\..\1.2.0\components\ideintf\idecommands.pas"/>
-        <UnitName Value="IDECommands"/>
+        <Filename Value="HighLighters\synhighlighteridl.pas"/>
+        <UnitName Value="SynHighlighterIDL"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="615"/>
-        <CursorPos X="46" Y="628"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="176"/>
+        <CursorPos X="28" Y="194"/>
+        <UsageCount Value="5"/>
       </Unit37>
       <Unit38>
-        <Filename Value="..\..\..\..\1.2.0\packager\registration\lazaruspackageintf.pas"/>
-        <UnitName Value="LazarusPackageIntf"/>
+        <Filename Value="HighLighters\synhighlighterhaskell.pas"/>
+        <UnitName Value="SynHighlighterHaskell"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="29"/>
-        <CursorPos X="11" Y="46"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1105"/>
+        <CursorPos X="24" Y="1113"/>
+        <FoldState Value=" TL00Z,"/>
+        <UsageCount Value="5"/>
       </Unit38>
       <Unit39>
-        <Filename Value="..\..\..\..\Components\BGRAControls\bgrabitmappack.pas"/>
-        <UnitName Value="BGRABitmapPack"/>
+        <Filename Value="HighLighters\synhighlighterfoxpro.pas"/>
+        <UnitName Value="SynHighlighterFoxpro"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="19" Y="20"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="43" Y="44"/>
+        <FoldState Value=" TL00Z,"/>
+        <UsageCount Value="18"/>
       </Unit39>
       <Unit40>
-        <Filename Value="..\..\..\..\Components\BGRAControls\BGRABitmap\bgraanimatedgif.pas"/>
-        <UnitName Value="BGRAAnimatedGif"/>
+        <Filename Value="..\..\..\..\Components\Evosi\Controls\EvsControlsDsn.pas"/>
+        <UnitName Value="EvsControlsDsn"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="49" Y="21"/>
+        <UsageCount Value="7"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\..\..\..\Components\Evosi\Controls\uEvsControlReg.pas"/>
+        <UnitName Value="uEvsControlReg"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="74"/>
+        <CursorPos X="1" Y="111"/>
+        <UsageCount Value="7"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\..\..\Laz-CCR\Highlighters\extrahighlighters_dt.pas"/>
+        <UnitName Value="extrahighlighters_DT"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="33" Y="11"/>
+        <UsageCount Value="7"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="..\..\..\Laz-CCR\Highlighters\uhighlighterreg.pas"/>
+        <UnitName Value="uHighlighterReg"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="5" Y="10"/>
+        <UsageCount Value="7"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\..\..\..\Components\Evosi\Controls\EvsControls.lrs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="7"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="..\..\..\Laz-CCR\Highlighters\images.rc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="22" Y="6"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="HighLighters\SynHighlighterProlog.pas"/>
+        <UnitName Value="SynHighlighterProlog"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="84" Y="7"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="z:\Portable\MyTools\Data\EVOSI@SFN.ET.Keys.txt"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
-      </Unit40>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit47>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="30" HistoryIndex="28">
       <Position1>
         <Filename Value="umainform.pas"/>
-        <Caret Line="505" Column="30" TopLine="471"/>
+        <Caret Line="1091" Column="49" TopLine="1072"/>
       </Position1>
       <Position2>
         <Filename Value="umainform.pas"/>
-        <Caret Line="649" Column="11" TopLine="622"/>
+        <Caret Line="343" Column="17" TopLine="323"/>
       </Position2>
       <Position3>
         <Filename Value="umainform.pas"/>
-        <Caret Line="624" Column="37" TopLine="505"/>
+        <Caret Line="1094" Column="49" TopLine="1072"/>
       </Position3>
       <Position4>
         <Filename Value="umainform.pas"/>
-        <Caret Line="618" Column="3" TopLine="602"/>
+        <Caret Line="344" Column="17" TopLine="324"/>
       </Position4>
       <Position5>
         <Filename Value="umainform.pas"/>
-        <Caret Line="666" Column="12" TopLine="651"/>
+        <Caret Line="1096" Column="34" TopLine="1076"/>
       </Position5>
       <Position6>
         <Filename Value="umainform.pas"/>
-        <Caret Line="666" Column="12" TopLine="651"/>
+        <Caret Line="345" Column="28" TopLine="325"/>
       </Position6>
       <Position7>
         <Filename Value="umainform.pas"/>
-        <Caret Line="635" Column="89" TopLine="626"/>
+        <Caret Line="1098" Column="34" TopLine="1078"/>
       </Position7>
       <Position8>
         <Filename Value="umainform.pas"/>
-        <Caret Line="637" Column="89" TopLine="628"/>
+        <Caret Line="346" Column="28" TopLine="326"/>
       </Position8>
       <Position9>
         <Filename Value="umainform.pas"/>
-        <Caret Line="636" Column="89" TopLine="627"/>
+        <Caret Line="1100" Column="34" TopLine="1080"/>
       </Position9>
+      <Position10>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1098" Column="34" TopLine="1080"/>
+      </Position10>
+      <Position11>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="348" Column="21" TopLine="327"/>
+      </Position11>
+      <Position12>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1102" Column="34" TopLine="1080"/>
+      </Position12>
+      <Position13>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="348" Column="24" TopLine="329"/>
+      </Position13>
+      <Position14>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1102" Column="48" TopLine="1084"/>
+      </Position14>
+      <Position15>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="349" Column="27" TopLine="329"/>
+      </Position15>
+      <Position16>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1105" Column="32" TopLine="1071"/>
+      </Position16>
+      <Position17>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="334" Column="24" TopLine="330"/>
+      </Position17>
+      <Position18>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1115" Column="30" TopLine="1092"/>
+      </Position18>
+      <Position19>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="273" Column="3" TopLine="254"/>
+      </Position19>
+      <Position20>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1104" Column="34" TopLine="1087"/>
+      </Position20>
+      <Position21>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="268" Column="28" TopLine="239"/>
+      </Position21>
+      <Position22>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1105" Column="34" TopLine="1079"/>
+      </Position22>
+      <Position23>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="351" Column="33" TopLine="336"/>
+      </Position23>
+      <Position24>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1107" Column="36" TopLine="1077"/>
+      </Position24>
+      <Position25>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="682" Column="46" TopLine="532"/>
+      </Position25>
+      <Position26>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="244" Column="17" TopLine="218"/>
+      </Position26>
+      <Position27>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="320" Column="25" TopLine="293"/>
+      </Position27>
+      <Position28>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="346" Column="25" TopLine="329"/>
+      </Position28>
+      <Position29>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="327" Column="19" TopLine="304"/>
+      </Position29>
+      <Position30>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1519" Column="1" TopLine="1482"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

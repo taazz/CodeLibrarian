@@ -1,17 +1,49 @@
 unit uMainForm;
 
 {$mode objfpc}{$H+}
+{ TODO  -JKOZ
+    0001 : Extend the supported languages.
+        01 : Assembly
+        02 : C#
 
+    0002 : Add Customizable Highlighter so the end users can define their own highlighters.
+    0003 : Add Filtering
+           Filtering is a simple mask matching a piece of text to the file name or the code.
+        01 : At the name.
+        02 : At the code.
+    0004 : Add full text search capabilities.
+    0005 : extend the attributes to support
+        01 : Language specific features
+        02 : Operating system.
+             The same concept as the tags and categories below a small database in the settings folder with all the
+             information and a small ID at the file attributes.
+        03 : Rating.
+             a simple number from 0 unrated to 10 top rated. No floats only integers.
+        04 : Tags.
+        05 : categories.
+             tags and categories are the same concept both need to be library wide settings and once keyed in the need
+             to be remembered and ready to be used at any time from anywhere. So instead of having them directly on the
+             file I'll create a small database in a settings directory at the root folder.
+    0006 : Add hidden folders and files those are suppose to be all the files that either have the attribute hidden set
+           or the name starts with a dot character like linux.
+    0007 : A unique ID (autonumber) to be used to link various files together as one snippet.
+    0008 : Add support for attachements extra files that are needed or required from the code could be attached on the
+           file it self.
+           Attachments can be either inside a hidden directory or be hidden files them selfs in the same directory as
+           the snippet. It would probably be better to have all the attachments in one place so when a new file is
+           inserted then it can be checked against the existing database and avoid duplicates.
+}
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, SynEdit, ActnList, StdActns, Menus, Buttons, Grids, StdCtrls,
-  uEvsRuler, SynEditHighlighter, SynHighlighterPas, SynHighlighterVB,
-  SynHighlighterSQL, SynHighlighterPython, SynHighlighterPHP,
-  SynHighlighterPerl, SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
-  GpStructuredStorage, SynHighlighterMulti, SynHighlighterJScript,
-  synhighlighterunixshellscript, uVar;
+  Classes,   SysUtils, FileUtil, Forms,    Controls, Graphics, Dialogs, ComCtrls,
+  ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  Grids,   StdCtrls,
+  uEvsRuler, uVar, GpStructuredStorage,
+
+  SynEditHighlighter,  SynHighlighterPas,     SynHighlighterVB,   SynHighlighterSQL, SynHighlighterPython,
+  SynHighlighterPHP,   SynHighlighterPerl,    SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
+  SynHighlighterMulti, SynHighlighterJScript, SynHighlighterAny,  SynHighlighterAsm, SynHighlighterCS,
+  synhighlighterunixshellscript;
 
 type
   { TSnippetsMainFrm }
@@ -81,6 +113,7 @@ type
     shlVB             : TSynVBSyn;
     shlMultiHl        : TSynMultiSyn;
     shlShellScript    : TSynUNIXShellScriptSyn;
+    SynAnySyn1        : TSynAnySyn;
     ToolBar1          : TToolBar;
     btnFileOpen       : TToolButton;
     btnExpandAll      : TToolButton;
@@ -186,9 +219,22 @@ var
 
 implementation
 uses
-  strutils, variants, uOptions, IniFiles, uEvsSynhighlightersql
-  //, SynHighlighterAsm
-  //, SynHighlighterCS
+  strutils, variants, uOptions, IniFiles, uEvsSynhighlightersql, StrConst
+  , SynHighlighterDOT
+  , SynHighlighterInno
+  , SynHighlighterCobol
+  , SynHighlighterEiffel
+  , SynHighlighterFortran
+  , SynHighlighterRuby
+  , SynHighlighterIDL
+  , SynHighlighterHaskell
+  , SynHighlighterFoxpro
+
+
+  , SynHighlighterProlog
+  , SynHighlighterLua
+  , SynHighlighterM3
+  , SynHighlighterTclTk
   ;
 {$R *.lfm}
 
@@ -216,10 +262,29 @@ resourcestring
   rsHLASM               = 'Assembly';
   rsHLCS                = 'C#';
   rsHLSQLite            = 'SQLite';
+  rsHLRuby              = 'Ruby';
+  rsHLInno              = 'Inno Script';
+  rsHLCobol             = 'Cobol';
+  rsHLFortran           = 'Fortran';
+  rsHLHaskell           = 'Haskell';
+  rsHLEiffel            = 'Eiffel';
+  rsHLIdl               = 'IDL';
+  rsHLFoxPro            = 'FoxPro';
+  rsHLDOT               = 'DOT Graph';
+  rsHLLua               = 'Lua Script';
+  rsHLLua               = 'Lua';
+  rsHLTclTk             = 'Tcl/TK';
+
+  rsHLProlog            = 'Prolog';
+  rsHLMod3              = 'Modula 3';
+
+
+
+  rsHLSTesting          = 'Convreted Test';
 
 const
   cHighlighter        = 'Highlighter';
-  cSQLSubMenuStart    = 11;
+  cSQLSubMenuStart    = 25;
   tpSnippet           = 1;
   tpFolder            = 2;
   idxFolderNormal     = 9;
@@ -263,29 +328,66 @@ const
   idxSnippetCSSelected        = 38;
   idxSnippetSqliteNormal      = 39;
   idxSnippetSqliteSelected    = 39;
+  idxSnippetCombolNormal      = 44;
+  idxSnippetCombolSelected    = 44;
+  idxSnippetInnoNormal        = 45;
+  idxSnippetInnoSelected      = 45;
+  idxSnippetRubyNormal        = 46;
+  idxSnippetRubySelected      = 46;
+  idxSnippetFortranNormal     = 47;
+  idxSnippetFortranSelected   = 47;
+  idxSnippetHaskelNormal      = 48;
+  idxSnippethaskelSelected    = 48;
+  idxSnippetFoxProNormal      = 49;
+  idxSnippetFoxProSelected    = 49;
+  idxSnippetDotNormal         = 50;
+  idxSnippetDotSelected       = 50;
+  idxSnippetEiffelNormal      = 51;
+  idxSnippetEiffelSelected    = 51;
+  idxSnippetIDLNormal         = 52;
+  idxSnippetIDLSelected       = 52;
+  idxSnippetLuaNormal         = 53;
+  idxSnippetLuaSelected       = 53;
+  idxSnippetTclTkNormal       = 54;
+  idxSnippetTclTkSelected     = 54;
 
 
 var
-  LangTitles : array[0..17] of THighlighterData =
-{00}    ((Title:rsHLNone;       Instance:Nil;IconIndexNormal:idxSnippetNormal;            IconIndexSelected:idxSnippetSelected),
-{01}     (Title:rsHLPascal;     Instance:Nil;IconIndexNormal:idxSnippetPascalNormal;      IconIndexSelected:idxSnippetPascalSelected),
-{02}     (Title:rsHLVb;         Instance:Nil;IconIndexNormal:idxSnippetVBNormal;          IconIndexSelected:idxSnippetVBSelected),
-{03}     (Title:rsHLPython;     Instance:Nil;IconIndexNormal:idxSnippetPythonNormal;      IconIndexSelected:idxSnippetPythonSelected),
-{04}     (Title:rsHLPHP;        Instance:Nil;IconIndexNormal:idxSnippetPHPNormal;         IconIndexSelected:idxSnippetPHPSelected),
-{05}     (Title:rsHLPerl;       Instance:Nil;IconIndexNormal:idxSnippetPerlNormal;        IconIndexSelected:idxSnippetPerlSelected),
-{06}     (Title:rsHLJava;       Instance:Nil;IconIndexNormal:idxSnippetJavaNormal;        IconIndexSelected:idxSnippetJavaSelected),
-{07}     (Title:rsHLBat;        Instance:Nil;IconIndexNormal:idxSnippetBatNormal;         IconIndexSelected:idxSnippetBatSelected),
-{08}     (Title:rsHLCPP;        Instance:Nil;IconIndexNormal:idxSnippetCppNormal;         IconIndexSelected:idxSnippetCppSelected),
-{09}     (Title:rsHLJavaScript; Instance:Nil;IconIndexNormal:idxSnippetJScriptNormal;     IconIndexSelected:idxSnippetJScriptSelected),
-{10}     (Title:rsHLCS;         Instance:Nil;IconIndexNormal:idxSnippetCSNormal;          IconIndexSelected:idxSnippetCSSelected),
-     /// SQL HighLighters make sure they are the lastr ones in the array.
-{11}     (Title:rsHLSql;        Instance:Nil;IconIndexNormal:idxSnippetSqlNormal;         IconIndexSelected:idxSnippetSqlSelected),
-{12}     (Title:rsHLFirebird;   Instance:Nil;IconIndexNormal:idxSnippetFireBirdNormal;    IconIndexSelected:idxSnippetFirebirdSelected),
-{13}     (Title:rsHLOracleSql;  Instance:Nil;IconIndexNormal:idxSnippetOracleNormal;      IconIndexSelected:idxSnippetOracleSelected),
-{14}     (Title:rsHLPostgreSQL; Instance:Nil;IconIndexNormal:idxSnippetPostgresNormal;    IconIndexSelected:idxSnippetPostgresSelected),
-{15}     (Title:rsHLMySQL;      Instance:Nil;IconIndexNormal:idxSnippetMySQLNormal;       IconIndexSelected:idxSnippetMySQLSelected),
-{16}     (Title:rsHLMsSQL;      Instance:Nil;IconIndexNormal:idxSnippetMsSQLNormal;       IconIndexSelected:idxSnippetMsSQLSelected),
-{17}     (Title:rsHLSQLite;     Instance:Nil;IconIndexNormal:idxSnippetSqliteNormal;      IconIndexSelected:idxSnippetSqliteSelected)
+
+  LangTitles : array[0..27] of THighlighterData =
+{00}    ((Title:rsHLNone;       Instance:Nil; IconIndexNormal:idxSnippetNormal;         IconIndexSelected:idxSnippetSelected),
+{01}     (Title:rsHLPascal;     Instance:Nil; IconIndexNormal:idxSnippetPascalNormal;   IconIndexSelected:idxSnippetPascalSelected),
+{02}     (Title:rsHLVb;         Instance:Nil; IconIndexNormal:idxSnippetVBNormal;       IconIndexSelected:idxSnippetVBSelected),
+{03}     (Title:rsHLPython;     Instance:Nil; IconIndexNormal:idxSnippetPythonNormal;   IconIndexSelected:idxSnippetPythonSelected),
+{04}     (Title:rsHLPHP;        Instance:Nil; IconIndexNormal:idxSnippetPHPNormal;      IconIndexSelected:idxSnippetPHPSelected),
+{05}     (Title:rsHLPerl;       Instance:Nil; IconIndexNormal:idxSnippetPerlNormal;     IconIndexSelected:idxSnippetPerlSelected),
+{06}     (Title:rsHLJava;       Instance:Nil; IconIndexNormal:idxSnippetJavaNormal;     IconIndexSelected:idxSnippetJavaSelected),
+{07}     (Title:rsHLBat;        Instance:Nil; IconIndexNormal:idxSnippetBatNormal;      IconIndexSelected:idxSnippetBatSelected),
+{08}     (Title:rsHLCPP;        Instance:Nil; IconIndexNormal:idxSnippetCppNormal;      IconIndexSelected:idxSnippetCppSelected),
+{09}     (Title:rsHLJavaScript; Instance:Nil; IconIndexNormal:idxSnippetJScriptNormal;  IconIndexSelected:idxSnippetJScriptSelected),
+{10}     (Title:rsHLCS;         Instance:Nil; IconIndexNormal:idxSnippetCSNormal;       IconIndexSelected:idxSnippetCSSelected),
+{11}     (Title:rsHLASM;        Instance:Nil; IconIndexNormal:idxSnippetAsmNormal;      IconIndexSelected:idxSnippetAsmSelected),
+{12}     (Title:rsHLRuby;       Instance:Nil; IconIndexNormal:idxSnippetRubyNormal;     IconIndexSelected:idxSnippetRubySelected),
+{13}     (Title:rsHLInno;       Instance:Nil; IconIndexNormal:idxSnippetNormal;         IconIndexSelected:idxSnippetSelected),
+{14}     (Title:rsHLCobol;      Instance:Nil; IconIndexNormal:idxSnippetCombolNormal;   IconIndexSelected:idxSnippetCombolSelected),
+{15}     (Title:rsHLFortran;    Instance:Nil; IconIndexNormal:idxSnippetFortranNormal;  IconIndexSelected:idxSnippetFortranSelected),
+{16}     (Title:rsHLHaskell;    Instance:Nil; IconIndexNormal:idxSnippetHaskelNormal;   IconIndexSelected:idxSnippetHaskelSelected),
+{17}     (Title:rsHLEiffel;     Instance:Nil; IconIndexNormal:idxSnippetEiffelNormal;   IconIndexSelected:idxSnippetEiffelSelected),
+{18}     (Title:rsHLIdl;        Instance:Nil; IconIndexIDLNormal:idxSnippetNormal;      IconIndexSelected:idxSnippetIDLSelected),
+{19}     (Title:rsHLFoxPro;     Instance:Nil; IconIndexNormal:idxSnippetFoxProNormal;   IconIndexSelected:idxSnippetFoxProSelected),
+{20}     (Title:rsHLDOT;        Instance:Nil; IconIndexNormal:idxSnippetDotNormal;      IconIndexSelected:idxSnippetDotSelected),
+{21}     (Title:rsHLLua;        Instance:Nil; IconIndexNormal:idxSnippetLuaNormal;      IconIndexSelected:idxSnippetLuaSelected),
+{22}     (Title:rsHLTclTk;      Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
+{23}     (Title:rsHLProlog;     Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
+{24}     (Title:rsHLMod3;       Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
+     /// SQL HighLighters make sure they are the last ones in the array.
+{25}     (Title:rsHLSql;        Instance:Nil; IconIndexNormal:idxSnippetSqlNormal;      IconIndexSelected:idxSnippetSqlSelected),
+{26}     (Title:rsHLFirebird;   Instance:Nil; IconIndexNormal:idxSnippetFireBirdNormal; IconIndexSelected:idxSnippetFirebirdSelected),
+{27}     (Title:rsHLOracleSql;  Instance:Nil; IconIndexNormal:idxSnippetOracleNormal;   IconIndexSelected:idxSnippetOracleSelected),
+{28}     (Title:rsHLPostgreSQL; Instance:Nil; IconIndexNormal:idxSnippetPostgresNormal; IconIndexSelected:idxSnippetPostgresSelected),
+{29}     (Title:rsHLMySQL;      Instance:Nil; IconIndexNormal:idxSnippetMySQLNormal;    IconIndexSelected:idxSnippetMySQLSelected),
+{30}     (Title:rsHLMsSQL;      Instance:Nil; IconIndexNormal:idxSnippetMsSQLNormal;    IconIndexSelected:idxSnippetMsSQLSelected),
+{31}     (Title:rsHLSQLite;     Instance:Nil; IconIndexNormal:idxSnippetSqliteNormal;   IconIndexSelected:idxSnippetSqliteSelected)
     );
 
 function Languages: StringArray;
@@ -502,14 +604,15 @@ begin
     vChoice := MessageDlg('Delete ' + IfThen(IsFolder(tvData.Selected),Trim(FolderPrefix), Trim(FilePrefix)),
                           'Are you sure you want to delete ' + tvData.Selected.Text +' ?',
                           mtConfirmation,mbYesNoCancel, 0);
-    if vChoice in [mrNo, mrCancel] then begin
-      Exit;
+    if vChoice = mrYes then begin
+      FCodeLib.Delete(vPath);
+      if FCodeLib.FileExists(vPath) then raise Exception.Create('unable to delete file'+LineEnding+vPath);
+      FCodeLib.Compact;
+      vNode := tvData.Selected;
+      tvData.Selected := vNode.GetPrevVisible;
+      if tvData.Selected = nil then tvData.Selected := vNode.GetNextVisible;
+      vNode.Delete;
     end;
-    FCodeLib.Delete(vPath);
-    vNode := tvData.Selected;
-    tvData.Selected := vNode.GetPrevVisible;
-    if tvData.Selected = nil then tvData.Selected := vNode.GetNextVisible;
-    vNode.Delete;
   end;
 end;
 
@@ -658,7 +761,7 @@ end;
 procedure TSnippetsMainFrm.tvDataMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-   tvData.BeginDrag(False, 5);//5 pixel error threshold for double clicking selecting and everything else that might be needed.
+  if Button = mbLeft then tvData.BeginDrag(False, 5);//5 pixel error threshold for double clicking selecting and everything else that might be needed.
 end;
 
 procedure TSnippetsMainFrm.tvDataStartDrag(Sender: TObject;
@@ -819,64 +922,239 @@ end;
 
 
 constructor TSnippetsMainFrm.Create(TheOwner : TComponent);
+//{21}     (Title:rsHLLua;        Instance:Nil; IconIndexNormal:idxSnippetLuaNormal;      IconIndexSelected:idxSnippetLuaSelected),
+//{22}     (Title:rsHLTclTk;      Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
+//{23}     (Title:rsHLProlog;     Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
+//{24}     (Title:rsHLMod3;      Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
 
-function JavaScriptHighlighter : TSynCustomHighlighter;
-begin
-  Result := TSynJScriptSyn.Create(Self);
-  Result.Name := 'shlJavaScript';
-  TSynJScriptSyn(Result).IdentifierAttribute.Foreground := clNone;
-  TSynJScriptSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
-  TSynJScriptSyn(Result).KeywordAttribute.Foreground    := clNavy;
-  TSynJScriptSyn(Result).NumberAttri.ForeGround         := $004080FF;
-  TSynJScriptSyn(Result).StringAttribute.ForeGround     := $003FB306;
-  TSynJScriptSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
-end;
+  // Testing and debugging
+  function LUAHighlighter    : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynLuaSyn.Create(Self);
+    Result.Name := 'shlLua';
+    TSynDOTSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynDOTSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynDOTSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    //TSynDOTSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynDOTSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynDOTSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
 
-function AssemblyHighlighter : TSynCustomHighlighter;
-begin
-  Result := nil;
-  //Result := TSynAsmSyn.Create(Self);
-  //Result.Name := 'shlAsm';
-  //TSynAsmSyn(Result).IdentifierAttribute.Foreground := clNone;
-  //TSynAsmSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
-  //TSynAsmSyn(Result).KeywordAttribute.Foreground    := clNavy;
-  //TSynAsmSyn(Result).NumberAttri.ForeGround         := $004080FF;
-  //TSynAsmSyn(Result).StringAttribute.ForeGround     := $003FB306;
-  //TSynAsmSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
-  ////TSynAsmSyn(Result).VariableAttribute.ForeGround   := clNavy;
-end;
+  function TCLTKHighlighter  : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynTclTkSyn.Create(Self);
+    Result.Name := 'shlTCLTK';
+    TSynDOTSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynDOTSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynDOTSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    //TSynDOTSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynDOTSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynDOTSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
 
-function CSharpHighlighter : TSynCustomHighlighter;
-begin
-  //Result := TSynCSSyn.Create(Self);
-  //Result.Name := 'shlCSharp';
-  //TSynCSSyn(Result).IdentifierAttribute.Foreground := clNone;
-  //TSynCSSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
-  //TSynCSSyn(Result).KeywordAttribute.Foreground    := clNavy;
-  //TSynCSSyn(Result).NumberAttri.ForeGround         := $004080FF;
-  //TSynCSSyn(Result).StringAttribute.ForeGround     := $003FB306;
-  //TSynCSSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
-end;
+  function PrologHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynPrologSyn.Create(Self);
+    Result.Name := 'shlProlog';
+    TSynDOTSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynDOTSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynDOTSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    //TSynDOTSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynDOTSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynDOTSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+  function Mod3Highlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynM3Syn.Create(Self);
+    Result.Name := 'shlM3';
+    TSynDOTSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynDOTSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynDOTSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    //TSynDOTSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynDOTSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynDOTSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
 
-function SQLiteHighlighter : TSynCustomHighlighter;
-begin
-  Result      := nil;
-  Result      := TEvsSynSQLSyn.Create(Self);
-  Result.Name := 'shlSQLiteSQL';
-  Result.Tag  := cSQLSubMenuStart+6;
-  Result.Assign(shlSQL);
-  TEvsSynSQLSyn(Result).SQLDialect := sqlSQLite;
-end;
+  function DOTHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynDOTSyn.Create(Self);
+    Result.Name := 'shlDOT';
+    TSynDOTSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynDOTSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynDOTSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    //TSynDOTSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynDOTSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynDOTSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
 
-function PostgreSQLHighlighter : TSynCustomHighlighter;
-begin
-  Result      := nil;
-  Result      := TEvsSynSQLSyn.Create(Self);
-  Result.Name := 'shlPostgreSQL';
-  Result.Tag  := cSQLSubMenuStart+3;
-  Result.Assign(shlSQL);
-  TEvsSynSQLSyn(Result).SQLDialect := sqlPostgres;
-end;
+
+  function InnoHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynInnoSyn.Create(Self);
+    Result.Name := 'shlInno';
+    TSynInnoSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynInnoSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynInnoSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynInnoSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynInnoSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynInnoSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function CobolHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynCobolSyn.Create(Self);
+    Result.Name := 'shlCobol';
+    TSynCobolSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynCobolSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynCobolSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynCobolSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynCobolSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    //TSynCobolSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function EiffelHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynEiffelSyn.Create(Self);
+    Result.Name := 'shlEiffel';
+    TSynEiffelSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynEiffelSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynEiffelSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    //TSynEiffelSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynEiffelSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    //TSynEiffelSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function FortranHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynFortranSyn.Create(Self);
+    Result.Name := 'shlFortran';
+    TSynFortranSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynFortranSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynFortranSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynFortranSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynFortranSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynFortranSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function RubyHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynRubySyn.Create(Self);
+    Result.Name := 'shlRuby';
+    TSynRubySyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynRubySyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynRubySyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynRubySyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynRubySyn(Result).StringAttribute.ForeGround     := $003FB306;
+    //TSynRubySyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function IDLHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynIdlSyn.Create(Self);
+    Result.Name := 'shlIDL';
+    TSynIdlSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynIdlSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynIdlSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynIdlSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynIdlSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynIdlSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function HaskellHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynHaskellSyn.Create(Self);
+    Result.Name := 'shlHaskell';
+    TSynHaskellSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynHaskellSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynHaskellSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynHaskellSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynHaskellSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    //TSynHaskellSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function FoxProHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynFoxproSyn.Create(Self);
+    Result.Name := 'shlFoxPro';
+    TSynFoxproSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynFoxproSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynFoxproSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynFoxproSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynFoxproSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynFoxproSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  // working and used in the program.
+  function SQLiteHighlighter : TSynCustomHighlighter;
+  begin
+    Result      := nil;
+    Result      := TEvsSynSQLSyn.Create(Self);
+    Result.Name := 'shlSQLiteSQL';
+    Result.Tag  := cSQLSubMenuStart+6;
+    Result.Assign(shlSQL);
+    TEvsSynSQLSyn(Result).SQLDialect := sqlSQLite;
+  end;
+
+  function PostgreSQLHighlighter : TSynCustomHighlighter;
+  begin
+    Result      := nil;
+    Result      := TEvsSynSQLSyn.Create(Self);
+    Result.Name := 'shlPostgreSQL';
+    Result.Tag  := cSQLSubMenuStart+3;
+    Result.Assign(shlSQL);
+    TEvsSynSQLSyn(Result).SQLDialect := sqlPostgres;
+  end;
+
+  function CSharpHighlighter : TSynCustomHighlighter;
+  begin
+    Result := nil;
+    Result := TSynCSSyn.Create(Self);
+    Result.Name := 'shlCSharp';
+    TSynCSSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynCSSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynCSSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynCSSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynCSSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynCSSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function JavaScriptHighlighter : TSynCustomHighlighter;
+  begin
+    Result := TSynJScriptSyn.Create(Self);
+    Result.Name := 'shlJavaScript';
+    TSynJScriptSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynJScriptSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynJScriptSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynJScriptSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynJScriptSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynJScriptSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+  end;
+
+  function AssemblyHighlighter : TSynCustomHighlighter;
+  begin
+    Result := TSynAsmSyn.Create(Self);
+    Result.Name := 'shlAsm';
+    TSynAsmSyn(Result).IdentifierAttribute.Foreground := clNone;
+    TSynAsmSyn(Result).CommentAttribute.Foreground    := $00A2A2A2;
+    TSynAsmSyn(Result).KeywordAttribute.Foreground    := clNavy;
+    TSynAsmSyn(Result).NumberAttri.ForeGround         := $004080FF;
+    TSynAsmSyn(Result).StringAttribute.ForeGround     := $003FB306;
+    TSynAsmSyn(Result).SymbolAttribute.ForeGround     := $00A25151;
+    //TSynAsmSyn(Result).VariableAttribute.ForeGround   := clNavy;
+  end;
 
 begin
   inherited Create(TheOwner);
@@ -891,6 +1169,38 @@ begin
   LangTitles[08].Instance := shlCPP;
   LangTitles[09].Instance := JavaScriptHighlighter;
   LangTitles[09].Instance.Tag := 09;
+  LangTitles[10].Instance     := CSharpHighlighter;
+  LangTitles[10].Instance.Tag := 10;
+  LangTitles[11].Instance     := AssemblyHighlighter;
+  LangTitles[11].Instance.Tag := 11;
+
+  LangTitles[12].Instance     := RubyHighlighter;
+  LangTitles[12].Instance.Tag := 12;
+  LangTitles[13].Instance     := InnoHighlighter;
+  LangTitles[13].Instance.Tag := 13;
+  LangTitles[14].Instance     := CobolHighlighter;
+  LangTitles[14].Instance.Tag := 14;
+  LangTitles[15].Instance     := FortranHighlighter;
+  LangTitles[15].Instance.Tag := 15;
+  LangTitles[16].Instance     := HaskellHighlighter;
+  LangTitles[16].Instance.Tag := 16;
+  LangTitles[17].Instance     := EiffelHighlighter;
+  LangTitles[17].Instance.Tag := 17;
+  LangTitles[18].Instance     := IDLHighlighter;
+  LangTitles[18].Instance.Tag := 18;
+  LangTitles[19].Instance     := FoxProHighlighter;
+  LangTitles[19].Instance.Tag := 19;
+  LangTitles[20].Instance     := DOTHighlighter;
+  LangTitles[20].Instance.Tag := 20;
+
+  LangTitles[21].Instance     := LUAHighlighter;
+  LangTitles[21].Instance.Tag := 21;
+  LangTitles[22].Instance     := TCLTKHighlighter;
+  LangTitles[22].Instance.Tag := 22;
+  LangTitles[23].Instance     := PrologHighlighter;
+  LangTitles[23].Instance.Tag := 23;
+  LangTitles[24].Instance     := Mod3Highlighter;
+  LangTitles[24].Instance.Tag := 24;
 
   LangTitles[cSQLSubMenuStart].Instance := shlSQL;
   LangTitles[cSQLSubMenuStart+1].Instance := shlSqlInterbase;
@@ -901,6 +1211,7 @@ begin
   LangTitles[cSQLSubMenuStart+6].Instance := SQLiteHighlighter;
 
   BuildHighLightPopup(pmnuTree.Items);
+  tvData.PopupMenu := pmnuTree;
   FDefaultHighlighter := shlPascal;
   LoadSettings;
   if FAutoLoadLast and (FLastLibrary <> '') then OpenLibrary(FLastLibrary);
@@ -973,8 +1284,8 @@ begin
     FAutoExpandAll       := vConfig.ReadBool  ('General', 'AllNodes',     True);
     vShowCaption         := vConfig.ReadBool  ('ToolBar', 'ShowCaptions', True);
     SetShowToolBarCaptions(vConfig.ReadBool   ('ToolBar', 'ShowCaptions', True));
-
     FDefaultHighlighter  := TSynCustomHighlighter(FindComponent(vConfig.ReadString('General', 'DefaultHighLighter', 'shlPascal')));
+    tvData.Width         := vConfig.ReadInteger('General', 'TreeWidth',    280);
   finally
     vConfig.Free;
   end;
@@ -989,13 +1300,14 @@ begin
   vFname := uVar.ConfigFileName;
   vConfig := TIniFile.Create(vFname);
   try
-    vConfig.WriteBool  ('General', 'LoadLast',           FAutoLoadLast);
-    vConfig.WriteBool  ('ToolBar', 'ShowCaptions',       ToolBar1.ShowCaptions);
-    vConfig.WriteBool  ('General', 'AutoExpand',         FAutoExpandNodes);
-    vConfig.WriteBool  ('General', 'AllNodes',           FAutoExpandAll);
+    vConfig.WriteBool   ('General', 'LoadLast',           FAutoLoadLast);
+    vConfig.WriteBool   ('ToolBar', 'ShowCaptions',       ToolBar1.ShowCaptions);
+    vConfig.WriteBool   ('General', 'AutoExpand',         FAutoExpandNodes);
+    vConfig.WriteBool   ('General', 'AllNodes',           FAutoExpandAll);
     vLastLib := CreateRelativePath(FLastLibrary, ApplicationFolder);
-    vConfig.WriteString('General', 'Library',            vLastLib);
-    vConfig.WriteString('General', 'DefaultHighLighter', FDefaultHighlighter.Name);
+    vConfig.WriteString ('General', 'Library',            vLastLib);
+    vConfig.WriteString ('General', 'DefaultHighLighter', FDefaultHighlighter.Name);
+    vConfig.WriteInteger('General', 'TreeWidth',          tvData.Width);
   finally
     vConfig.Free;
   end;
@@ -1223,6 +1535,7 @@ end;
 procedure TSnippetsMainFrm.ImportLib(const aFileName : string; const aRootFolder : string);
 const
   cDelim = cCodeLibPathSep;
+
   function InclPathDel(inStr:String):string;
   begin
     Result:=inStr;
@@ -1232,6 +1545,7 @@ const
 var
   vFromLib, vToLib : IGpStructuredStorage;
   vBckCurs         : TCursor;
+
   procedure ImportFolder(aSourceFolder, aDestFolder:string);
   var
     vFolders, vFiles : TStringList;
@@ -1286,4 +1600,5 @@ begin
 end;
 
 end.
+
 
