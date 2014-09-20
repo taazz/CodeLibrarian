@@ -250,7 +250,7 @@ type
 implementation
 
 uses
-  SynEditStrConstExtra;
+  StrConst;
 
 var
   Identifiers: array[#0..#255] of ByteBool;

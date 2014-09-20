@@ -52,7 +52,7 @@ uses
   SynEditTypes,
   SynEditHighlighter,
   SynHighlighterHashEntries,
-  SynUnicode,
+  {$IFNDEF FPC}SynUnicode,{$ENDIF}
   SysUtils,
   Classes;
 
@@ -70,22 +70,25 @@ type
 
   TSynM3Syn = class(TSynCustomHighLighter)
   private
-    fRange: TRangeState;
-    FTokenID: TtkTokenKind;
-    fCommentAttri: TSynHighlighterAttributes;
-    fIdentifierAttri: TSynHighlighterAttributes;
-    fKeyAttri: TSynHighlighterAttributes;
-    fNumberAttri: TSynHighlighterAttributes;
-    fPragmaAttri: TSynHighlighterAttributes;
-    fReservedAttri: TSynHighlighterAttributes;
-    fSpaceAttri: TSynHighlighterAttributes;
-    fStringAttri: TSynHighlighterAttributes;
-    fSymbolAttri: TSynHighlighterAttributes;
-    fSyntaxErrorAttri: TSynHighlighterAttributes;
-    fKeywords: TSynHashEntryList;
-    procedure DoAddKeyword(AKeyword: UnicodeString; AKind: integer);
-    function HashKey(Str: PWideChar): integer;
-    function IdentKind(MayBe: PWideChar): TtkTokenKind;
+    //fCaseSensitive    :Boolean;
+    fToIdent          :PChar;
+    fStringLen        :Integer;
+    fRange            :TRangeState;
+    FTokenID          :TtkTokenKind;
+    fCommentAttri     :TSynHighlighterAttributes;
+    fIdentifierAttri  :TSynHighlighterAttributes;
+    fKeyAttri         :TSynHighlighterAttributes;
+    fNumberAttri      :TSynHighlighterAttributes;
+    fPragmaAttri      :TSynHighlighterAttributes;
+    fReservedAttri    :TSynHighlighterAttributes;
+    fSpaceAttri       :TSynHighlighterAttributes;
+    fStringAttri      :TSynHighlighterAttributes;
+    fSymbolAttri      :TSynHighlighterAttributes;
+    fSyntaxErrorAttri :TSynHighlighterAttributes;
+    fKeywords         :TSynHashEntryList;
+    procedure DoAddKeyword(AKeyword: String; AKind: integer);
+    function HashKey(Str: PChar): integer;
+    function IdentKind(MayBe: PChar): TtkTokenKind;
     procedure SymAsciiCharProc;
     procedure SymCommentHelpProc;
     procedure SymCRProc;
@@ -103,9 +106,12 @@ type
     procedure SymUnknownProc;
   protected
     function IsFilterStored: Boolean; override;
+    function IsCurrentToken(const Token: String): Boolean;
   public
     class function GetLanguageName: string; override;
-    class function GetFriendlyLanguageName: UnicodeString; override;
+    {$IFNDEF SYN_LAZARUS}
+    class function GetFriendlyLanguageName: String; override;
+    {$ENDIF}
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -144,31 +150,31 @@ type
 implementation
 
 uses
-  SynEditStrConst;
+  SynEditStrConst, KeywordFuncLists;
 
 const
-  Keywords: UnicodeString =
+  Keywords: String =
     'AS,AND,ANY,ARRAY,BEGIN,BITS,BRANDED,BY,CASE,CONST,DIV,DO,ELSE,ELSIF,END,' +
     'EVAL,EXCEPT,EXCEPTION,EXIT,EXPORTS,FINALLY,FOR,FROM,GENERIC,IF,IMPORT,' +
     'IN,INTERFACE,LOCK,LOOP,METHODS,MOD,MODULE,NOT,OBJECT,OF,OR,OVERRIDES,' +
     'PROCEDURE,RAISE,RAISES,READONLY,RECORD,REF,REPEAT,RETURN,REVEAL,ROOT,' +
     'SET,THEN,TO,TRY,TYPE,TYPECASE,UNSAFE,UNTIL,UNTRACED,VALUE,VAR,WHILE,WITH';
 
-  ReservedWords: UnicodeString =
+  ReservedWords: String =
     'ABS,ADDRESS,ADR,ADRSIZE,BITSIZE,BOOLEAN,BYTESIZE,CARDINAL,CEILING,CHAR,' +
     'DEC,DISPOSE,FALSE,FIRST,FLOAT,FLOOR,INC,INTEGER,ISTYPE,LAST,LONGFLOAT,' +
     'LONGREAL,LOOPHOLE,MAX,MIN,MUTEX,NARROW,NEW,NIL,NULL,NUMBER,ORD,REAL,' +
     'REFANY,ROUND,SUBARRAY,TEXT,TRUE,TRUNC,TYPECODE,VAL';
 
-procedure TSynM3Syn.DoAddKeyword(AKeyword: UnicodeString; AKind: integer);
+procedure TSynM3Syn.DoAddKeyword(AKeyword: String; AKind: integer);
 var
   HashValue: integer;
 begin
-  HashValue := HashKey(PWideChar(AKeyword));
+  HashValue := HashKey(PChar(AKeyword));
   fKeywords[HashValue] := TSynHashEntry.Create(AKeyword, AKind);
 end;
 
-function TSynM3Syn.HashKey(Str: PWideChar): Integer;
+function TSynM3Syn.HashKey(Str :PChar) :integer;
 
   function GetOrd: Integer;
   begin
@@ -183,7 +189,7 @@ function TSynM3Syn.HashKey(Str: PWideChar): Integer;
 
 begin
   Result := 0;
-  while IsIdentChar(Str^) do
+  while IsIdentChar[Str^] do
   begin
 {$IFOPT Q-}
     Result := 7 * Result + GetOrd;
@@ -193,10 +199,11 @@ begin
     Inc(Str);
   end;
   Result := Result and $FF; // 255
+
   fStringLen := Str - fToIdent;
 end;
 
-function TSynM3Syn.IdentKind(MayBe: PWideChar): TtkTokenKind;
+function TSynM3Syn.IdentKind(MayBe: PChar): TtkTokenKind;
 var
   Entry: TSynHashEntry;
 begin
@@ -221,37 +228,38 @@ constructor TSynM3Syn.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  fCaseSensitive := True;
+  //fCaseSensitive := True;
 
   fKeywords := TSynHashEntryList.Create;
-  fCommentAttri := TSynHighlighterAttributes.Create(SYNS_AttrComment, SYNS_FriendlyAttrComment);
+  fCommentAttri := TSynHighlighterAttributes.Create(SYNS_AttrComment, SYNS_XML_AttrComment);
+
   fCommentAttri.Style:= [fsItalic];
   AddAttribute(fCommentAttri);
-  fIdentifierAttri := TSynHighlighterAttributes.Create(SYNS_AttrIdentifier, SYNS_FriendlyAttrIdentifier);
+  fIdentifierAttri := TSynHighlighterAttributes.Create(SYNS_AttrIdentifier, SYNS_XML_AttrIdentifier);
   AddAttribute(fIdentifierAttri);
-  fKeyAttri := TSynHighlighterAttributes.Create(SYNS_AttrKey, SYNS_FriendlyAttrKey);
+  fKeyAttri := TSynHighlighterAttributes.Create(SYNS_AttrKey, SYNS_XML_AttrKey);
   fKeyAttri.Style:= [fsBold];
   AddAttribute(fKeyAttri);
-  fNumberAttri := TSynHighlighterAttributes.Create(SYNS_AttrNumber, SYNS_FriendlyAttrNumber);
+  fNumberAttri := TSynHighlighterAttributes.Create(SYNS_AttrNumber, SYNS_XML_AttrNumber);
   AddAttribute(fNumberAttri);
-  fPragmaAttri := TSynHighlighterAttributes.Create(SYNS_AttrPreprocessor, SYNS_FriendlyAttrPreprocessor);
+  fPragmaAttri := TSynHighlighterAttributes.Create(SYNS_AttrPreprocessor, SYNS_XML_AttrPreprocessor);
   fPragmaAttri.Style:= [fsBold];
   AddAttribute(fPragmaAttri);
-  fReservedAttri := TSynHighlighterAttributes.Create(SYNS_AttrReservedWord, SYNS_FriendlyAttrReservedWord);
+  fReservedAttri := TSynHighlighterAttributes.Create(SYNS_AttrReservedWord, SYNS_XML_AttrReservedWord);
   AddAttribute(fReservedAttri);
-  fSpaceAttri := TSynHighlighterAttributes.Create(SYNS_AttrSpace, SYNS_FriendlyAttrSpace);
+  fSpaceAttri := TSynHighlighterAttributes.Create(SYNS_AttrSpace, SYNS_XML_AttrSpace);
   AddAttribute(fSpaceAttri);
-  fStringAttri := TSynHighlighterAttributes.Create(SYNS_AttrString, SYNS_FriendlyAttrString);
+  fStringAttri := TSynHighlighterAttributes.Create(SYNS_AttrString, SYNS_XML_AttrString);
   AddAttribute(fStringAttri);
-  fSymbolAttri := TSynHighlighterAttributes.Create(SYNS_AttrSymbol, SYNS_FriendlyAttrSymbol);
+  fSymbolAttri := TSynHighlighterAttributes.Create(SYNS_AttrSymbol, SYNS_XML_AttrSymbol);
   AddAttribute(fSymbolAttri);
-  fSyntaxErrorAttri := TSynHighlighterAttributes.Create(SYNS_AttrSyntaxError, SYNS_FriendlyAttrSyntaxError);
+  fSyntaxErrorAttri := TSynHighlighterAttributes.Create(SYNS_AttrSyntaxError, SYNS_XML_AttrSyntaxError);
   fSyntaxErrorAttri.Foreground := clRed;
   AddAttribute(fSyntaxErrorAttri);
-  SetAttributesOnChange(DefHighlightChange);
+  SetAttributesOnChange(@DefHighlightChange);
 
-  EnumerateKeywords(Ord(tkKey), Keywords, IsIdentChar, DoAddKeyword);
-  EnumerateKeywords(Ord(tkReserved), ReservedWords, IsIdentChar, DoAddKeyword);
+  EnumerateKeywords(Ord(tkKey), Keywords, IsIdentChar, @DoAddKeyword);
+  EnumerateKeywords(Ord(tkReserved), ReservedWords, @IsIdentChar, @DoAddKeyword);
   fDefaultFilter := SYNS_FilterModula3;
 end;
 
@@ -591,12 +599,17 @@ begin
   Result := fDefaultFilter <> SYNS_FilterModula3;
 end;
 
+function TSynM3Syn.IsCurrentToken(const Token :String) :Boolean;
+begin
+
+end;
+
 class function TSynM3Syn.GetLanguageName: string;
 begin
   Result := SYNS_LangModula3;
 end;
 
-function TSynM3Syn.GetRange: pointer;
+function TSynM3Syn.GetRange :Pointer;
 begin
   result := fRange.p;
 end;
@@ -635,15 +648,17 @@ begin
   fRange.p := nil;
 end;
 
-procedure TSynM3Syn.SetRange(Value: pointer);
+procedure TSynM3Syn.SetRange(Value :Pointer);
 begin
   fRange.p := Value;
 end;
 
-class function TSynM3Syn.GetFriendlyLanguageName: UnicodeString;
+{$IFNDEF SYN_LAZARUS}
+class function TSynM3Syn.GetFriendlyLanguageName: String;
 begin
   Result := SYNS_FriendlyLangModula3;
 end;
+{$ENDIF}
 
 initialization
   RegisterPlaceableHighlighter(TSynM3Syn);

@@ -156,7 +156,7 @@ type
 implementation
 
 uses
-  SynEditStrConst, SynEditStrConstExtra;
+  SynEditStrConst, StrConst;
 
 const
    TclTkKeys: array[0..146] of string = (
