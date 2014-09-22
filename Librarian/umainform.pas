@@ -38,7 +38,7 @@ interface
 uses
   Classes,   SysUtils, FileUtil, Forms,    Controls, Graphics, Dialogs, ComCtrls,
   ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  Grids,   StdCtrls,
-  uEvsRuler, uVar, GpStructuredStorage,
+  uVar, GpStructuredStorage,
 
   SynEditHighlighter,  SynHighlighterPas,     SynHighlighterVB,   SynHighlighterSQL, SynHighlighterPython,
   SynHighlighterPHP,   SynHighlighterPerl,    SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,

@@ -73,25 +73,16 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="EvsControls"/>
+        <PackageName Value="LazControls"/>
       </Item1>
       <Item2>
-        <PackageName Value="SDFLaz"/>
+        <PackageName Value="SynEdit"/>
       </Item2>
       <Item3>
-        <PackageName Value="SQLDBLaz"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="LazControls"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="SynEdit"/>
-      </Item5>
-      <Item6>
         <PackageName Value="LCL"/>
-      </Item6>
+      </Item3>
     </RequiredPackages>
     <Units Count="8">
       <Unit0>
