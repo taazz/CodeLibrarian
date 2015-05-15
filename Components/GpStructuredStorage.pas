@@ -35,8 +35,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    Creation date     : 2003-11-10
    Last modification : 2011-01-01
    Version           : 2.0c
-</pre>*)(*
-   History:
+</pre>*)
+(* History:
      2.0c: 2011-01-01
        - Uses GpStreams instead of GpMemStr.
      2.0b: 2010-05-16
@@ -138,8 +138,7 @@ uses
   {$ENDIF}
   SysUtils,
   Classes,
-  GpLists
-  ;
+  GpLists;
 
 const
   //:Structured storage path delimiter.

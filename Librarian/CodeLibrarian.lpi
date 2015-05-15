@@ -54,11 +54,7 @@
             </Options>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
             <CustomOptions Value="-dDebug"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -88,7 +84,6 @@
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="CodeLibrarian"/>
       </Unit0>
       <Unit1>
         <Filename Value="umainform.pas"/>
@@ -119,12 +114,10 @@
       <Unit5>
         <Filename Value="uvar.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uVar"/>
       </Unit5>
       <Unit6>
         <Filename Value="HighLighters\uevssynhighlightersql.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uEvsSynhighlightersql"/>
       </Unit6>
       <Unit7>
         <Filename Value="HighLighters\StrConst.pas"/>
@@ -163,11 +156,7 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
       <CustomOptions Value="-dRelease"/>
-      <CompilerPath Value="$(CompPath)"/>
       <ExecuteAfter>
         <Command Value="$Path($TargetFile())\cp.bat"/>
         <CompileReasons Run="False"/>

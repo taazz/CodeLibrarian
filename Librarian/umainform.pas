@@ -1,3 +1,17 @@
+{ ╔═════════════════════════════════════════════════════════════════════════════╗
+  ║                 Copyright© 2012-2015 EVOSI® all rights reserved             ║
+  ╠═════════════════════════════════════════════════════════════════════════════╣
+  ║    ▄▄▄▄▄▄▄▄▄▄▄  ▄               ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄    ║
+  ║   ▐░░░░░░░░░░░▌▐░▌             ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ║
+  ║   ▐░█▀▀▀▀▀▀▀▀▀  ▐░▌           ▐░▌ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀  ▀▀▀▀█░█▀▀▀▀    ║
+  ║   ▐░█▄▄▄▄▄▄▄▄▄    ▐░▌       ▐░▌   ▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄▄▄      ▐░▌        ║
+  ║   ▐░░░░░░░░░░░▌    ▐░▌     ▐░▌    ▐░▌       ▐░▌▐░░░░░░░░░░░▌     ▐░▌        ║
+  ║   ▐░█▀▀▀▀▀▀▀▀▀      ▐░▌   ▐░▌     ▐░▌       ▐░▌ ▀▀▀▀▀▀▀▀▀█░▌     ▐░▌        ║
+  ║   ▐░█▄▄▄▄▄▄▄▄▄        ▐░▐░▌       ▐░█▄▄▄▄▄▄▄█░▌ ▄▄▄▄▄▄▄▄▄█░▌ ▄▄▄▄█░█▄▄▄▄    ║
+  ║   ▐░░░░░░░░░░░▌        ▐░▌        ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ║
+  ║    ▀▀▀▀▀▀▀▀▀▀▀          ▀          ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀    ║
+  ╚═════════════════════════════════════════════════════════════════════════════╝}
+
 unit uMainForm;
 
 {$mode objfpc}{$H+}
@@ -37,179 +51,179 @@ interface
 
 uses
   Classes,   SysUtils, FileUtil, Forms,    Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  Grids,   StdCtrls,
+  ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  Grids,   StdCtrls, FileCtrl,
   uVar, GpStructuredStorage,
-
   SynEditHighlighter,  SynHighlighterPas,     SynHighlighterVB,   SynHighlighterSQL, SynHighlighterPython,
   SynHighlighterPHP,   SynHighlighterPerl,    SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
   SynHighlighterMulti, SynHighlighterJScript, SynHighlighterAny,  SynHighlighterAsm, SynHighlighterCS,
-  synhighlighterunixshellscript;
+  synhighlighterunixshellscript, TreeFilterEdit;
 
 type
   { TSnippetsMainFrm }
 
   TSnippetsMainFrm = class(TForm)
-    aclMain           : TActionList;
-    actEditCopy       : TEditCopy;
-    actEditCut        : TEditCut;
-    actEditPaste      : TEditPaste;
-    actEditUndo       : TEditUndo;
-    actFileExit       : TFileExit;
-    actFileOpen       : TFileOpen;
-    actFolderRootNew  : TAction;
-    actFolderNew      : TAction;
-    actDelete         : TAction;
-    actExpandAll      : TAction;
-    actCollapseAll    : TAction;
-    actCompact        : TAction;
-    actSettings       : TAction;
-    actSetHighlighter : TAction;
-    actSnippetNew     : TAction;
-    actSnippetSave    : TAction;
-    actFileNew        : TFileOpen;
-    actFileImport     : TFileOpen;
-    imlMain           : TImageList;
-    mnuMain           : TMainMenu;
-    MenuItem2         : TMenuItem;
-    MenuItem3         : TMenuItem;
-    mniSettings       : TMenuItem;
-    mnuOptions        : TMenuItem;
-    mniDelete         : TMenuItem;
-    mniSepItem        : TMenuItem;
-    mniSepItem6       : TMenuItem;
-    mniFolderNew      : TMenuItem;
-    mniFolderRootNew  : TMenuItem;
-    mniSnippetNew     : TMenuItem;
-    mniEditNew        : TMenuItem;
-    MenuItem1         : TMenuItem;
-    mniFileOpen       : TMenuItem;
-    mniExit           : TMenuItem;
-    mniSepItem2       : TMenuItem;
-    miCompact         : TMenuItem;
-    mniSepItem1       : TMenuItem;
-    mniNew            : TMenuItem;
-    mnuFile           : TMenuItem;
-    mnuEditUndo       : TMenuItem;
-    mnuEditPaste      : TMenuItem;
-    mnuEditCut        : TMenuItem;
-    mnuEditCopy       : TMenuItem;
-    mnuEdit           : TMenuItem;
-    pmnuTree          : TPopupMenu;
-    shlSqlOracle      : TSynSQLSyn;
-    shlSqlInterbase   : TSynSQLSyn;
-    shlSqlMsSql2000   : TSynSQLSyn;
-    shlSqlMySQL       : TSynSQLSyn;
-    Splitter1         : TSplitter;
-    StatusBar1        : TStatusBar;
-    snEditor          : TSynEdit;
-    shlPascal         : TSynFreePascalSyn;
-    shlBAT            : TSynBatSyn;
-    shlCPP            : TSynCppSyn;
-    shlJava           : TSynJavaSyn;
-    shlPerl           : TSynPerlSyn;
-    shlPHP            : TSynPHPSyn;
-    shlPython         : TSynPythonSyn;
-    shlSQL            : TSynSQLSyn;
-    shlVB             : TSynVBSyn;
-    shlMultiHl        : TSynMultiSyn;
-    shlShellScript    : TSynUNIXShellScriptSyn;
-    SynAnySyn1        : TSynAnySyn;
-    ToolBar1          : TToolBar;
-    btnFileOpen       : TToolButton;
-    btnExpandAll      : TToolButton;
-    btnCollapseAll    : TToolButton;
-    btnSnippetNew     : TToolButton;
-    btnFolderRootNew  : TToolButton;
-    btnFolderNew      : TToolButton;
-    ToolButton1       : TToolButton;
-    ToolButton2       : TToolButton;
-    ToolButton3       : TToolButton;
-    ToolButton4       : TToolButton;
-    btnEditCopy       : TToolButton;
-    btnEditCut        : TToolButton;
-    btnEditPaste      : TToolButton;
-    btnEditUndo       : TToolButton;
-    ToolButton9       : TToolButton;
-    tvData            : TTreeView;
-    procedure actCollapseAllExecute   (Sender : TObject);
-    procedure actCompactExecute       (Sender : TObject);
-    procedure actCompactUpdate        (Sender : TObject);
-    procedure actDeleteExecute        (Sender : TObject);
-    procedure actDeleteUpdate         (Sender : TObject);
-    procedure actEditUndoExecute      (Sender : TObject);
-    procedure actEditUndoUpdate       (Sender : TObject);
-    procedure actExpandAllExecute     (Sender : TObject);
-    procedure actFileImportAccept     (Sender : TObject);
-    procedure actFileNewAccept        (Sender : TObject);
-    procedure actFileOpenAccept       (Sender : TObject);
-    procedure actFolderNewExecute     (Sender : TObject);
-    procedure actFolderRootNewExecute (Sender : TObject);
-    procedure actSetHighlighterExecute(Sender : TObject);
-    procedure actSettingsExecute      (Sender : TObject);
-    procedure actSnippetNewExecute    (Sender : TObject);
-    procedure actSnippetSaveExecute   (Sender : TObject);
-    procedure actSnippetSaveUpdate    (Sender : TObject);
-    procedure FormClose               (Sender : TObject; var CloseAction : TCloseAction);
-    procedure pmnuTreePopup           (Sender : TObject);
-    procedure snEditorExit            (Sender : TObject);
-    procedure Splitter1Moved          (Sender : TObject);
-    procedure tvDataChange            (Sender : TObject; Node : TTreeNode);
-    procedure tvDataChanging          (Sender : TObject; Node : TTreeNode; var AllowChange : Boolean);
-    procedure tvDataCompare           (Sender : TObject; Node1, Node2 : TTreeNode; var Compare : Integer);
-    procedure tvDataDragDrop(Sender, Source: TObject; X, Y: Integer);
-    procedure tvDataDragOver(Sender, Source: TObject; X, Y: Integer;
-      State: TDragState; var Accept: Boolean);
+    aclMain           :TActionList;
+    actEditCopy       :TEditCopy;
+    actEditCut        :TEditCut;
+    actEditPaste      :TEditPaste;
+    actEditUndo       :TEditUndo;
+    actFileExit       :TFileExit;
+    actFileOpen       :TFileOpen;
+    actFolderRootNew  :TAction;
+    actFolderNew      :TAction;
+    actDelete         :TAction;
+    actExpandAll      :TAction;
+    actCollapseAll    :TAction;
+    actCompact        :TAction;
+    actSettings       :TAction;
+    actSetHighlighter :TAction;
+    actSnippetNew     :TAction;
+    actSnippetSave    :TAction;
+    actFileNew        :TFileOpen;
+    actFileImport     :TFileOpen;
+    imlMain           :TImageList;
+    mnuMain           :TMainMenu;
+    MenuItem2         :TMenuItem;
+    MenuItem3         :TMenuItem;
+    mniSettings       :TMenuItem;
+    mnuOptions        :TMenuItem;
+    mniDelete         :TMenuItem;
+    mniSepItem        :TMenuItem;
+    mniSepItem6       :TMenuItem;
+    mniFolderNew      :TMenuItem;
+    mniFolderRootNew  :TMenuItem;
+    mniSnippetNew     :TMenuItem;
+    mniEditNew        :TMenuItem;
+    MenuItem1         :TMenuItem;
+    mniFileOpen       :TMenuItem;
+    mniExit           :TMenuItem;
+    mniSepItem2       :TMenuItem;
+    miCompact         :TMenuItem;
+    mniSepItem1       :TMenuItem;
+    mniNew            :TMenuItem;
+    mnuFile           :TMenuItem;
+    mnuEditUndo       :TMenuItem;
+    mnuEditPaste      :TMenuItem;
+    mnuEditCut        :TMenuItem;
+    mnuEditCopy       :TMenuItem;
+    mnuEdit           :TMenuItem;
+    Panel1 :TPanel;
+    pmnuTree          :TPopupMenu;
+    shlSqlOracle      :TSynSQLSyn;
+    shlSqlInterbase   :TSynSQLSyn;
+    shlSqlMsSql2000   :TSynSQLSyn;
+    shlSqlMySQL       :TSynSQLSyn;
+    Splitter1         :TSplitter;
+    StatusBar1        :TStatusBar;
+    snEditor          :TSynEdit;
+    shlPascal         :TSynFreePascalSyn;
+    shlBAT            :TSynBatSyn;
+    shlCPP            :TSynCppSyn;
+    shlJava           :TSynJavaSyn;
+    shlPerl           :TSynPerlSyn;
+    shlPHP            :TSynPHPSyn;
+    shlPython         :TSynPythonSyn;
+    shlSQL            :TSynSQLSyn;
+    shlVB             :TSynVBSyn;
+    shlMultiHl        :TSynMultiSyn;
+    shlShellScript    :TSynUNIXShellScriptSyn;
+    SynAnySyn1        :TSynAnySyn;
+    ToolBar1          :TToolBar;
+    btnFileOpen       :TToolButton;
+    btnExpandAll      :TToolButton;
+    btnCollapseAll    :TToolButton;
+    btnSnippetNew     :TToolButton;
+    btnFolderRootNew  :TToolButton;
+    btnFolderNew      :TToolButton;
+    ToolButton1       :TToolButton;
+    ToolButton2       :TToolButton;
+    ToolButton3       :TToolButton;
+    ToolButton4       :TToolButton;
+    btnEditCopy       :TToolButton;
+    btnEditCut        :TToolButton;
+    btnEditPaste      :TToolButton;
+    btnEditUndo       :TToolButton;
+    ToolButton5 :TToolButton;
+    ToolButton9       :TToolButton;
+    TreeFilterEdit1 :TTreeFilterEdit;
+    tvData            :TTreeView;
+    procedure actCollapseAllExecute   (Sender :TObject);
+    procedure actCompactExecute       (Sender :TObject);
+    procedure actCompactUpdate        (Sender :TObject);
+    procedure actDeleteExecute        (Sender :TObject);
+    procedure actDeleteUpdate         (Sender :TObject);
+    procedure actEditUndoExecute      (Sender :TObject);
+    procedure actEditUndoUpdate       (Sender :TObject);
+    procedure actExpandAllExecute     (Sender :TObject);
+    procedure actFileImportAccept     (Sender :TObject);
+    procedure actFileNewAccept        (Sender :TObject);
+    procedure actFileOpenAccept       (Sender :TObject);
+    procedure actFolderNewExecute     (Sender :TObject);
+    procedure actFolderRootNewExecute (Sender :TObject);
+    procedure actSetHighlighterExecute(Sender :TObject);
+    procedure actSettingsExecute      (Sender :TObject);
+    procedure actSnippetNewExecute    (Sender :TObject);
+    procedure actSnippetSaveExecute   (Sender :TObject);
+    procedure actSnippetSaveUpdate    (Sender :TObject);
+    procedure FormClose               (Sender :TObject; var CloseAction : TCloseAction);
+    procedure pmnuTreePopup           (Sender :TObject);
+    procedure snEditorExit            (Sender :TObject);
+    procedure Splitter1Moved          (Sender :TObject);
+    procedure tvDataChange            (Sender :TObject; Node :TTreeNode);
+    procedure tvDataChanging          (Sender :TObject; Node :TTreeNode; var AllowChange :Boolean);
+    procedure tvDataCompare           (Sender :TObject; Node1, Node2 :TTreeNode; var Compare : Integer);
+    procedure tvDataDragDrop          (Sender, Source :TObject; X, Y :Integer);
+    procedure tvDataDragOver          (Sender, Source :TObject; X, Y :Integer; State :TDragState; var Accept :Boolean);
     // called when the tree view text editor finsihed editting aka renaming a node
-    procedure tvDataEdited            (Sender : TObject; Node : TTreeNode; var S : string);
-    procedure tvDataEditingEnd        (Sender : TObject; Node : TTreeNode; Cancel : Boolean);
-    procedure tvDataMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure tvDataStartDrag(Sender: TObject; var DragObject: TDragObject);
+    procedure tvDataEdited            (Sender :TObject; Node  :TTreeNode; var S  :string);
+    procedure tvDataEditingEnd        (Sender :TObject; Node  :TTreeNode; Cancel :Boolean);
+    procedure tvDataMouseDown         (Sender :TObject; Button:TMouseButton; Shift :TShiftState; X, Y :Integer);
+    procedure tvDataStartDrag         (Sender :TObject; var DragObject :TDragObject);
   private
     { private declarations }
-    FCodeLib            : IGpStructuredStorage; // library file opened.
-    FAutoLoadLast       : Boolean;
-    FLastLibrary        : string;
-    FDefaultHighlighter : TSynCustomHighlighter;// always set to shlPascal user selectable in the future.
-    FAutoExpandNodes    : Boolean;
-    FAutoExpandAll      : Boolean;
+    FCodeLib            :IGpStructuredStorage; // library file opened.
+    FAutoLoadLast       :Boolean;
+    FLastLibrary        :string;
+    FDefaultHighlighter :TSynCustomHighlighter;// always set to shlPascal user selectable in the future.
+    FAutoExpandNodes    :Boolean;
+    FAutoExpandAll      :Boolean;
 
-    function DefaultHighLighter(aFileName          : String)               : TSynCustomHighlighter;overload;
-    function DefaultHighLighter(aNode              : TTreeNode)            : TSynCustomHighlighter;overload;
-    function GetHighLighter    (aFileName          : string)               : TSynCustomHighlighter;overload;
-    function GetHighLighter    (aNode              : TTreeNode)            : TSynCustomHighlighter;overload;
-    function HighLighterTitle  (const aHighLighter : TSynCustomHighlighter): string;
-    function HighLighterData   (const aHighLighter : TSynCustomHighlighter): PHighlighterData;
+    function DefaultHighLighter(aFileName          :String)                :TSynCustomHighlighter;overload;
+    function DefaultHighLighter(aNode              :TTreeNode)             :TSynCustomHighlighter;overload;
+    function GetHighLighter    (aFileName          :string)                :TSynCustomHighlighter;overload;
+    function GetHighLighter    (aNode              :TTreeNode)             :TSynCustomHighlighter;overload;
+    function HighLighterTitle  (const aHighLighter :TSynCustomHighlighter) :string;
+    function HighLighterData   (const aHighLighter :TSynCustomHighlighter) :PHighlighterData;
 
-    function GetNodePath    (aNode        : TTreeNode)                                      : String;
-    function IsFile         (aNode        : TTreeNode)                                      : Boolean;
-    function IsFolder       (aNode        : TTreeNode)                                      : Boolean;
-    function NewNode        (const aParent: TTreeNode; aText :String; Folder:Boolean = True): TTreeNode;
-    function UniqueName     (aPath        : string;    Folder:Boolean)                      : string;
-    function IsFileNameValid(aName        : string)                                         : Boolean;
+    function GetNodePath    (aNode         :TTreeNode)                                      :String;
+    function IsFile         (aNode         :TTreeNode)                                      :Boolean;
+    function IsFolder       (aNode         :TTreeNode)                                      :Boolean;
+    function NewNode        (const aParent :TTreeNode; aText  :String; Folder :Boolean = True):TTreeNode;
+    function UniqueName     (aPath         :string;    Folder :Boolean)                       :string;
+    function IsFileNameValid(aName         :string)                                           :Boolean;
 
-    procedure BuildHighLightPopup(const aParent     : TMenuItem);
-    procedure CheckMenu          (const aHighlighter: TSynCustomHighlighter);
-    procedure SaveData           (const aNode       : TTreeNode);
-    procedure SetAutoExpandNodes (aValue            : Boolean);
-    procedure SetHighlighter     (const aHighlighter: TSynCustomHighlighter; const aFile:string);
-    procedure ValidateFileName   (aName             : string);// raise exception on invalid characters in the filename path must not be included.
-    procedure ValidateName       (aObjectName       : string);//make sure that the objectname passed is a valid filename with path.
+    procedure BuildHighLightPopup(const aParent     :TMenuItem);
+    procedure CheckMenu          (const aHighlighter:TSynCustomHighlighter);
+    procedure SaveData           (const aNode       :TTreeNode);
+    procedure SetAutoExpandNodes (aValue            :Boolean);
+    procedure SetHighlighter     (const aHighlighter:TSynCustomHighlighter; const aFile:string);
+    procedure ValidateFileName   (aName             :string);// raise exception on invalid characters in the filename path must not be included.
+    procedure ValidateName       (aObjectName       :string);//make sure that the objectname passed is a valid filename with path.
     procedure SetShowToolBarCaptions(const aValue:Boolean);
     procedure LoadCodeLib;
     procedure LoadSettings;
     procedure SaveSettings;
-    procedure SetNodeIcons          (const aNode   : TTreeNode; Recursive:Boolean=False);
-    procedure SetDefaultHighLighter (const aTitle  : string);
-    procedure ResetChildIcons       (const aParent : TTreeNode; const Recursive:boolean = False);
-    procedure ExpandTreeNodes       (const aAll    : Boolean = False);
-    procedure CollapseTreeNodes     (const aAll    : Boolean = False);
+    procedure SetNodeIcons         (const aNode   :TTreeNode; Recursive :Boolean=False);
+    procedure SetDefaultHighLighter(const aTitle  :string);
+    procedure ResetChildIcons      (const aParent :TTreeNode; const Recursive :Boolean = False);
+    procedure ExpandTreeNodes      (const aAll    :Boolean = False);
+    procedure CollapseTreeNodes    (const aAll    :Boolean = False);
   public
     { public declarations }
-    constructor Create   (TheOwner : TComponent); override;
+    constructor Create (TheOwner :TComponent); override;
     destructor  Destroy; override;
-    procedure   OpenLibrary(aName : string);
-    procedure   ImportLib  (const aFileName:string; const aRootFolder : string = '');
+    procedure   OpenLibrary(aName :string);
+    procedure   ImportLib (const aFileName :string; const aRootFolder :string = '');
     //when true it opens all tree nodes when opening a library.
     property AutoExpandNodes : Boolean read FAutoExpandNodes write SetAutoExpandNodes;
   end;
@@ -220,19 +234,9 @@ var
 implementation
 uses
   strutils, variants, uOptions, IniFiles, uEvsSynhighlightersql, StrConst
-  , SynHighlighterDOT
-  , SynHighlighterInno
-  , SynHighlighterCobol
-  , SynHighlighterEiffel
-  , SynHighlighterFortran
-  , SynHighlighterRuby
-  , SynHighlighterIDL
-  , SynHighlighterHaskell
-  , SynHighlighterFoxpro
-
-
-  , SynHighlighterProlog
-  , SynHighlighterLua
+  , SynHighlighterDOT, SynHighlighterInno, SynHighlighterCobol, SynHighlighterEiffel
+  , SynHighlighterFortran, SynHighlighterRuby, SynHighlighterIDL, SynHighlighterHaskell
+  , SynHighlighterFoxpro, SynHighlighterProlog, SynHighlighterLua
   //, SynHighlighterM3
   , SynHighlighterTclTk
   ;
@@ -703,8 +707,7 @@ begin
   Compare := CompareText(vStr1, vStr2);
 end;
 
-procedure TSnippetsMainFrm.tvDataDragDrop(Sender, Source: TObject; X, Y: Integer
-  );
+procedure TSnippetsMainFrm.tvDataDragDrop(Sender, Source: TObject; X, Y: Integer);
   function vSender:TTreeview;inline;
   begin
     Result := TTreeView(Sender);
@@ -713,11 +716,11 @@ begin
   /// after the drop is made we have to check the following.
   /// 1) is the droped node a folder or a snipet node.
   /// 2) is the target node outside the selected nodes childrent if it is not
-  ///    then scream a curse and exit. OTher wise start the move operation.
+  ///    then scream a curse and exit. Other wise start the move operation.
   /// 3) complete the move operation and exit.
   /// The move operation has the following steps.
   ///  1) select all the files and subfiles of the dragged node.
-  ///  2) move them inside the library container first to allow.
+  ///  2) move them inside the library container first.
   ///  3) move the dragged node as child of the dropped node.
 
 end;

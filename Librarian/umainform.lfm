@@ -1,17 +1,17 @@
 object SnippetsMainFrm: TSnippetsMainFrm
-  Left = 110
-  Height = 637
-  Top = 69
+  Left = 293
+  Height = 719
+  Top = 89
   Width = 1133
-  HorzScrollBar.Page = 1133
-  VertScrollBar.Page = 617
+  HorzScrollBar.Page = 824
+  VertScrollBar.Page = 160
   AutoScroll = True
   Caption = 'Code Librarian'
-  ClientHeight = 617
+  ClientHeight = 699
   ClientWidth = 1133
   Menu = mnuMain
   OnClose = FormClose
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.4.0.4'
   object ToolBar1: TToolBar
     Left = 0
     Height = 40
@@ -47,10 +47,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
     end
     object ToolButton4: TToolButton
       Left = 249
+      Height = 36
       Top = 2
       Width = 10
       Caption = 'ToolButton4'
-      Style = tbsSeparator
+      Style = tbsDivider
       Wrap = True
     end
     object btnEditCopy: TToolButton
@@ -79,10 +80,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
     end
     object ToolButton9: TToolButton
       Left = 395
+      Height = 36
       Top = 2
       Width = 10
       Caption = 'ToolButton9'
-      Style = tbsSeparator
+      Style = tbsDivider
       Wrap = True
     end
     object btnExpandAll: TToolButton
@@ -120,16 +122,47 @@ object SnippetsMainFrm: TSnippetsMainFrm
     end
     object ToolButton3: TToolButton
       Left = 477
+      Height = 36
       Top = 2
       Width = 10
       Caption = 'ToolButton3'
-      Style = tbsSeparator
+      Style = tbsDivider
+    end
+    object Panel1: TPanel
+      Left = 630
+      Height = 36
+      Top = 2
+      Width = 194
+      BevelOuter = bvNone
+      ClientHeight = 36
+      ClientWidth = 194
+      TabOrder = 0
+      object TreeFilterEdit1: TTreeFilterEdit
+        Left = 0
+        Height = 36
+        Top = 0
+        Width = 194
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Align = alClient
+        MaxLength = 0
+        TabOrder = 0
+        FilteredTreeview = tvData
+      end
+    end
+    object ToolButton5: TToolButton
+      Left = 620
+      Height = 36
+      Top = 2
+      Width = 10
+      Caption = 'ToolButton5'
+      Style = tbsDivider
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 594
+    Top = 676
     Width = 1133
     Panels = <    
       item
@@ -141,18 +174,18 @@ object SnippetsMainFrm: TSnippetsMainFrm
     SimplePanel = False
   end
   object Splitter1: TSplitter
-    Left = 280
-    Height = 554
+    Left = 379
+    Height = 636
     Top = 40
     Width = 5
     Beveled = True
     OnMoved = Splitter1Moved
   end
   inline snEditor: TSynEdit
-    Left = 285
-    Height = 554
+    Left = 384
+    Height = 636
     Top = 40
-    Width = 848
+    Width = 749
     Align = alClient
     Enabled = False
     Font.Height = -13
@@ -593,6 +626,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
         ShortCut = 57379
       end>
     MouseActions = <>
+    MouseTextActions = <>
     MouseSelActions = <>
     Lines.Strings = (
       '{$IFDEF VER140}'
@@ -3344,7 +3378,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
     )
     Options = [eoAutoIndent, eoBracketHighlight, eoGroupUndo, eoScrollPastEol, eoSmartTabs, eoTabIndent, eoTabsToSpaces, eoTrimTrailingSpaces]
     VisibleSpecialChars = [vscSpace, vscTabAtLast]
-    SelectedColor.FrameEdges = sfeAround
     SelectedColor.BackPriority = 50
     SelectedColor.ForePriority = 50
     SelectedColor.FramePriority = 50
@@ -3352,23 +3385,17 @@ object SnippetsMainFrm: TSnippetsMainFrm
     SelectedColor.ItalicPriority = 50
     SelectedColor.UnderlinePriority = 50
     SelectedColor.StrikeOutPriority = 50
-    IncrementColor.FrameEdges = sfeAround
-    HighlightAllColor.FrameEdges = sfeAround
     BracketHighlightStyle = sbhsBoth
     BracketMatchColor.Background = clNone
     BracketMatchColor.Foreground = clNone
-    BracketMatchColor.FrameEdges = sfeAround
     BracketMatchColor.Style = [fsBold]
     FoldedCodeColor.Background = clNone
     FoldedCodeColor.Foreground = clGray
     FoldedCodeColor.FrameColor = clGray
-    FoldedCodeColor.FrameEdges = sfeAround
     MouseLinkColor.Background = clNone
     MouseLinkColor.Foreground = clBlue
-    MouseLinkColor.FrameEdges = sfeAround
     LineHighlightColor.Background = 16444903
     LineHighlightColor.Foreground = clNone
-    LineHighlightColor.FrameEdges = sfeAround
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
         Width = 24
@@ -3380,7 +3407,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
         MouseActions = <>
         MarkupInfo.Background = 12058620
         MarkupInfo.Foreground = clNone
-        MarkupInfo.FrameEdges = sfeAround
         DigitCount = 3
         ShowOnlyLineNumbersMultiplesOf = 10
         ZeroStart = False
@@ -3399,14 +3425,12 @@ object SnippetsMainFrm: TSnippetsMainFrm
         MouseActions = <>
         MarkupInfo.Background = clWhite
         MarkupInfo.Foreground = clGray
-        MarkupInfo.FrameEdges = sfeAround
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
         Visible = False
         MouseActions = <>
         MarkupInfo.Background = clNone
         MarkupInfo.Foreground = clGray
-        MarkupInfo.FrameEdges = sfeAround
         MouseActionsExpanded = <>
         MouseActionsCollapsed = <>
       end
@@ -3414,9 +3438,9 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object tvData: TTreeView
     Left = 0
-    Height = 554
+    Height = 636
     Top = 40
-    Width = 280
+    Width = 379
     Align = alLeft
     BorderStyle = bsNone
     Font.Height = -13
@@ -5891,22 +5915,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlPascal: TSynFreePascalSyn
     Tag = 1
     Enabled = False
-    AsmAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    IDEDirectiveAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = clBlue
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = clBlue
-    StringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
-    CaseLabelAttri.FrameEdges = sfeAround
     DirectiveAttri.Foreground = clTeal
-    DirectiveAttri.FrameEdges = sfeAround
     DirectiveAttri.Style = []
     CompilerMode = pcmObjFPC
     NestedComments = True
@@ -5917,17 +5930,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     Tag = 2
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
     left = 475
     top = 159
   end
@@ -5936,25 +5942,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlStandard
     left = 449
     top = 224
@@ -5964,24 +5955,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'Python Files (*.py)|*.py'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
-    NonKeyAttri.FrameEdges = sfeAround
-    SystemAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    HexAttri.FrameEdges = sfeAround
-    OctalAttri.FrameEdges = sfeAround
-    FloatAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
-    DocStringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    ErrorAttri.FrameEdges = sfeAround
     left = 501
     top = 159
   end
@@ -5990,20 +5967,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'PHP Files (*.php,*.php3,*.phtml,*.inc)|*.php;*.php3;*.phtml;*.inc'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    InvalidSymbolAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
     VariableAttri.Foreground = clNavy
-    VariableAttri.FrameEdges = sfeAround
     left = 527
     top = 159
   end
@@ -6012,21 +5980,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'Perl Files (*.pl,*.pm,*.cgi)|*.pl;*.pm;*.cgi'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    InvalidAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    OperatorAttri.FrameEdges = sfeAround
-    PragmaAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     left = 554
     top = 159
   end
@@ -6034,21 +5991,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
     Tag = 7
     DefaultFilter = 'Java Files (*.java)|*.java'
     Enabled = False
-    AnnotationAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    DocumentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    InvalidAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
     left = 581
     top = 159
   end
@@ -6057,14 +6004,8 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     left = 610
     top = 159
   end
@@ -6072,21 +6013,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
     Tag = 9
     DefaultFilter = 'C++ Files (*.c,*.cpp,*.h,*.hpp,*.hh)|*.c;*.cpp;*.h;*.hpp;*.hh'
     Enabled = False
-    AsmAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    DirecAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    InvalidAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
     left = 639
     top = 159
   end
@@ -6105,95 +6036,79 @@ object SnippetsMainFrm: TSnippetsMainFrm
         StartExpr = '<Bat>;<Bat'
         EndExpr = '</Bat>;/>'
         Highlighter = shlBAT
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<CPP>;<CPP'
         EndExpr = '</CPP>;/>'
         Highlighter = shlCPP
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<Java>'
         EndExpr = '</Java>'
         Highlighter = shlJava
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<Pascal>'
         EndExpr = '</Pascal>'
         Highlighter = shlPascal
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<Perl>'
         EndExpr = '</Perl>'
         Highlighter = shlPerl
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<?PHP'
         EndExpr = '?>'
         Highlighter = shlPHP
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<Python>'
         EndExpr = '</Python>'
         Highlighter = shlPython
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '#!/bin/bash'
         EndExpr = '</Bash>'
         Highlighter = shlShellScript
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<SQL>'
         EndExpr = '</SQL>'
         Highlighter = shlSQL
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<IngreSQL>'
         EndExpr = '</IngreSQL>'
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<IBSql>'
         EndExpr = '</IBSql>'
         Highlighter = shlSqlInterbase
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<MSSQL>'
         EndExpr = '</MSSQL>'
         Highlighter = shlSqlMsSql2000
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<MySQL>'
         EndExpr = '</MySQL>'
         Highlighter = shlSqlMySQL
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<OracleSql>'
         EndExpr = '</OracleSql>'
         Highlighter = shlSqlOracle
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<SybaseSql>'
         EndExpr = '</SybaseSql>'
-        MarkerAttri.FrameEdges = sfeAround
       end    
       item
         StartExpr = '<VB>'
         EndExpr = '</VB>'
         Highlighter = shlVB
-        MarkerAttri.FrameEdges = sfeAround
       end>
     DefaultHighlighter = shlPascal
     DefaultLanguageName = 'Pascal'
@@ -6205,25 +6120,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlInterbase6
     left = 475
     top = 224
@@ -6233,25 +6133,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlMSSQL2K
     left = 501
     top = 224
@@ -6261,25 +6146,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlMySQL
     left = 528
     top = 224
@@ -6289,25 +6159,10 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlOracle
     left = 557
     top = 224
@@ -6317,43 +6172,26 @@ object SnippetsMainFrm: TSnippetsMainFrm
     DefaultFilter = 'UNIX Shell Scripts (*.sh)|*.sh'
     Enabled = False
     CommentAttri.Foreground = 10658466
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.FrameEdges = sfeAround
-    SecondKeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = 4227327
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 4174598
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = 10637649
-    SymbolAttri.FrameEdges = sfeAround
-    VarAttri.FrameEdges = sfeAround
     left = 667
     top = 159
   end
   object SynAnySyn1: TSynAnySyn
     Enabled = False
     CommentAttri.Foreground = 12697535
-    CommentAttri.FrameEdges = sfeAround
     CommentAttri.Style = []
     Comments = []
     DetectPreprocessor = False
-    IdentifierAttri.FrameEdges = sfeAround
     IdentifierChars = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
     KeyAttri.Foreground = clNavy
-    KeyAttri.FrameEdges = sfeAround
     KeyAttri.StyleMask = [fsBold]
-    ConstantAttri.FrameEdges = sfeAround
     ConstantAttri.Style = []
     ObjectAttri.Foreground = clBlue
-    ObjectAttri.FrameEdges = sfeAround
     ObjectAttri.Style = []
-    EntityAttri.FrameEdges = sfeAround
     VariableAttri.Foreground = clFuchsia
-    VariableAttri.FrameEdges = sfeAround
     VariableAttri.Style = []
-    DotAttri.FrameEdges = sfeAround
     KeyWords.Strings = (
       'ABSOLUTE'
       'ABSTRACT'
@@ -6469,13 +6307,8 @@ object SnippetsMainFrm: TSnippetsMainFrm
       'WORD'
     )
     NumberAttri.Foreground = clMenuHighlight
-    NumberAttri.FrameEdges = sfeAround
     PreprocessorAttri.Foreground = clRed
-    PreprocessorAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = 8103998
-    StringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
     StringDelim = sdDoubleQuote
     Markup = False
     Entity = True
