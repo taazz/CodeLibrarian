@@ -5999,6 +5999,7 @@ end; { TGpDoublyLinkedListObject.PreviousUnsafe }
 {:Unlinks the object from the list.
   @since   2003-10-28
 }
+
 procedure TGpDoublyLinkedListObject.Unlink;
 begin
   if assigned(dlloList) then begin

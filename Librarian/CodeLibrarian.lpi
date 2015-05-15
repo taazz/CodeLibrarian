@@ -19,6 +19,7 @@
       <MajorVersionNr Value="1"/>
       <RevisionNr Value="1"/>
       <BuildNr Value="3"/>
+      <Attributes pvaPreRelease="True"/>
       <StringTable Comments="Your very own code library." CompanyName="EVOSI" FileDescription="Snippets" InternalName="Code Librarian" LegalCopyright="Copyright 2013 Evosi, all rights reserved." OriginalFilename="snippets.exe" ProductName="Code Snippets" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -54,11 +55,7 @@
             </Options>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
             <CustomOptions Value="-dDebug"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -88,7 +85,6 @@
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="CodeLibrarian"/>
       </Unit0>
       <Unit1>
         <Filename Value="umainform.pas"/>
@@ -101,7 +97,6 @@
       <Unit2>
         <Filename Value="..\Components\GpLists.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="GpLists"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
@@ -114,22 +109,18 @@
         <ComponentName Value="EvsOptionsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uOptions"/>
       </Unit4>
       <Unit5>
         <Filename Value="uvar.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uVar"/>
       </Unit5>
       <Unit6>
         <Filename Value="HighLighters\uevssynhighlightersql.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uEvsSynhighlightersql"/>
       </Unit6>
       <Unit7>
         <Filename Value="HighLighters\StrConst.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="StrConst"/>
       </Unit7>
     </Units>
   </ProjectOptions>
@@ -163,11 +154,7 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
       <CustomOptions Value="-dRelease"/>
-      <CompilerPath Value="$(CompPath)"/>
       <ExecuteAfter>
         <Command Value="$Path($TargetFile())\cp.bat"/>
         <CompileReasons Run="False"/>

@@ -1,3 +1,17 @@
+{ ╔═════════════════════════════════════════════════════════════════════════════╗
+  ║                 Copyright© 2012-2015 EVOSI® all rights reserved             ║
+  ╠═════════════════════════════════════════════════════════════════════════════╣
+  ║    ▄▄▄▄▄▄▄▄▄▄▄  ▄               ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄    ║
+  ║   ▐░░░░░░░░░░░▌▐░▌             ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ║
+  ║   ▐░█▀▀▀▀▀▀▀▀▀  ▐░▌           ▐░▌ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀  ▀▀▀▀█░█▀▀▀▀    ║
+  ║   ▐░█▄▄▄▄▄▄▄▄▄    ▐░▌       ▐░▌   ▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄▄▄      ▐░▌        ║
+  ║   ▐░░░░░░░░░░░▌    ▐░▌     ▐░▌    ▐░▌       ▐░▌▐░░░░░░░░░░░▌     ▐░▌        ║
+  ║   ▐░█▀▀▀▀▀▀▀▀▀      ▐░▌   ▐░▌     ▐░▌       ▐░▌ ▀▀▀▀▀▀▀▀▀█░▌     ▐░▌        ║
+  ║   ▐░█▄▄▄▄▄▄▄▄▄        ▐░▐░▌       ▐░█▄▄▄▄▄▄▄█░▌ ▄▄▄▄▄▄▄▄▄█░▌ ▄▄▄▄█░█▄▄▄▄    ║
+  ║   ▐░░░░░░░░░░░▌        ▐░▌        ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ║
+  ║    ▀▀▀▀▀▀▀▀▀▀▀          ▀          ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀    ║
+  ╚═════════════════════════════════════════════════════════════════════════════╝}
+
 unit uMainForm;
 
 {$mode objfpc}{$H+}
@@ -31,185 +45,184 @@ unit uMainForm;
            file it self.
            Attachments can be either inside a hidden directory or be hidden files them selfs in the same directory as
            the snippet. It would probably be better to have all the attachments in one place so when a new file is
-           inserted then it can be checked against the existing database and avoid duplicates.
-}
+           inserted then it can be checked against the existing database and avoid duplicates. }
 interface
 
 uses
   Classes,   SysUtils, FileUtil, Forms,    Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  Grids,   StdCtrls,
+  ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  //Grids,   StdCtrls, FileCtrl,
   uVar, GpStructuredStorage,
-
   SynEditHighlighter,  SynHighlighterPas,     SynHighlighterVB,   SynHighlighterSQL, SynHighlighterPython,
   SynHighlighterPHP,   SynHighlighterPerl,    SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
   SynHighlighterMulti, SynHighlighterJScript, SynHighlighterAny,  SynHighlighterAsm, SynHighlighterCS,
-  synhighlighterunixshellscript;
+  synhighlighterunixshellscript, TreeFilterEdit;
 
 type
   { TSnippetsMainFrm }
 
   TSnippetsMainFrm = class(TForm)
-    aclMain           : TActionList;
-    actEditCopy       : TEditCopy;
-    actEditCut        : TEditCut;
-    actEditPaste      : TEditPaste;
-    actEditUndo       : TEditUndo;
-    actFileExit       : TFileExit;
-    actFileOpen       : TFileOpen;
-    actFolderRootNew  : TAction;
-    actFolderNew      : TAction;
-    actDelete         : TAction;
-    actExpandAll      : TAction;
-    actCollapseAll    : TAction;
-    actCompact        : TAction;
-    actSettings       : TAction;
-    actSetHighlighter : TAction;
-    actSnippetNew     : TAction;
-    actSnippetSave    : TAction;
-    actFileNew        : TFileOpen;
-    actFileImport     : TFileOpen;
-    imlMain           : TImageList;
-    mnuMain           : TMainMenu;
-    MenuItem2         : TMenuItem;
-    MenuItem3         : TMenuItem;
-    mniSettings       : TMenuItem;
-    mnuOptions        : TMenuItem;
-    mniDelete         : TMenuItem;
-    mniSepItem        : TMenuItem;
-    mniSepItem6       : TMenuItem;
-    mniFolderNew      : TMenuItem;
-    mniFolderRootNew  : TMenuItem;
-    mniSnippetNew     : TMenuItem;
-    mniEditNew        : TMenuItem;
-    MenuItem1         : TMenuItem;
-    mniFileOpen       : TMenuItem;
-    mniExit           : TMenuItem;
-    mniSepItem2       : TMenuItem;
-    miCompact         : TMenuItem;
-    mniSepItem1       : TMenuItem;
-    mniNew            : TMenuItem;
-    mnuFile           : TMenuItem;
-    mnuEditUndo       : TMenuItem;
-    mnuEditPaste      : TMenuItem;
-    mnuEditCut        : TMenuItem;
-    mnuEditCopy       : TMenuItem;
-    mnuEdit           : TMenuItem;
-    pmnuTree          : TPopupMenu;
-    shlSqlOracle      : TSynSQLSyn;
-    shlSqlInterbase   : TSynSQLSyn;
-    shlSqlMsSql2000   : TSynSQLSyn;
-    shlSqlMySQL       : TSynSQLSyn;
-    Splitter1         : TSplitter;
-    StatusBar1        : TStatusBar;
-    snEditor          : TSynEdit;
-    shlPascal         : TSynFreePascalSyn;
-    shlBAT            : TSynBatSyn;
-    shlCPP            : TSynCppSyn;
-    shlJava           : TSynJavaSyn;
-    shlPerl           : TSynPerlSyn;
-    shlPHP            : TSynPHPSyn;
-    shlPython         : TSynPythonSyn;
-    shlSQL            : TSynSQLSyn;
-    shlVB             : TSynVBSyn;
-    shlMultiHl        : TSynMultiSyn;
-    shlShellScript    : TSynUNIXShellScriptSyn;
-    SynAnySyn1        : TSynAnySyn;
-    ToolBar1          : TToolBar;
-    btnFileOpen       : TToolButton;
-    btnExpandAll      : TToolButton;
-    btnCollapseAll    : TToolButton;
-    btnSnippetNew     : TToolButton;
-    btnFolderRootNew  : TToolButton;
-    btnFolderNew      : TToolButton;
-    ToolButton1       : TToolButton;
-    ToolButton2       : TToolButton;
-    ToolButton3       : TToolButton;
-    ToolButton4       : TToolButton;
-    btnEditCopy       : TToolButton;
-    btnEditCut        : TToolButton;
-    btnEditPaste      : TToolButton;
-    btnEditUndo       : TToolButton;
-    ToolButton9       : TToolButton;
-    tvData            : TTreeView;
-    procedure actCollapseAllExecute   (Sender : TObject);
-    procedure actCompactExecute       (Sender : TObject);
-    procedure actCompactUpdate        (Sender : TObject);
-    procedure actDeleteExecute        (Sender : TObject);
-    procedure actDeleteUpdate         (Sender : TObject);
-    procedure actEditUndoExecute      (Sender : TObject);
-    procedure actEditUndoUpdate       (Sender : TObject);
-    procedure actExpandAllExecute     (Sender : TObject);
-    procedure actFileImportAccept     (Sender : TObject);
-    procedure actFileNewAccept        (Sender : TObject);
-    procedure actFileOpenAccept       (Sender : TObject);
-    procedure actFolderNewExecute     (Sender : TObject);
-    procedure actFolderRootNewExecute (Sender : TObject);
-    procedure actSetHighlighterExecute(Sender : TObject);
-    procedure actSettingsExecute      (Sender : TObject);
-    procedure actSnippetNewExecute    (Sender : TObject);
-    procedure actSnippetSaveExecute   (Sender : TObject);
-    procedure actSnippetSaveUpdate    (Sender : TObject);
-    procedure FormClose               (Sender : TObject; var CloseAction : TCloseAction);
-    procedure pmnuTreePopup           (Sender : TObject);
-    procedure snEditorExit            (Sender : TObject);
-    procedure Splitter1Moved          (Sender : TObject);
-    procedure tvDataChange            (Sender : TObject; Node : TTreeNode);
-    procedure tvDataChanging          (Sender : TObject; Node : TTreeNode; var AllowChange : Boolean);
-    procedure tvDataCompare           (Sender : TObject; Node1, Node2 : TTreeNode; var Compare : Integer);
-    procedure tvDataDragDrop(Sender, Source: TObject; X, Y: Integer);
-    procedure tvDataDragOver(Sender, Source: TObject; X, Y: Integer;
-      State: TDragState; var Accept: Boolean);
+    aclMain           :TActionList;
+    actEditCopy       :TEditCopy;
+    actEditCut        :TEditCut;
+    actEditPaste      :TEditPaste;
+    actEditUndo       :TEditUndo;
+    actFileExit       :TFileExit;
+    actFileOpen       :TFileOpen;
+    actFolderRootNew  :TAction;
+    actFolderNew      :TAction;
+    actDelete         :TAction;
+    actExpandAll      :TAction;
+    actCollapseAll    :TAction;
+    actCompact        :TAction;
+    actSettings       :TAction;
+    actSetHighlighter :TAction;
+    actSnippetNew     :TAction;
+    actSnippetSave    :TAction;
+    actFileNew        :TFileOpen;
+    actFileImport     :TFileOpen;
+    imlMain           :TImageList;
+    mnuMain           :TMainMenu;
+    MenuItem2         :TMenuItem;
+    MenuItem3         :TMenuItem;
+    mniSettings       :TMenuItem;
+    mnuOptions        :TMenuItem;
+    mniDelete         :TMenuItem;
+    mniSepItem        :TMenuItem;
+    mniSepItem6       :TMenuItem;
+    mniFolderNew      :TMenuItem;
+    mniFolderRootNew  :TMenuItem;
+    mniSnippetNew     :TMenuItem;
+    mniEditNew        :TMenuItem;
+    MenuItem1         :TMenuItem;
+    mniFileOpen       :TMenuItem;
+    mniExit           :TMenuItem;
+    mniSepItem2       :TMenuItem;
+    miCompact         :TMenuItem;
+    mniSepItem1       :TMenuItem;
+    mniNew            :TMenuItem;
+    mnuFile           :TMenuItem;
+    mnuEditUndo       :TMenuItem;
+    mnuEditPaste      :TMenuItem;
+    mnuEditCut        :TMenuItem;
+    mnuEditCopy       :TMenuItem;
+    mnuEdit           :TMenuItem;
+    Panel1            :TPanel;
+    pmnuTree          :TPopupMenu;
+    shlSqlOracle      :TSynSQLSyn;
+    shlSqlInterbase   :TSynSQLSyn;
+    shlSqlMsSql2000   :TSynSQLSyn;
+    shlSqlMySQL       :TSynSQLSyn;
+    Splitter1         :TSplitter;
+    StatusBar1        :TStatusBar;
+    snEditor          :TSynEdit;
+    shlPascal         :TSynFreePascalSyn;
+    shlBAT            :TSynBatSyn;
+    shlCPP            :TSynCppSyn;
+    shlJava           :TSynJavaSyn;
+    shlPerl           :TSynPerlSyn;
+    shlPHP            :TSynPHPSyn;
+    shlPython         :TSynPythonSyn;
+    shlSQL            :TSynSQLSyn;
+    shlVB             :TSynVBSyn;
+    shlMultiHl        :TSynMultiSyn;
+    shlShellScript    :TSynUNIXShellScriptSyn;
+    SynAnySyn1        :TSynAnySyn;
+    ToolBar1          :TToolBar;
+    btnFileOpen       :TToolButton;
+    btnExpandAll      :TToolButton;
+    btnCollapseAll    :TToolButton;
+    btnSnippetNew     :TToolButton;
+    btnFolderRootNew  :TToolButton;
+    btnFolderNew      :TToolButton;
+    ToolButton1       :TToolButton;
+    ToolButton2       :TToolButton;
+    ToolButton3       :TToolButton;
+    ToolButton4       :TToolButton;
+    btnEditCopy       :TToolButton;
+    btnEditCut        :TToolButton;
+    btnEditPaste      :TToolButton;
+    btnEditUndo       :TToolButton;
+    ToolButton5       :TToolButton;
+    ToolButton9       :TToolButton;
+    TreeFilterEdit1   :TTreeFilterEdit;
+    tvData            :TTreeView;
+    procedure actCollapseAllExecute   (Sender :TObject);
+    procedure actCompactExecute       (Sender :TObject);
+    procedure actCompactUpdate        (Sender :TObject);
+    procedure actDeleteExecute        (Sender :TObject);
+    procedure actDeleteUpdate         (Sender :TObject);
+    procedure actEditUndoExecute      (Sender :TObject);
+    procedure actEditUndoUpdate       (Sender :TObject);
+    procedure actExpandAllExecute     (Sender :TObject);
+    procedure actFileImportAccept     (Sender :TObject);
+    procedure actFileNewAccept        (Sender :TObject);
+    procedure actFileOpenAccept       (Sender :TObject);
+    procedure actFolderNewExecute     (Sender :TObject);
+    procedure actFolderRootNewExecute (Sender :TObject);
+    procedure actSetHighlighterExecute(Sender :TObject);
+    procedure actSettingsExecute      (Sender :TObject);
+    procedure actSnippetNewExecute    (Sender :TObject);
+    procedure actSnippetSaveExecute   (Sender :TObject);
+    procedure actSnippetSaveUpdate    (Sender :TObject);
+    procedure FormClose               (Sender :TObject; var CloseAction : TCloseAction);
+    procedure pmnuTreePopup           (Sender :TObject);
+    procedure snEditorExit            (Sender :TObject);
+    procedure Splitter1Moved          (Sender :TObject);
+    procedure tvDataChange            (Sender :TObject; Node :TTreeNode);
+    procedure tvDataChanging          (Sender :TObject; Node :TTreeNode; var AllowChange :Boolean);
+    procedure tvDataCompare           (Sender :TObject; Node1, Node2 :TTreeNode; var Compare : Integer);
+    procedure tvDataDragDrop          (Sender, Source :TObject; X, Y :Integer);
+    procedure tvDataDragOver          (Sender, Source :TObject; X, Y :Integer; State :TDragState; var Accept :Boolean);
     // called when the tree view text editor finsihed editting aka renaming a node
-    procedure tvDataEdited            (Sender : TObject; Node : TTreeNode; var S : string);
-    procedure tvDataEditingEnd        (Sender : TObject; Node : TTreeNode; Cancel : Boolean);
-    procedure tvDataMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure tvDataStartDrag(Sender: TObject; var DragObject: TDragObject);
+    procedure tvDataEdited            (Sender :TObject; Node  :TTreeNode; var S  :string);
+    procedure tvDataEditingEnd        (Sender :TObject; Node  :TTreeNode; Cancel :Boolean);
+    procedure tvDataMouseDown         (Sender :TObject; Button:TMouseButton; Shift :TShiftState; X, Y :Integer);
+    procedure tvDataStartDrag         (Sender :TObject; var DragObject :TDragObject);
   private
     { private declarations }
-    FCodeLib            : IGpStructuredStorage; // library file opened.
-    FAutoLoadLast       : Boolean;
-    FLastLibrary        : string;
-    FDefaultHighlighter : TSynCustomHighlighter;// always set to shlPascal user selectable in the future.
-    FAutoExpandNodes    : Boolean;
-    FAutoExpandAll      : Boolean;
+    FCodeLib            :IGpStructuredStorage; // library file opened.
+    FAutoLoadLast       :Boolean;
+    FLastLibrary        :string;
+    FDefaultHighlighter :TSynCustomHighlighter;// always set to shlPascal user selectable in the future.
+    FAutoExpandNodes    :Boolean;
+    FAutoExpandAll      :Boolean;
 
-    function DefaultHighLighter(aFileName          : String)               : TSynCustomHighlighter;overload;
-    function DefaultHighLighter(aNode              : TTreeNode)            : TSynCustomHighlighter;overload;
-    function GetHighLighter    (aFileName          : string)               : TSynCustomHighlighter;overload;
-    function GetHighLighter    (aNode              : TTreeNode)            : TSynCustomHighlighter;overload;
-    function HighLighterTitle  (const aHighLighter : TSynCustomHighlighter): string;
-    function HighLighterData   (const aHighLighter : TSynCustomHighlighter): PHighlighterData;
+    function GetHighLighter    (aFileName          :string)               :TSynCustomHighlighter;overload;
+    function GetHighLighter    (aNode              :TTreeNode)            :TSynCustomHighlighter;overload;
+    function HighLighterTitle  (const aHighLighter :TSynCustomHighlighter):string;
+    function HighLighterData   (const aHighLighter :TSynCustomHighlighter):PHighlighterData;
 
-    function GetNodePath    (aNode        : TTreeNode)                                      : String;
-    function IsFile         (aNode        : TTreeNode)                                      : Boolean;
-    function IsFolder       (aNode        : TTreeNode)                                      : Boolean;
-    function NewNode        (const aParent: TTreeNode; aText :String; Folder:Boolean = True): TTreeNode;
-    function UniqueName     (aPath        : string;    Folder:Boolean)                      : string;
-    function IsFileNameValid(aName        : string)                                         : Boolean;
+    function GetNodePath    (aNode         :TTreeNode):String;
+    function IsFile         (aNode         :TTreeNode):Boolean;
+    function IsFolder       (aNode         :TTreeNode):Boolean;
+    function NewNode        (const aParent :TTreeNode; aText  :String; Folder :Boolean = True):TTreeNode;
+    function UniqueName     (aPath         :string;    Folder :Boolean):string;
+    function IsFileNameValid(aName         :string):Boolean;
 
-    procedure BuildHighLightPopup(const aParent     : TMenuItem);
-    procedure CheckMenu          (const aHighlighter: TSynCustomHighlighter);
-    procedure SaveData           (const aNode       : TTreeNode);
-    procedure SetAutoExpandNodes (aValue            : Boolean);
-    procedure SetHighlighter     (const aHighlighter: TSynCustomHighlighter; const aFile:string);
-    procedure ValidateFileName   (aName             : string);// raise exception on invalid characters in the filename path must not be included.
-    procedure ValidateName       (aObjectName       : string);//make sure that the objectname passed is a valid filename with path.
+    procedure BuildHighLightPopup(const aParent     :TMenuItem);
+    procedure CheckMenu          (const aHighlighter:TSynCustomHighlighter);
+    procedure SaveData           (const aNode       :TTreeNode);
+    procedure SetAutoExpandNodes (aValue            :Boolean);
+    procedure SetHighlighter     (const aHighlighter:TSynCustomHighlighter; const aFile:string);
+    procedure ValidateFileName   (aName             :string);// raise exception on invalid characters in the filename path must not be included.
+    procedure ValidateName       (aObjectName       :string);//make sure that the objectname passed is a valid filename with path.
     procedure SetShowToolBarCaptions(const aValue:Boolean);
     procedure LoadCodeLib;
     procedure LoadSettings;
     procedure SaveSettings;
-    procedure SetNodeIcons          (const aNode   : TTreeNode; Recursive:Boolean=False);
-    procedure SetDefaultHighLighter (const aTitle  : string);
-    procedure ResetChildIcons       (const aParent : TTreeNode; const Recursive:boolean = False);
-    procedure ExpandTreeNodes       (const aAll    : Boolean = False);
-    procedure CollapseTreeNodes     (const aAll    : Boolean = False);
+    procedure SetNodeIcons         (const aNode   :TTreeNode; Recursive :Boolean=False);
+    procedure SetDefaultHighLighter(const aTitle  :string);
+    procedure ResetChildIcons      (const aParent :TTreeNode; const Recursive :Boolean = False);
+    procedure ExpandTreeNodes      (const aAll    :Boolean = False);
+    procedure CollapseTreeNodes    (const aAll    :Boolean = False);
+    procedure ImportComponentSuite (const aDir    :String);
+    procedure CreateLibrary        (const aFileName:string);
   public
     { public declarations }
-    constructor Create   (TheOwner : TComponent); override;
+    constructor Create (TheOwner :TComponent); override;
     destructor  Destroy; override;
-    procedure   OpenLibrary(aName : string);
-    procedure   ImportLib  (const aFileName:string; const aRootFolder : string = '');
+    procedure   OpenLibrary(aName :string);
+    procedure   ImportLib (const aFileName :string; const aRootFolder :string = '');
     //when true it opens all tree nodes when opening a library.
     property AutoExpandNodes : Boolean read FAutoExpandNodes write SetAutoExpandNodes;
   end;
@@ -220,66 +233,58 @@ var
 implementation
 uses
   strutils, variants, uOptions, IniFiles, uEvsSynhighlightersql, StrConst
-  , SynHighlighterDOT
-  , SynHighlighterInno
-  , SynHighlighterCobol
-  , SynHighlighterEiffel
-  , SynHighlighterFortran
-  , SynHighlighterRuby
-  , SynHighlighterIDL
-  , SynHighlighterHaskell
-  , SynHighlighterFoxpro
-
-
-  , SynHighlighterProlog
-  , SynHighlighterLua
+  , SynHighlighterDOT, SynHighlighterInno, SynHighlighterCobol, SynHighlighterEiffel
+  , SynHighlighterFortran, SynHighlighterRuby, SynHighlighterIDL, SynHighlighterHaskell
+  , SynHighlighterFoxpro, SynHighlighterProlog, SynHighlighterLua
   //, SynHighlighterM3
   , SynHighlighterTclTk
   ;
 {$R *.lfm}
 
 resourcestring
-  FolderPrefix          = 'Folder ';
-  FilePrefix            = 'Snippet ';
-  rsclbUniqueNameFailed = 'Unable to find unique Name';
-  rsInvalidName         = 'Invalid Object name <%S>';
-  rsHLNone              = 'None';
-  rsHLPascal            = 'Pascal';
-  rsHLVb                = 'Visual Basic';
-  rsHLSql               = 'Generic SQL';
-  rsHLPython            = 'Python';
-  rsHLPHP               = 'PHP';
-  rsHLPerl              = 'Perl';
-  rsHLJava              = 'Java';
-  rsHLBat               = '.Bat';
-  rsHLCPP               = 'C / C++';
-  rsHLJavaScript        = 'JavaScript';
-  rsHLFirebird          = 'Firebird Dialect';
-  rsHLOracleSql         = 'Oracle Dialect';
-  rsHLPostgreSQL        = 'Postgres Dialect';
-  rsHLMySQL             = 'MySQL Dialect';
-  rsHLMsSQL             = 'MsSQL Dialect';
-  rsHLASM               = 'Assembly';
-  rsHLCS                = 'C#';
-  rsHLSQLite            = 'SQLite';
-  rsHLRuby              = 'Ruby';
-  rsHLInno              = 'Inno Script';
-  rsHLCobol             = 'Cobol';
-  rsHLFortran           = 'Fortran';
-  rsHLHaskell           = 'Haskell';
-  rsHLEiffel            = 'Eiffel';
-  rsHLIdl               = 'IDL';
-  rsHLFoxPro            = 'FoxPro';
-  rsHLDOT               = 'DOT Graph';
-  rsHLLua               = 'Lua Script';
-  rsHLTclTk             = 'Tcl/TK';
+  FolderPrefix           = 'Folder ';
+  FilePrefix             = 'Snippet ';
+  rsclbUniqueNameFailed  = 'Unable to find unique Name';
+  rsInvalidName          = 'Invalid Object name <%S>';
+  rsHLNone               = 'None';
+  rsHLPascal             = 'Pascal';
+  rsHLVb                 = 'Visual Basic';
+  rsHLSql                = 'Generic SQL';
+  rsHLPython             = 'Python';
+  rsHLPHP                = 'PHP';
+  rsHLPerl               = 'Perl';
+  rsHLJava               = 'Java';
+  rsHLBat                = '.Bat';
+  rsHLCPP                = 'C / C++';
+  rsHLJavaScript         = 'JavaScript';
+  rsHLFirebird           = 'Firebird Dialect';
+  rsHLOracleSql          = 'Oracle Dialect';
+  rsHLPostgreSQL         = 'Postgres Dialect';
+  rsHLMySQL              = 'MySQL Dialect';
+  rsHLMsSQL              = 'MsSQL Dialect';
+  rsHLASM                = 'Assembly';
+  rsHLCS                 = 'C#';
+  rsHLSQLite             = 'SQLite';
+  rsHLRuby               = 'Ruby';
+  rsHLInno               = 'Inno Script';
+  rsHLCobol              = 'Cobol';
+  rsHLFortran            = 'Fortran';
+  rsHLHaskell            = 'Haskell';
+  rsHLEiffel             = 'Eiffel';
+  rsHLIdl                = 'IDL';
+  rsHLFoxPro             = 'FoxPro';
+  rsHLDOT                = 'DOT Graph';
+  rsHLLua                = 'Lua Script';
+  rsHLTclTk              = 'Tcl/TK';
 
-  rsHLProlog            = 'Prolog';
-  rsHLMod3              = 'Modula 3';
+  rsHLProlog             = 'Prolog';
+  rsHLMod3               = 'Modula 3';
 
 
 
-  rsHLSTesting          = 'Convreted Test';
+  rsHLSTesting           = 'Convreted Test';
+
+  rsFileExists           = 'The file %S already exists in the disk. Do you want to replace it?';
 
 const
   cHighlighter        = 'Highlighter';
@@ -350,6 +355,26 @@ const
   idxSnippetTclTkNormal       = 54;
   idxSnippetTclTkSelected     = 54;
 
+type
+
+  { TEvsScreenCursor }
+
+  IEvsCursor = interface(IUnknown)
+    ['{8B120895-793E-41C8-A4A6-3867F306A1FE}']
+  end;
+
+  TEvsScreenCursor = class(TInterfacedObject, IEvsCursor)
+  private
+    FOldCursor :TCursor;
+  public
+    constructor Create(aNewCursor:TCursor);
+    destructor Destroy; override;
+  end;
+
+function ChangeCursor(aCursor:TCursor):IEvsCursor;
+begin
+  Result := TEvsScreenCursor.Create(aCursor);
+end;
 
 var
 
@@ -434,6 +459,21 @@ begin
     else
       Result := Result + FileName;
   end;
+end;
+
+{ TEvsScreenCursor }
+
+constructor TEvsScreenCursor.Create(aNewCursor :TCursor);
+begin
+  inherited Create;
+  FOldCursor := Screen.Cursor;
+  Screen.Cursor := aNewCursor;
+end;
+
+destructor TEvsScreenCursor.Destroy;
+begin
+  Screen.Cursor := FOldCursor;
+  inherited Destroy;
 end;
 
 { TSnippetsMainFrm }
@@ -558,8 +598,14 @@ end;
 
 procedure TSnippetsMainFrm.actFileNewAccept(Sender : TObject);
 begin
-  FCodeLib.Initialize(actFileNew.Dialog.FileName, fmCreate);
-  LoadCodeLib;
+  // if the file exists and the user decides not to overwrite it make sure that
+  // the current environment is not changed
+  if FileExistsUTF8(actFileNew.Dialog.FileName) then begin
+    if MessageDlg('New library', Format(rsFileExists, [actFileNew.Dialog.FileName]), mtInformation, [mbYes, mbCancel], 0, mbCancel) <> mrYes then begin
+      Exit;
+    end;
+  end; //user has opted to create the new library no matter what.
+  CreateLibrary(actFileNew.Dialog.FileName);
 end;
 
 procedure TSnippetsMainFrm.actExpandAllExecute(Sender : TObject);
@@ -685,16 +731,14 @@ begin
   StatusBar1.Panels[0].Text := HighLighterTitle(snEditor.Highlighter);
 end;
 
-procedure TSnippetsMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode;
-  var AllowChange : Boolean);
+procedure TSnippetsMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode; var AllowChange : Boolean);
 begin
   if snEditor.Modified then begin
     SaveData(Node);
   end;
 end;
 
-procedure TSnippetsMainFrm.tvDataCompare(Sender : TObject; Node1,
-  Node2 : TTreeNode; var Compare : Integer);
+procedure TSnippetsMainFrm.tvDataCompare(Sender : TObject; Node1, Node2 : TTreeNode; var Compare : Integer);
 var
   vStr1, vStr2 : string;
 begin
@@ -703,27 +747,26 @@ begin
   Compare := CompareText(vStr1, vStr2);
 end;
 
-procedure TSnippetsMainFrm.tvDataDragDrop(Sender, Source: TObject; X, Y: Integer
-  );
+procedure TSnippetsMainFrm.tvDataDragDrop(Sender, Source: TObject; X, Y: Integer);
   function vSender:TTreeview;inline;
   begin
     Result := TTreeView(Sender);
   end;
+
 begin
   /// after the drop is made we have to check the following.
   /// 1) is the droped node a folder or a snipet node.
   /// 2) is the target node outside the selected nodes childrent if it is not
-  ///    then scream a curse and exit. OTher wise start the move operation.
+  ///    then scream a curse and exit. Other wise start the move operation.
   /// 3) complete the move operation and exit.
   /// The move operation has the following steps.
   ///  1) select all the files and subfiles of the dragged node.
-  ///  2) move them inside the library container first to allow.
+  ///  2) move them inside the library container first.
   ///  3) move the dragged node as child of the dropped node.
 
 end;
 
-procedure TSnippetsMainFrm.tvDataDragOver(Sender, Source: TObject; X,
-  Y: Integer; State: TDragState; var Accept: Boolean);
+procedure TSnippetsMainFrm.tvDataDragOver(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean);
 begin
   Accept := (Source = Sender);
 end;
@@ -732,20 +775,23 @@ procedure TSnippetsMainFrm.tvDataEdited(Sender : TObject; Node : TTreeNode;
   var S : string);
 var
   vTmp : string;
+
 begin
-  if not IsFileNameValid(S) then begin s := node.Text; exit; end;
-  if CompareText(S, Node.Text) = 0 then Exit;
+  if not IsFileNameValid(S) then begin
+    s := Node.Text;
+    {$IFDEF EVS_Abort}Abort{$ELSE }Exit{$ENDIF};
+  end;
+  if CompareText(S, Node.Text) = 0 then
+      {$IFDEF EVS_Abort}Abort{$ELSE }Exit{$ENDIF};
   vTmp := GetNodePath(Node.Parent);
-  if FCodeLib.FileExists(vTmp+Node.Text) then begin
+  if FCodeLib.FileExists(vTmp+Node.Text)   then begin
     FCodeLib.Move(vTmp+Node.Text, vTmp+S);
+    Exit;
   end;
-  if FCodeLib.FolderExists(vTmp+Node.Text) then begin
-    FCodeLib.Move(vTmp+Node.Text, vTmp+S);
-  end;
+  if FCodeLib.FolderExists(vTmp+Node.Text) then FCodeLib.Move(vTmp+Node.Text, vTmp+S);
 end;
 
-procedure TSnippetsMainFrm.tvDataEditingEnd(Sender : TObject; Node : TTreeNode;
-  Cancel : Boolean);
+procedure TSnippetsMainFrm.tvDataEditingEnd(Sender : TObject; Node : TTreeNode; Cancel : Boolean);
 begin
   if Cancel then Exit;
   tvData.BeginUpdate;//Bounds;
@@ -758,14 +804,12 @@ begin
   end;
 end;
 
-procedure TSnippetsMainFrm.tvDataMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TSnippetsMainFrm.tvDataMouseDown(Sender: TObject;Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   if Button = mbLeft then tvData.BeginDrag(False, 5);//5 pixel error threshold for double clicking selecting and everything else that might be needed.
 end;
 
-procedure TSnippetsMainFrm.tvDataStartDrag(Sender: TObject;
-  var DragObject: TDragObject);
+procedure TSnippetsMainFrm.tvDataStartDrag(Sender: TObject;var DragObject: TDragObject);
 begin
   /// make sure that you create the appropriate data to pass around and avoid using the the treeview after that.
 end;
@@ -802,7 +846,7 @@ begin
   FAutoExpandNodes := aValue;
 end;
 
-function TSnippetsMainFrm.UniqueName(aPath : String; Folder : Boolean) : string;
+function TSnippetsMainFrm.UniqueName(aPath :string; Folder :Boolean) :string;
 var
   vCnt : Cardinal = 0;
   vTmp : string   = '';
@@ -821,7 +865,8 @@ end;
 
 function TSnippetsMainFrm.IsFileNameValid(aName : string) : Boolean;
 begin
-  Result := not ((Pos('/',aName) > 0) or (Pos('\',aName) > 0) or (aName = ''));
+  Result := True ;
+  Result := not ((Pos('/',aName) > 0) or (Pos('\',aName) > 0) or (aName = '') or (aName[1] = '.'));
 end;
 
 function IfThen(aCondition : Boolean; const TrueResult : Pointer; const FalseResult : Pointer = nil) : Pointer; overload;
@@ -857,7 +902,7 @@ begin
     end;
 end;
 
-procedure TSnippetsMainFrm.ValidateName(aObjectName : String);
+procedure TSnippetsMainFrm.ValidateName(aObjectName :string);
 begin
   if (aObjectName ='') or (aObjectName[1] <> cCodeLibPathSep) then
     raise Exception.CreateFmt(rsInvalidName, [aObjectName]);
@@ -878,15 +923,17 @@ procedure TSnippetsMainFrm.ValidateFileName(aName : string);
 begin
   if (Pos('/',aName) > 0) then raise Exception.Create('</> is an invalid character');
   if (Pos('\',aName) > 0) then raise Exception.Create('<\> is an invalid character');
+  if (aName[1] = '.')     then raise Exception.Create('<.> Name can''t start with a dot.');
   if aName = '' then raise Exception.Create('Name must be at least 1 character long');
 end;
 
-procedure TSnippetsMainFrm.OpenLibrary(aName : String);
+procedure TSnippetsMainFrm.OpenLibrary(aName :string);
 begin
   FCodeLib := Nil;
   FCodeLib := CreateStorage;
   FCodeLib.Initialize(aName, fmOpenReadWrite or fmShareExclusive);
   LoadCodeLib;
+  if not FCodeLib.FileExists('/.Settings') then FCodeLib.CreateFolder('/.Settings');
   FLastLibrary := aName;
   if FAutoExpandNodes then ExpandTreeNodes(FAutoExpandAll);
   StatusBar1.Panels[1].Text := aName;
@@ -920,7 +967,6 @@ begin
   snEditor.Highlighter := aHighlighter;
 end;
 
-
 constructor TSnippetsMainFrm.Create(TheOwner : TComponent);
 //{24}     (Title:rsHLMod3;      Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
   function Mod3Highlighter : TSynCustomHighlighter;
@@ -935,8 +981,6 @@ constructor TSnippetsMainFrm.Create(TheOwner : TComponent);
     //TSynM3Syn(Result).StringAttribute.ForeGround     := $003FB306;
     //TSynM3Syn(Result).SymbolAttribute.ForeGround     := $00A25151;
   end;
-
-
 
   // Testing and debugging
   function LUAHighlighter    : TSynCustomHighlighter;
@@ -1226,30 +1270,30 @@ end;
 procedure TSnippetsMainFrm.LoadCodeLib;
   procedure LoadNodeFolder(aNode:TTreeNode);
   var
-    vNode           : TTreeNode;
-    vFolders,vFiles : TStringList;
-    vCnt            : Integer;
-    vPath           : string;
+    vNode     : TTreeNode;
+    vFolders,
+    vFiles    : TStringList;
+    vCnt      : Integer;
+    vPath     : string;
   begin
     vFolders := TStringList.Create;
     vFiles   := TStringList.Create;
     try
       vPath := GetNodePath(aNode);
       FCodeLib.FolderNames(vPath, vFolders);
-      for vCnt := 0 to vFolders.Count -1 do begin
-        vNode := NewNode(aNode, vFolders[vCnt]);
+      for vCnt := 0 to vFolders.Count -1 do begin {names starting with a dot are to be invinsible to the end user.}
+        if vFolders[vCnt][1] <> '.' then vNode := NewNode(aNode, vFolders[vCnt]);
         LoadNodeFolder(vNode);
       end;
       FCodeLib.FileNames(vPath, VFiles);
       for vCnt := 0 to vFiles.Count -1 do begin
-        vNode := NewNode(aNode, vFiles[vCnt], False);
+        if vFiles[vCnt][1] <> '.' then vNode := NewNode(aNode, vFiles[vCnt], False);
       end;
     finally
       vFolders.Free;
       vFiles.Free;
     end;
   end;
-
 begin
   tvData.Items.BeginUpdate;
   try
@@ -1383,7 +1427,7 @@ begin
   end;
 end;
 
-procedure TSnippetsMainFrm.ResetChildIcons(const aParent : TTreeNode; const Recursive:boolean = False);
+procedure TSnippetsMainFrm.ResetChildIcons(const aParent :TTreeNode; const Recursive :Boolean);
 var
   aNode :TTreeNode;
 begin
@@ -1418,6 +1462,27 @@ begin
     vNode.Collapse(aAll);
     vNode := vNode.GetNextSibling;
   end;
+end;
+
+procedure TSnippetsMainFrm.ImportComponentSuite(const aDir :String);
+begin
+  // import all the files in a directory and its sub directorires as a subtree in the selected folder.
+  // If no folder is selected use the focused node parent if no node is focused or selected then create
+  // a new root level folder for the suit. If the folder name is in coflict with an existing name add some
+  // kind of autoinc at the end of the name to allow us to import the damn thing if the user does not like
+  // it he can always edit the name after the import to something more to his taste.
+  // The idea is that importing is to never fail for not matter what and to never miss any files.
+
+  //there are a couple of things that need to taken in to account.
+  //1) what happens with no source/text files eg compressed rar/zip/tar/gz/bzip2 etc
+  //2) what happens with pdfs/html etc.
+end;
+
+procedure TSnippetsMainFrm.CreateLibrary(const aFileName :string);
+begin
+  FCodeLib := CreateStorage;
+  FCodeLib.Initialize(aFileName, fmCreate);
+  LoadCodeLib;
 end;
 
 function TSnippetsMainFrm.HighLighterData(const aHighLighter: TSynCustomHighlighter): PHighlighterData;
@@ -1493,16 +1558,6 @@ begin
   end;
 end;
 
-function TSnippetsMainFrm.DefaultHighLighter(aNode : TTreeNode) : TSynCustomHighlighter;
-begin
-  Result := DefaultHighLighter(GetNodePath(aNode));
-end;
-
-function TSnippetsMainFrm.DefaultHighLighter(aFileName : String) : TSynCustomHighlighter;
-begin
-  Result := FDefaultHighlighter;
-end;
-
 function TSnippetsMainFrm.GetHighLighter(aNode : TTreeNode) : TSynCustomHighlighter;
 begin
   Result := GetHighLighter(GetNodePath(aNode));
@@ -1542,7 +1597,25 @@ const
 
 var
   vFromLib, vToLib : IGpStructuredStorage;
-  vBckCurs         : TCursor;
+  vBckCurs         : IEvsCursor;
+
+  procedure CopyAttributes(aFrom, aTo:String); //attributes are used to keep info like language and in the future, Supported OS, Required Library, etc.
+  var
+    vAttrCntr  :Integer;
+    vAttrNames :TStringList;
+    vAttrib    :string;
+  begin
+    vAttrNames := TStringList.Create;
+    try
+      vFromLib.GetFileInfo(aFrom).AttributeNames(vAttrNames);
+      for vAttrCntr := 0 to vAttrNames.Count -1 do begin
+        vAttrib := vFromLib.GetFileInfo(aFrom).GetAttribute(vAttrNames[vAttrCntr]);
+        vToLib.GetFileInfo(aTo).SetAttribute(vAttrNames[vAttrCntr], vAttrib);
+      end;
+    finally
+      vAttrNames.Free;
+    end;
+  end;
 
   procedure ImportFolder(aSourceFolder, aDestFolder:string);
   var
@@ -1559,19 +1632,21 @@ var
       for vCnt := 0 to vFolders.Count -1 do begin
         vNewFolder := InclPathDel(aDestFolder) + vFolders[vCnt];
         vToLib.CreateFolder(vNewFolder);
+        CopyAttributes(vNewFolder, InclPathDel(aSourceFolder) + vFolders[vCnt]);
         ImportFolder(aSourceFolder + vFolders[vCnt] +cDelim, vNewFolder);
       end;
       vFromLib.FileNames(aSourceFolder, vFiles);
       aDestFolder := InclPathDel(aDestFolder);
       for vCnt := 0 to vFiles.Count -1 do begin
-        vFrom      := vFromLib.OpenFile(aSourceFolder+vFiles[vCnt], fmOpenReadWrite);
-        vTo        := vToLib.OpenFile(aDestFolder+vFiles[vCnt], fmCreate);
+        vFrom := vFromLib.OpenFile(aSourceFolder+vFiles[vCnt], fmOpenReadWrite);
+        vTo   := vToLib.OpenFile(aDestFolder+vFiles[vCnt], fmCreate);
         try
           vTo.CopyFrom(vFrom, 0);
         finally
           vFrom.Free;
           vTo.Free;
         end;
+        CopyAttributes(aSourceFolder+vFiles[vCnt], aDestFolder+vFiles[vCnt]);
       end;
     finally
       vFolders.Free;
@@ -1580,19 +1655,17 @@ var
   end;
 
 begin
+  vBckCurs := ChangeCursor(crHourGlass);
   Enabled := False;
-  vBckCurs := Screen.Cursor;
-  Screen.Cursor := crHourGlass;
   try
     vFromLib := CreateStorage;
     vFromLib.Initialize(aFileName, fmOpenReadWrite or fmShareExclusive);
     vToLib := FCodeLib;
-    if vToLib.FolderExists(aRootFolder) then
-      raise Exception.CreateFmt('Folder %S already exists in code library',[aRootFolder]);
+    if vToLib.FolderExists(aRootFolder) then //need to change this bhavior the root folder will act only as a host it makes no sense to have a non existing host.
+      raise Exception.CreateFmt('Folder %S already exists in the library',[aRootFolder]);
     ImportFolder('/', aRootFolder);
     LoadCodeLib;
   finally
-    Screen.Cursor := vBckCurs;
     Enabled := True;
   end;
 end;

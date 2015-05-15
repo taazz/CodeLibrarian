@@ -35,8 +35,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    Creation date     : 2003-11-10
    Last modification : 2011-01-01
    Version           : 2.0c
-</pre>*)(*
-   History:
+</pre>*)
+(* History:
      2.0c: 2011-01-01
        - Uses GpStreams instead of GpMemStr.
      2.0b: 2010-05-16
@@ -138,8 +138,7 @@ uses
   {$ENDIF}
   SysUtils,
   Classes,
-  GpLists
-  ;
+  GpLists;
 
 const
   //:Structured storage path delimiter.
@@ -659,23 +658,18 @@ type
     sfcParentFolders: TGpObjectMap;
   protected
     procedure Flush;
-    function  GetSubFolder(parentFolder: TGpStructuredFolder;
-      subFolder: string): TGpStructuredFolder;
-    function InternalRemove(markInactive, destroyFolder: boolean; parentFolder:
-      TGpStructuredFolder; subFolder: string): boolean;
-    procedure SetSubFolder(parentFolder: TGpStructuredFolder;
-      subFolder: string; const value: TGpStructuredFolder);
+    function  GetSubFolder(parentFolder: TGpStructuredFolder; subFolder: string): TGpStructuredFolder;
+    function  InternalRemove(markInactive, destroyFolder: boolean; parentFolder: TGpStructuredFolder; subFolder: string): boolean;
+    procedure SetSubFolder(parentFolder: TGpStructuredFolder; subFolder: string; const value: TGpStructuredFolder);
     procedure TrimMRUList;
   public
     constructor Create;
     destructor  Destroy; override;
     function  MarkInactive(parentFolder: TGpStructuredFolder; subFolder: string): boolean;
-    function Remove(parentFolder: TGpStructuredFolder; subFolder: string): boolean;
+    function  Remove(parentFolder: TGpStructuredFolder; subFolder: string): boolean;
     procedure Rename(parentFolder: TGpStructuredFolder; const oldName, newName: string);
-    procedure Reparent(parentFolder: TGpStructuredFolder; const folderName: string;
-      newParentFolder: TGpStructuredFolder);
-    property SubFolder[parentFolder: TGpStructuredFolder; subFolder: string]:
-      TGpStructuredFolder read GetSubFolder write SetSubFolder; default;
+    procedure Reparent(parentFolder: TGpStructuredFolder; const folderName: string; newParentFolder: TGpStructuredFolder);
+    property  SubFolder[parentFolder: TGpStructuredFolder; subFolder: string]: TGpStructuredFolder read GetSubFolder write SetSubFolder; default;
   end; { TGpStructuredFolderCache }
 
   {:Structured storage implementation. File names are eight bit, case-preserving and ansi
@@ -689,25 +683,23 @@ type
 
   TGpStructuredStorage = class(TInterfacedObject, IGpStructuredStorage, IGpDebugStructuredStorage)
   private
-    gsmStorageMode : word;
-    gssFAT         : TGpStructuredFAT;
-    gssFileInfoList: TList;
-    gssFileName    : string;
-    gssFolderCache : TGpStructuredFolderCache;
-    gssHeader      : TGpStructuredHeader;
-    gssOwnsStream  : boolean;
-    gssRootFolder  : TGpStructuredFolder;
-    gssStorage     : TStream;
-    gssStream      : TGpStructuredStream;
+    gsmStorageMode  : word;
+    gssFAT          : TGpStructuredFAT;
+    gssFileInfoList : TList;
+    gssFileName     : string;
+    gssFolderCache  : TGpStructuredFolderCache;
+    gssHeader       : TGpStructuredHeader;
+    gssOwnsStream   : boolean;
+    gssRootFolder   : TGpStructuredFolder;
+    gssStorage      : TStream;
+    gssStream       : TGpStructuredStream;
   protected
     procedure AccessFolder(folder: TGpStructuredFolder); overload;
-    function  AccessFolder(parentFolder: TGpStructuredFolder; const subFolder: string;
-      autoCreate: boolean = true): TGpStructuredFolder; overload;
+    function  AccessFolder(parentFolder: TGpStructuredFolder; const subFolder: string; autoCreate: boolean = true): TGpStructuredFolder; overload;
     function  AddTrailingDelimiter(const folderName: string): string;
     procedure Close;
     procedure CreateEmptyStorage;
-    function  CreateFileInfo(owner: TGpStructuredStorage;
-      folder: TGpStructuredFolder; const fileName: string): IGpStructuredFileInfo;
+    function  CreateFileInfo(owner: TGpStructuredStorage; folder: TGpStructuredFolder; const fileName: string): IGpStructuredFileInfo;
     function  DescendTree(folderName: string; autoCreate: boolean = true):TGpStructuredFolder;
     function  GetDataFile: string;
     function  GetDataSize: integer;
@@ -720,8 +712,7 @@ type
     procedure PrepareStructures;
     procedure ReleaseFolder(var folder: TGpStructuredFolder);
     procedure RenameFolder(owner: TGpStructuredFolder; const oldName, newName: string);
-    procedure ReparentFolder(oldOwner: TGpStructuredFolder; const folderName: string;
-      newOwner: TGpStructuredFolder);
+    procedure ReparentFolder(oldOwner: TGpStructuredFolder; const folderName: string; newOwner: TGpStructuredFolder);
     procedure RootFolderSizeChanged(sender: TObject);
     procedure SplitFileName(const fullName: string; var folderName, fileName: string);
     procedure StorageAttributeFileSizeChanged(sender: TObject);
@@ -729,30 +720,30 @@ type
     procedure UnregisterAllFileInfo;
     procedure UnregisterFileInfo(fileInfo: TGpStructuredFileInfo);
     function  VerifyHeader: boolean;
-    property FAT: TGpStructuredFAT read gssFAT;
-    property Storage: TGpStructuredStream read gssStream;
+    property  FAT: TGpStructuredFAT read gssFAT;
+    property  Storage: TGpStructuredStream read gssStream;
   public
     destructor Destroy; override;
-    procedure Compact;
-    procedure CreateFolder(const folderName: string);
-    procedure Delete(const objectName: string);
-    function  FileExists(const fileName: string): boolean;
-    procedure FileNames(const folderName: string; {out} files: TStrings);
-    function  FolderExists(const folderName: string): boolean;
-    procedure FolderNames(const folderName: string; {out} folders: TStrings);
-    procedure Initialize(const storageDataFile: string; mode: word); overload;
-    procedure Initialize(storageDataStream: TStream); overload;
-    function  IsFolderEmpty(const folderName: string): boolean;
-    function  IsStructuredStorage(const storageDataFile: string): boolean; overload;
-    function  IsStructuredStorage(storageDataStream: TStream): boolean; overload;
-    function  IsInitialized:WordBool;
-    function ParentFolder (const aName :string):string;
-    procedure Move(const objectName, newName: string);
-    function  OpenFile(const fileName: string; mode: word): TStream;
-    procedure Dump(const fileName: string);
-    property DataFile: string read GetDataFile;
-    property DataSize: integer read GetDataSize;
-    property FileInfo[const fileName: string]: IGpStructuredFileInfo read GetFileInfo;
+    procedure  Compact;
+    procedure  CreateFolder(const folderName: string);
+    procedure  Delete(const objectName: string);
+    function   FileExists(const fileName: string): boolean;
+    procedure  FileNames(const folderName: string; {out} files: TStrings);
+    function   FolderExists(const folderName: string): boolean;
+    procedure  FolderNames(const folderName: string; {out} folders: TStrings);
+    procedure  Initialize(const storageDataFile: string; mode: word); overload;
+    procedure  Initialize(storageDataStream: TStream); overload;
+    function   IsFolderEmpty(const folderName: string): boolean;
+    function   IsStructuredStorage(const storageDataFile: string): boolean; overload;
+    function   IsStructuredStorage(storageDataStream: TStream): boolean; overload;
+    function   IsInitialized:WordBool;
+    function   ParentFolder (const aName :string):string;
+    procedure  Move(const objectName, newName: string);
+    function   OpenFile(const fileName: string; mode: word): TStream;
+    procedure  Dump(const fileName: string);
+    property   DataFile: string read GetDataFile;
+    property   DataSize: integer read GetDataSize;
+    property   FileInfo[const fileName: string]: IGpStructuredFileInfo read GetFileInfo;
   end; { TGpStructuredStorage }
 
 //function CreateStructuredStorage: IGpStructuredStorage;
