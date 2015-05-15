@@ -45,8 +45,7 @@ unit uMainForm;
            file it self.
            Attachments can be either inside a hidden directory or be hidden files them selfs in the same directory as
            the snippet. It would probably be better to have all the attachments in one place so when a new file is
-           inserted then it can be checked against the existing database and avoid duplicates.
-}
+           inserted then it can be checked against the existing database and avoid duplicates. }
 interface
 
 uses
@@ -107,7 +106,7 @@ type
     mnuEditCut        :TMenuItem;
     mnuEditCopy       :TMenuItem;
     mnuEdit           :TMenuItem;
-    Panel1 :TPanel;
+    Panel1            :TPanel;
     pmnuTree          :TPopupMenu;
     shlSqlOracle      :TSynSQLSyn;
     shlSqlInterbase   :TSynSQLSyn;
@@ -143,9 +142,9 @@ type
     btnEditCut        :TToolButton;
     btnEditPaste      :TToolButton;
     btnEditUndo       :TToolButton;
-    ToolButton5 :TToolButton;
+    ToolButton5       :TToolButton;
     ToolButton9       :TToolButton;
-    TreeFilterEdit1 :TTreeFilterEdit;
+    TreeFilterEdit1   :TTreeFilterEdit;
     tvData            :TTreeView;
     procedure actCollapseAllExecute   (Sender :TObject);
     procedure actCompactExecute       (Sender :TObject);
@@ -188,19 +187,19 @@ type
     FAutoExpandNodes    :Boolean;
     FAutoExpandAll      :Boolean;
 
-    function DefaultHighLighter(aFileName          :String)                :TSynCustomHighlighter;overload;
-    function DefaultHighLighter(aNode              :TTreeNode)             :TSynCustomHighlighter;overload;
-    function GetHighLighter    (aFileName          :string)                :TSynCustomHighlighter;overload;
-    function GetHighLighter    (aNode              :TTreeNode)             :TSynCustomHighlighter;overload;
-    function HighLighterTitle  (const aHighLighter :TSynCustomHighlighter) :string;
-    function HighLighterData   (const aHighLighter :TSynCustomHighlighter) :PHighlighterData;
+    function DefaultHighLighter(aFileName          :String)               :TSynCustomHighlighter;overload;
+    function DefaultHighLighter(aNode              :TTreeNode)            :TSynCustomHighlighter;overload;
+    function GetHighLighter    (aFileName          :string)               :TSynCustomHighlighter;overload;
+    function GetHighLighter    (aNode              :TTreeNode)            :TSynCustomHighlighter;overload;
+    function HighLighterTitle  (const aHighLighter :TSynCustomHighlighter):string;
+    function HighLighterData   (const aHighLighter :TSynCustomHighlighter):PHighlighterData;
 
-    function GetNodePath    (aNode         :TTreeNode)                                      :String;
-    function IsFile         (aNode         :TTreeNode)                                      :Boolean;
-    function IsFolder       (aNode         :TTreeNode)                                      :Boolean;
+    function GetNodePath    (aNode         :TTreeNode):String;
+    function IsFile         (aNode         :TTreeNode):Boolean;
+    function IsFolder       (aNode         :TTreeNode):Boolean;
     function NewNode        (const aParent :TTreeNode; aText  :String; Folder :Boolean = True):TTreeNode;
-    function UniqueName     (aPath         :string;    Folder :Boolean)                       :string;
-    function IsFileNameValid(aName         :string)                                           :Boolean;
+    function UniqueName     (aPath         :string;    Folder :Boolean):string;
+    function IsFileNameValid(aName         :string):Boolean;
 
     procedure BuildHighLightPopup(const aParent     :TMenuItem);
     procedure CheckMenu          (const aHighlighter:TSynCustomHighlighter);
