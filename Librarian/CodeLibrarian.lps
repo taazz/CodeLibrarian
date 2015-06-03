@@ -3,12 +3,16 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release"/>
-    <Units Count="8">
+    <BuildModes Active="Debug"/>
+    <Units Count="12">
       <Unit0>
         <Filename Value="CodeLibrarian.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos Y="16"/>
+        <UsageCount Value="237"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="umainform.pas"/>
@@ -17,21 +21,27 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMainForm"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="232"/>
-        <CursorPos X="31" Y="260"/>
-        <UsageCount Value="21"/>
+        <TopLine Value="1420"/>
+        <CursorPos X="18" Y="1431"/>
+        <FoldState Value=" TLH0U T3q60E5 piejP0B01D]BYkC03711211C+"/>
+        <UsageCount Value="237"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\Components\GpLists.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="237"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
+        <UnitName Value="GpStructuredStorage"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="185"/>
+        <CursorPos X="15" Y="212"/>
+        <UsageCount Value="237"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="uoptions.pas"/>
@@ -39,24 +49,177 @@
         <ComponentName Value="EvsOptionsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="237"/>
       </Unit4>
       <Unit5>
         <Filename Value="uvar.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="237"/>
       </Unit5>
       <Unit6>
         <Filename Value="HighLighters\uevssynhighlightersql.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="237"/>
       </Unit6>
       <Unit7>
         <Filename Value="HighLighters\StrConst.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="237"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="C:\lazarus\1.4\lcl\comctrls.pp"/>
+        <UnitName Value="ComCtrls"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="3317"/>
+        <CursorPos X="15" Y="3344"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\lazarus\1.4\lcl\include\customlistview.inc"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="1019"/>
+        <CursorPos X="25" Y="1067"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\lazarus\1.4\lcl\include\treeview.inc"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="5033"/>
+        <CursorPos X="37" Y="5117"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="C:\lazarus\1.4\fpc\2.6.4\source\rtl\objpas\classes\classesh.inc"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="574"/>
+        <CursorPos X="20" Y="628"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit11>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="191" Column="32" TopLine="164"/>
+      </Position1>
+      <Position2>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="216" Column="36" TopLine="168"/>
+      </Position2>
+      <Position3>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="527" Column="66" TopLine="370"/>
+      </Position3>
+      <Position4>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="533" Column="28" TopLine="376"/>
+      </Position4>
+      <Position5>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1214" Column="22" TopLine="1166"/>
+      </Position5>
+      <Position6>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1286" Column="114" TopLine="1237"/>
+      </Position6>
+      <Position7>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1308" Column="78" TopLine="1259"/>
+      </Position7>
+      <Position8>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1376" Column="49" TopLine="1345"/>
+      </Position8>
+      <Position9>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1382" Column="26" TopLine="1345"/>
+      </Position9>
+      <Position10>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1459" Column="75" TopLine="1422"/>
+      </Position10>
+      <Position11>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1478" Column="75" TopLine="1429"/>
+      </Position11>
+      <Position12>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1504" Column="45" TopLine="1467"/>
+      </Position12>
+      <Position13>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1506" Column="31" TopLine="1467"/>
+      </Position13>
+      <Position14>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1511" Column="32" TopLine="1476"/>
+      </Position14>
+      <Position15>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1537" Column="88" TopLine="1497"/>
+      </Position15>
+      <Position16>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="186" Column="24" TopLine="159"/>
+      </Position16>
+      <Position17>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="190" Column="32" TopLine="159"/>
+      </Position17>
+      <Position18>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="191" Column="32" TopLine="159"/>
+      </Position18>
+      <Position19>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1286" Column="114" TopLine="1237"/>
+      </Position19>
+      <Position20>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1308" Column="56" TopLine="1259"/>
+      </Position20>
+      <Position21>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1504" Column="45" TopLine="1464"/>
+      </Position21>
+      <Position22>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1506" Column="31" TopLine="1464"/>
+      </Position22>
+      <Position23>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1509" Column="45" TopLine="1464"/>
+      </Position23>
+      <Position24>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="190" Column="32" TopLine="163"/>
+      </Position24>
+      <Position25>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="191" Column="32" TopLine="163"/>
+      </Position25>
+      <Position26>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1286" Column="114" TopLine="1237"/>
+      </Position26>
+      <Position27>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1308" Column="56" TopLine="1259"/>
+      </Position27>
+      <Position28>
+        <Filename Value="CodeLibrarian.lpr"/>
+      </Position28>
+      <Position29>
+        <Filename Value="umainform.pas"/>
+        <Caret Line="1431" Column="18" TopLine="1420"/>
+      </Position29>
+      <Position30>
+        <Filename Value="CodeLibrarian.lpr"/>
+        <Caret Line="27" Column="20"/>
+      </Position30>
+    </JumpHistory>
   </ProjectSession>
 </CONFIG>
