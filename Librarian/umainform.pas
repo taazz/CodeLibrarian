@@ -565,7 +565,11 @@ begin
   // if the file exists and the user decides not to overwrite it make sure that
   // the current environment is not changed
   if FileExistsUTF8(actFileNew.Dialog.FileName) then begin
+<<<<<<< HEAD
     if MessageDlg('New library', Format(rsFileExists, [actFileNew.Dialog.FileName]), mtInformation, [mbYes, mbCancel], 0, mbCancel) <> mrYes then begin
+=======
+    if MessageDlg('New library', Format(rsFileExists, [actFileNew.Dialog.FileName]), mtInformation, mbYes, mbCancel, mbCancel) <> mrYes then begin
+>>>>>>> 371b82098fbbef87f773ea0675fac12b8e6939dc
       Exit;
     end;
   end; //user has opted to create the new library no matter what.
@@ -1428,6 +1432,7 @@ begin
 end;
 
 procedure TSnippetsMainFrm.ImportComponentSuite(const aDir :String);
+<<<<<<< HEAD
 begin
   // import all the files in a directory and its sub directorires as a subtree in the selected folder.
   // If no folder is selected use the focused node parent if no node is focused or selected then create
@@ -1439,11 +1444,26 @@ begin
   //there are a couple of things that need to taken in to account.
   //1) what happens with no source/text files eg compressed rar/zip/tar/gz/bzip2 etc
   //2) what happens with pdfs/html etc.
+=======
+var
+  vTmp :TStrings;
+  vTmp1 :TStringList;
+begin
+  // import all the files in a directory and its sub directorires as a subtree in the selected folder.
+  // If no folder is selected use the focused node parent if no node is focused or selected then create
+  //  a new root level folder for the suit.
+  vTmp.CommaText;
+  vTmp1.CommaText;
+>>>>>>> 371b82098fbbef87f773ea0675fac12b8e6939dc
 end;
 
 procedure TSnippetsMainFrm.CreateLibrary(const aFileName :string);
 begin
+<<<<<<< HEAD
   FCodeLib := CreateStorage; //if there is a library open discard it and create a new object to handle the library.
+=======
+  FCodeLib := CreateStorage;
+>>>>>>> 371b82098fbbef87f773ea0675fac12b8e6939dc
   FCodeLib.Initialize(aFileName, fmCreate);
   LoadCodeLib;
 end;
