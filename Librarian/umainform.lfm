@@ -1,14 +1,14 @@
 object SnippetsMainFrm: TSnippetsMainFrm
-  Left = 293
-  Height = 719
-  Top = 89
-  Width = 1133
+  Left = 352
+  Height = 581
+  Top = 100
+  Width = 987
   HorzScrollBar.Page = 824
   VertScrollBar.Page = 160
   AutoScroll = True
   Caption = 'Code Librarian'
-  ClientHeight = 699
-  ClientWidth = 1133
+  ClientHeight = 561
+  ClientWidth = 987
   Menu = mnuMain
   OnClose = FormClose
   LCLVersion = '1.4.0.4'
@@ -16,7 +16,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
     Left = 0
     Height = 40
     Top = 0
-    Width = 1133
+    Width = 987
     AutoSize = True
     ButtonHeight = 36
     ButtonWidth = 22
@@ -162,8 +162,8 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 676
-    Width = 1133
+    Top = 538
+    Width = 987
     Panels = <    
       item
         Width = 278
@@ -174,18 +174,18 @@ object SnippetsMainFrm: TSnippetsMainFrm
     SimplePanel = False
   end
   object Splitter1: TSplitter
-    Left = 379
-    Height = 636
+    Left = 259
+    Height = 498
     Top = 40
     Width = 5
     Beveled = True
     OnMoved = Splitter1Moved
   end
   inline snEditor: TSynEdit
-    Left = 384
-    Height = 636
+    Left = 264
+    Height = 498
     Top = 40
-    Width = 749
+    Width = 723
     Align = alClient
     Enabled = False
     Font.Height = -13
@@ -3438,9 +3438,9 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object tvData: TTreeView
     Left = 0
-    Height = 636
+    Height = 498
     Top = 40
-    Width = 379
+    Width = 259
     Align = alLeft
     BorderStyle = bsNone
     Font.Height = -13

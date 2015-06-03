@@ -7,16 +7,17 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
+  sysutils,
   Forms, lazcontrols, uMainForm, GpLists, GpStructuredStorage, uOptions,
   uVar, uEvsSynhighlightersql, StrConst;
 
 {$R *.res}
 
+  {.$Μ+}
 begin
   {$IFDEF DEBUG}
-  SetHeapTraceOutput('Trace.htr');
+  SetHeapTraceOutput(ChangeFileExt(Application.ExeName, '.htr'));
   {$ENDIF}
-  {$Μ+}
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TSnippetsMainFrm, SnippetsMainFrm);

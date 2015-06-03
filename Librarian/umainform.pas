@@ -50,7 +50,7 @@ interface
 
 uses
   Classes,   SysUtils, FileUtil, Forms,    Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  Grids,   StdCtrls, FileCtrl,
+  ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  //Grids,   StdCtrls, FileCtrl,
   uVar, GpStructuredStorage,
   SynEditHighlighter,  SynHighlighterPas,     SynHighlighterVB,   SynHighlighterSQL, SynHighlighterPython,
   SynHighlighterPHP,   SynHighlighterPerl,    SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
@@ -187,8 +187,6 @@ type
     FAutoExpandNodes    :Boolean;
     FAutoExpandAll      :Boolean;
 
-    function DefaultHighLighter(aFileName          :String)               :TSynCustomHighlighter;overload;
-    function DefaultHighLighter(aNode              :TTreeNode)            :TSynCustomHighlighter;overload;
     function GetHighLighter    (aFileName          :string)               :TSynCustomHighlighter;overload;
     function GetHighLighter    (aNode              :TTreeNode)            :TSynCustomHighlighter;overload;
     function HighLighterTitle  (const aHighLighter :TSynCustomHighlighter):string;
@@ -217,6 +215,8 @@ type
     procedure ResetChildIcons      (const aParent :TTreeNode; const Recursive :Boolean = False);
     procedure ExpandTreeNodes      (const aAll    :Boolean = False);
     procedure CollapseTreeNodes    (const aAll    :Boolean = False);
+    procedure ImportComponentSuite (const aDir    :String);
+    procedure CreateLibrary        (const aFileName:string);
   public
     { public declarations }
     constructor Create (TheOwner :TComponent); override;
@@ -242,47 +242,48 @@ uses
 {$R *.lfm}
 
 resourcestring
-  FolderPrefix          = 'Folder ';
-  FilePrefix            = 'Snippet ';
-  rsclbUniqueNameFailed = 'Unable to find unique Name';
-  rsInvalidName         = 'Invalid Object name <%S>';
-  rsHLNone              = 'None';
-  rsHLPascal            = 'Pascal';
-  rsHLVb                = 'Visual Basic';
-  rsHLSql               = 'Generic SQL';
-  rsHLPython            = 'Python';
-  rsHLPHP               = 'PHP';
-  rsHLPerl              = 'Perl';
-  rsHLJava              = 'Java';
-  rsHLBat               = '.Bat';
-  rsHLCPP               = 'C / C++';
-  rsHLJavaScript        = 'JavaScript';
-  rsHLFirebird          = 'Firebird Dialect';
-  rsHLOracleSql         = 'Oracle Dialect';
-  rsHLPostgreSQL        = 'Postgres Dialect';
-  rsHLMySQL             = 'MySQL Dialect';
-  rsHLMsSQL             = 'MsSQL Dialect';
-  rsHLASM               = 'Assembly';
-  rsHLCS                = 'C#';
-  rsHLSQLite            = 'SQLite';
-  rsHLRuby              = 'Ruby';
-  rsHLInno              = 'Inno Script';
-  rsHLCobol             = 'Cobol';
-  rsHLFortran           = 'Fortran';
-  rsHLHaskell           = 'Haskell';
-  rsHLEiffel            = 'Eiffel';
-  rsHLIdl               = 'IDL';
-  rsHLFoxPro            = 'FoxPro';
-  rsHLDOT               = 'DOT Graph';
-  rsHLLua               = 'Lua Script';
-  rsHLTclTk             = 'Tcl/TK';
+  FolderPrefix           = 'Folder ';
+  FilePrefix             = 'Snippet ';
+  rsclbUniqueNameFailed  = 'Unable to find unique Name';
+  rsInvalidName          = 'Invalid Object name <%S>';
+  rsHLNone               = 'None';
+  rsHLPascal             = 'Pascal';
+  rsHLVb                 = 'Visual Basic';
+  rsHLSql                = 'Generic SQL';
+  rsHLPython             = 'Python';
+  rsHLPHP                = 'PHP';
+  rsHLPerl               = 'Perl';
+  rsHLJava               = 'Java';
+  rsHLBat                = '.Bat';
+  rsHLCPP                = 'C / C++';
+  rsHLJavaScript         = 'JavaScript';
+  rsHLFirebird           = 'Firebird Dialect';
+  rsHLOracleSql          = 'Oracle Dialect';
+  rsHLPostgreSQL         = 'Postgres Dialect';
+  rsHLMySQL              = 'MySQL Dialect';
+  rsHLMsSQL              = 'MsSQL Dialect';
+  rsHLASM                = 'Assembly';
+  rsHLCS                 = 'C#';
+  rsHLSQLite             = 'SQLite';
+  rsHLRuby               = 'Ruby';
+  rsHLInno               = 'Inno Script';
+  rsHLCobol              = 'Cobol';
+  rsHLFortran            = 'Fortran';
+  rsHLHaskell            = 'Haskell';
+  rsHLEiffel             = 'Eiffel';
+  rsHLIdl                = 'IDL';
+  rsHLFoxPro             = 'FoxPro';
+  rsHLDOT                = 'DOT Graph';
+  rsHLLua                = 'Lua Script';
+  rsHLTclTk              = 'Tcl/TK';
 
-  rsHLProlog            = 'Prolog';
-  rsHLMod3              = 'Modula 3';
+  rsHLProlog             = 'Prolog';
+  rsHLMod3               = 'Modula 3';
 
 
 
-  rsHLSTesting          = 'Convreted Test';
+  rsHLSTesting           = 'Convreted Test';
+  rsFileExists = 'The file %S already exists in the disk. Do you want to replace it?';
 
 const
   cHighlighter        = 'Highlighter';
@@ -561,8 +562,14 @@ end;
 
 procedure TSnippetsMainFrm.actFileNewAccept(Sender : TObject);
 begin
-  FCodeLib.Initialize(actFileNew.Dialog.FileName, fmCreate);
-  LoadCodeLib;
+  // if the file exists and the user decides not to overwrite it make sure that
+  // the current environment is not changed
+  if FileExistsUTF8(actFileNew.Dialog.FileName) then begin
+    if MessageDlg('New library', Format(rsFileExists, [actFileNew.Dialog.FileName]), mtInformation, [mbYes, mbCancel], 0, mbCancel) <> mrYes then begin
+      Exit;
+    end;
+  end; //user has opted to create the new library no matter what.
+  CreateLibrary(actFileNew.Dialog.FileName);
 end;
 
 procedure TSnippetsMainFrm.actExpandAllExecute(Sender : TObject);
@@ -688,16 +695,14 @@ begin
   StatusBar1.Panels[0].Text := HighLighterTitle(snEditor.Highlighter);
 end;
 
-procedure TSnippetsMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode;
-  var AllowChange : Boolean);
+procedure TSnippetsMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode; var AllowChange : Boolean);
 begin
   if snEditor.Modified then begin
     SaveData(Node);
   end;
 end;
 
-procedure TSnippetsMainFrm.tvDataCompare(Sender : TObject; Node1,
-  Node2 : TTreeNode; var Compare : Integer);
+procedure TSnippetsMainFrm.tvDataCompare(Sender : TObject; Node1, Node2 : TTreeNode; var Compare : Integer);
 var
   vStr1, vStr2 : string;
 begin
@@ -711,6 +716,7 @@ procedure TSnippetsMainFrm.tvDataDragDrop(Sender, Source: TObject; X, Y: Integer
   begin
     Result := TTreeView(Sender);
   end;
+
 begin
   /// after the drop is made we have to check the following.
   /// 1) is the droped node a folder or a snipet node.
@@ -724,8 +730,7 @@ begin
 
 end;
 
-procedure TSnippetsMainFrm.tvDataDragOver(Sender, Source: TObject; X,
-  Y: Integer; State: TDragState; var Accept: Boolean);
+procedure TSnippetsMainFrm.tvDataDragOver(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean);
 begin
   Accept := (Source = Sender);
 end;
@@ -734,20 +739,23 @@ procedure TSnippetsMainFrm.tvDataEdited(Sender : TObject; Node : TTreeNode;
   var S : string);
 var
   vTmp : string;
+
 begin
-  if not IsFileNameValid(S) then begin s := node.Text; exit; end;
-  if CompareText(S, Node.Text) = 0 then Exit;
+  if not IsFileNameValid(S) then begin
+    s := Node.Text;
+    {$IFDEF EVS_Abort}Abort{$ELSE }Exit{$ENDIF};
+  end;
+  if CompareText(S, Node.Text) = 0 then
+      {$IFDEF EVS_Abort}Abort{$ELSE }Exit{$ENDIF};
   vTmp := GetNodePath(Node.Parent);
-  if FCodeLib.FileExists(vTmp+Node.Text) then begin
+  if FCodeLib.FileExists(vTmp+Node.Text)   then begin
     FCodeLib.Move(vTmp+Node.Text, vTmp+S);
+    Exit;
   end;
-  if FCodeLib.FolderExists(vTmp+Node.Text) then begin
-    FCodeLib.Move(vTmp+Node.Text, vTmp+S);
-  end;
+  if FCodeLib.FolderExists(vTmp+Node.Text) then FCodeLib.Move(vTmp+Node.Text, vTmp+S);
 end;
 
-procedure TSnippetsMainFrm.tvDataEditingEnd(Sender : TObject; Node : TTreeNode;
-  Cancel : Boolean);
+procedure TSnippetsMainFrm.tvDataEditingEnd(Sender : TObject; Node : TTreeNode; Cancel : Boolean);
 begin
   if Cancel then Exit;
   tvData.BeginUpdate;//Bounds;
@@ -760,14 +768,12 @@ begin
   end;
 end;
 
-procedure TSnippetsMainFrm.tvDataMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TSnippetsMainFrm.tvDataMouseDown(Sender: TObject;Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   if Button = mbLeft then tvData.BeginDrag(False, 5);//5 pixel error threshold for double clicking selecting and everything else that might be needed.
 end;
 
-procedure TSnippetsMainFrm.tvDataStartDrag(Sender: TObject;
-  var DragObject: TDragObject);
+procedure TSnippetsMainFrm.tvDataStartDrag(Sender: TObject;var DragObject: TDragObject);
 begin
   /// make sure that you create the appropriate data to pass around and avoid using the the treeview after that.
 end;
@@ -804,7 +810,7 @@ begin
   FAutoExpandNodes := aValue;
 end;
 
-function TSnippetsMainFrm.UniqueName(aPath : String; Folder : Boolean) : string;
+function TSnippetsMainFrm.UniqueName(aPath :string; Folder :Boolean) :string;
 var
   vCnt : Cardinal = 0;
   vTmp : string   = '';
@@ -823,7 +829,8 @@ end;
 
 function TSnippetsMainFrm.IsFileNameValid(aName : string) : Boolean;
 begin
-  Result := not ((Pos('/',aName) > 0) or (Pos('\',aName) > 0) or (aName = ''));
+  Result := True ;
+  Result := not ((Pos('/',aName) > 0) or (Pos('\',aName) > 0) or (aName = '') or (aName[1] = '.'));
 end;
 
 function IfThen(aCondition : Boolean; const TrueResult : Pointer; const FalseResult : Pointer = nil) : Pointer; overload;
@@ -859,7 +866,7 @@ begin
     end;
 end;
 
-procedure TSnippetsMainFrm.ValidateName(aObjectName : String);
+procedure TSnippetsMainFrm.ValidateName(aObjectName :string);
 begin
   if (aObjectName ='') or (aObjectName[1] <> cCodeLibPathSep) then
     raise Exception.CreateFmt(rsInvalidName, [aObjectName]);
@@ -880,10 +887,11 @@ procedure TSnippetsMainFrm.ValidateFileName(aName : string);
 begin
   if (Pos('/',aName) > 0) then raise Exception.Create('</> is an invalid character');
   if (Pos('\',aName) > 0) then raise Exception.Create('<\> is an invalid character');
+  if (aName[1] = '.')     then raise Exception.Create('<.> Name can''t start with a dot.');
   if aName = '' then raise Exception.Create('Name must be at least 1 character long');
 end;
 
-procedure TSnippetsMainFrm.OpenLibrary(aName : String);
+procedure TSnippetsMainFrm.OpenLibrary(aName :string);
 begin
   FCodeLib := Nil;
   FCodeLib := CreateStorage;
@@ -922,7 +930,6 @@ begin
   snEditor.Highlighter := aHighlighter;
 end;
 
-
 constructor TSnippetsMainFrm.Create(TheOwner : TComponent);
 //{24}     (Title:rsHLMod3;      Instance:Nil; IconIndexNormal:idxSnippetTclTkNormal;    IconIndexSelected:idxSnippetTclTkSelected),
   function Mod3Highlighter : TSynCustomHighlighter;
@@ -937,8 +944,6 @@ constructor TSnippetsMainFrm.Create(TheOwner : TComponent);
     //TSynM3Syn(Result).StringAttribute.ForeGround     := $003FB306;
     //TSynM3Syn(Result).SymbolAttribute.ForeGround     := $00A25151;
   end;
-
-
 
   // Testing and debugging
   function LUAHighlighter    : TSynCustomHighlighter;
@@ -1228,30 +1233,30 @@ end;
 procedure TSnippetsMainFrm.LoadCodeLib;
   procedure LoadNodeFolder(aNode:TTreeNode);
   var
-    vNode           : TTreeNode;
-    vFolders,vFiles : TStringList;
-    vCnt            : Integer;
-    vPath           : string;
+    vNode     : TTreeNode;
+    vFolders,
+    vFiles    : TStringList;
+    vCnt      : Integer;
+    vPath     : string;
   begin
     vFolders := TStringList.Create;
     vFiles   := TStringList.Create;
     try
       vPath := GetNodePath(aNode);
       FCodeLib.FolderNames(vPath, vFolders);
-      for vCnt := 0 to vFolders.Count -1 do begin
-        vNode := NewNode(aNode, vFolders[vCnt]);
+      for vCnt := 0 to vFolders.Count -1 do begin {names starting with a dot are to be invinsible to the end user.}
+        if vFolders[vCnt][1] <> '.' then vNode := NewNode(aNode, vFolders[vCnt]);
         LoadNodeFolder(vNode);
       end;
       FCodeLib.FileNames(vPath, VFiles);
       for vCnt := 0 to vFiles.Count -1 do begin
-        vNode := NewNode(aNode, vFiles[vCnt], False);
+        if vFiles[vCnt][1] <> '.' then vNode := NewNode(aNode, vFiles[vCnt], False);
       end;
     finally
       vFolders.Free;
       vFiles.Free;
     end;
   end;
-
 begin
   tvData.Items.BeginUpdate;
   try
@@ -1385,7 +1390,7 @@ begin
   end;
 end;
 
-procedure TSnippetsMainFrm.ResetChildIcons(const aParent : TTreeNode; const Recursive:boolean = False);
+procedure TSnippetsMainFrm.ResetChildIcons(const aParent :TTreeNode; const Recursive :Boolean);
 var
   aNode :TTreeNode;
 begin
@@ -1420,6 +1425,27 @@ begin
     vNode.Collapse(aAll);
     vNode := vNode.GetNextSibling;
   end;
+end;
+
+procedure TSnippetsMainFrm.ImportComponentSuite(const aDir :String);
+begin
+  // import all the files in a directory and its sub directorires as a subtree in the selected folder.
+  // If no folder is selected use the focused node parent if no node is focused or selected then create
+  // a new root level folder for the suit. If the folder name is in coflict with an existing name add some
+  // kind of autoinc at the end of the name to allow us to import the damn thing if the user does not like
+  // it he can always edit the name after the import to something more to his taste.
+  // The idea is that importing is to never fail for not matter what and to never miss any files.
+
+  //there are a couple of things that need to taken in to account.
+  //1) what happens with no source/text files eg compressed rar/zip/tar/gz/bzip2 etc
+  //2) what happens with pdfs/html etc.
+end;
+
+procedure TSnippetsMainFrm.CreateLibrary(const aFileName :string);
+begin
+  FCodeLib := CreateStorage; //if there is a library open discard it and create a new object to handle the library.
+  FCodeLib.Initialize(aFileName, fmCreate);
+  LoadCodeLib;
 end;
 
 function TSnippetsMainFrm.HighLighterData(const aHighLighter: TSynCustomHighlighter): PHighlighterData;
@@ -1493,16 +1519,6 @@ begin
       Break;
     end;
   end;
-end;
-
-function TSnippetsMainFrm.DefaultHighLighter(aNode : TTreeNode) : TSynCustomHighlighter;
-begin
-  Result := DefaultHighLighter(GetNodePath(aNode));
-end;
-
-function TSnippetsMainFrm.DefaultHighLighter(aFileName : String) : TSynCustomHighlighter;
-begin
-  Result := FDefaultHighlighter;
 end;
 
 function TSnippetsMainFrm.GetHighLighter(aNode : TTreeNode) : TSynCustomHighlighter;
@@ -1590,7 +1606,7 @@ begin
     vFromLib.Initialize(aFileName, fmOpenReadWrite or fmShareExclusive);
     vToLib := FCodeLib;
     if vToLib.FolderExists(aRootFolder) then
-      raise Exception.CreateFmt('Folder %S already exists in code library',[aRootFolder]);
+      raise Exception.CreateFmt('Folder %S already exists in the library',[aRootFolder]);
     ImportFolder('/', aRootFolder);
     LoadCodeLib;
   finally

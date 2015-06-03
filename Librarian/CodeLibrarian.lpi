@@ -19,6 +19,7 @@
       <MajorVersionNr Value="1"/>
       <RevisionNr Value="1"/>
       <BuildNr Value="3"/>
+      <Attributes pvaPreRelease="True"/>
       <StringTable Comments="Your very own code library." CompanyName="EVOSI" FileDescription="Snippets" InternalName="Code Librarian" LegalCopyright="Copyright 2013 Evosi, all rights reserved." OriginalFilename="snippets.exe" ProductName="Code Snippets" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -96,7 +97,6 @@
       <Unit2>
         <Filename Value="..\Components\GpLists.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="GpLists"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\Components\GpStructuredStorage.pas"/>
@@ -109,7 +109,6 @@
         <ComponentName Value="EvsOptionsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uOptions"/>
       </Unit4>
       <Unit5>
         <Filename Value="uvar.pas"/>
@@ -122,7 +121,6 @@
       <Unit7>
         <Filename Value="HighLighters\StrConst.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="StrConst"/>
       </Unit7>
     </Units>
   </ProjectOptions>
