@@ -1,7 +1,13 @@
 object SnippetsMainFrm: TSnippetsMainFrm
+<<<<<<< HEAD
   Left = 315
   Height = 581
   Top = 56
+=======
+  Left = 352
+  Height = 581
+  Top = 100
+>>>>>>> 747aae165a283c89228d908bb5cbe9c7cd942bda
   Width = 987
   HorzScrollBar.Page = 824
   VertScrollBar.Page = 160
@@ -11,7 +17,11 @@ object SnippetsMainFrm: TSnippetsMainFrm
   ClientWidth = 987
   Menu = mnuMain
   OnClose = FormClose
+<<<<<<< HEAD
   LCLVersion = '1.4.4.0'
+=======
+  LCLVersion = '1.4.0.4'
+>>>>>>> 747aae165a283c89228d908bb5cbe9c7cd942bda
   object ToolBar1: TToolBar
     Left = 0
     Height = 40

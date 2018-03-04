@@ -1617,6 +1617,17 @@ var
     end;
   end;
 
+  procedure CopyAttributes(aFrom, aTo:String); //attributes are used to keep info like language and in the future, Supported OS, Required Library, etc.
+  var
+    vAttrCntr:Integer;
+    vAttrNames:TStringList;
+  begin
+    vFromLib.GetFileInfo(aFrom).AttributeNames(vAttrNames);
+    for vAttrCntr := 0 to vAttrNames.Count -1 do begin
+      vToLib.GetFileInfo(aTo).SetAttribute(vAttrNames.Strings[vAttrCntr],vFromLib.GetFileInfo(aFrom).GetAttribute(vAttrNames.Strings[vAttrCntr]));
+    end;
+  end;
+
   procedure ImportFolder(aSourceFolder, aDestFolder:string);
   var
     vFolders, vFiles : TStringList;
@@ -1632,7 +1643,11 @@ var
       for vCnt := 0 to vFolders.Count -1 do begin
         vNewFolder := InclPathDel(aDestFolder) + vFolders[vCnt];
         vToLib.CreateFolder(vNewFolder);
+<<<<<<< HEAD
         CopyAttributes(vNewFolder, InclPathDel(aSourceFolder) + vFolders[vCnt]);
+=======
+        CopyAttributes(vNewFolder, vNewFolder);
+>>>>>>> 747aae165a283c89228d908bb5cbe9c7cd942bda
         ImportFolder(aSourceFolder + vFolders[vCnt] +cDelim, vNewFolder);
       end;
       vFromLib.FileNames(aSourceFolder, vFiles);
@@ -1661,7 +1676,11 @@ begin
     vFromLib := CreateStorage;
     vFromLib.Initialize(aFileName, fmOpenReadWrite or fmShareExclusive);
     vToLib := FCodeLib;
+<<<<<<< HEAD
     if vToLib.FolderExists(aRootFolder) then //need to change this bhavior the root folder will act only as a host it makes no sense to have a non existing host.
+=======
+    if vToLib.FolderExists(aRootFolder) then
+>>>>>>> 747aae165a283c89228d908bb5cbe9c7cd942bda
       raise Exception.CreateFmt('Folder %S already exists in the library',[aRootFolder]);
     ImportFolder('/', aRootFolder);
     LoadCodeLib;
