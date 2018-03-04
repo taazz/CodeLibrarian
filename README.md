@@ -9,5 +9,3 @@ Features
     single screen snippets application.
     Multiple Libraries.
     Merge libraries.
-
-
